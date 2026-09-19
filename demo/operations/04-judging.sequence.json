@@ -1,0 +1,151 @@
+{
+  "schema_version": 1,
+  "diagram_type": "sequence",
+  "meta": {
+    "title": "04 — Judging choices and the boundary between DQ and failed run",
+    "quality_profile": "showcase",
+    "animation": "none",
+    "column_fit": "spread",
+    "viewBox": [
+      1320,
+      600
+    ]
+  },
+  "participants": [
+    {
+      "id": "core",
+      "type": "backend",
+      "label": "Tournament core"
+    },
+    {
+      "id": "judge",
+      "type": "backend",
+      "label": "Judging callback"
+    },
+    {
+      "id": "rules",
+      "type": "backend",
+      "label": "Rules scorer"
+    },
+    {
+      "id": "model",
+      "type": "cloud",
+      "label": "Provider judge"
+    },
+    {
+      "id": "run",
+      "type": "database",
+      "label": "Run workflow"
+    }
+  ],
+  "messages": [
+    {
+      "id": "m-04-judging-0",
+      "from": "core",
+      "to": "judge",
+      "label": "Supply both complete candidate views",
+      "y": 160
+    },
+    {
+      "id": "m-04-judging-1",
+      "from": "judge",
+      "to": "rules",
+      "label": "RULES: compare total exact-field scores",
+      "y": 188
+    },
+    {
+      "id": "m-04-judging-2",
+      "from": "rules",
+      "to": "judge",
+      "label": "Higher score wins; equal score uses ID tie-break",
+      "y": 216,
+      "variant": "return"
+    },
+    {
+      "id": "m-04-judging-3",
+      "from": "judge",
+      "to": "core",
+      "label": "Return decision and explicit reason",
+      "y": 244,
+      "variant": "return"
+    },
+    {
+      "id": "m-04-judging-4",
+      "from": "judge",
+      "to": "model",
+      "label": "PROVIDER: task + rubric + sources + A/B outputs",
+      "y": 272
+    },
+    {
+      "id": "m-04-judging-5",
+      "from": "model",
+      "to": "judge",
+      "label": "JSON winner, short_reason, optional confidence",
+      "y": 300,
+      "variant": "return"
+    },
+    {
+      "id": "m-04-judging-6",
+      "from": "judge",
+      "to": "core",
+      "label": "Valid reply: return one of five outcomes",
+      "y": 328,
+      "variant": "return"
+    },
+    {
+      "id": "m-04-judging-7",
+      "from": "judge",
+      "to": "core",
+      "label": "Bad reply or provider failure: raise",
+      "y": 356,
+      "variant": "security"
+    },
+    {
+      "id": "m-04-judging-8",
+      "from": "core",
+      "to": "run",
+      "label": "Abort ranking; workflow marks run failed",
+      "y": 384,
+      "variant": "security"
+    },
+    {
+      "id": "m-04-judging-10",
+      "from": "core",
+      "to": "run",
+      "label": "No surviving ranks: no-ranked-candidates",
+      "y": 412,
+      "variant": "security"
+    },
+    {
+      "id": "m-04-judging-11",
+      "from": "core",
+      "to": "run",
+      "label": "At least one surviving rank: completed",
+      "y": 440,
+      "variant": "return"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Rules are transparent",
+      "items": [
+        "Only present string values exactly matching expected fields earn points. Extra fields earn none. A non-object JSON response is a candidate DQ."
+      ]
+    },
+    {
+      "dot": "violet",
+      "title": "Provider replies are strict",
+      "items": [
+        "Reason must be nonempty text. Confidence is null/omitted or a finite number 0–1. The five winner values are mandatory; malformed judgment fails the run."
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "Alternative modes, not two judges",
+      "items": [
+        "Rules and provider branches above are mutually exclusive. Candidate failure removes that candidate; judge failure stops the whole ranking. Earlier calls, outputs and decisions remain in the result."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,149 @@
+{
+  "schema_version": 1,
+  "diagram_type": "sequence",
+  "meta": {
+    "title": "03 — Insert candidates into the ladder using saved evidence",
+    "quality_profile": "showcase",
+    "animation": "none",
+    "column_fit": "spread",
+    "viewBox": [
+      1320,
+      600
+    ]
+  },
+  "participants": [
+    {
+      "id": "seed",
+      "type": "backend",
+      "label": "Seeded candidates"
+    },
+    {
+      "id": "loop",
+      "type": "backend",
+      "label": "Insertion loop"
+    },
+    {
+      "id": "judge",
+      "type": "backend",
+      "label": "Judge callback"
+    },
+    {
+      "id": "ladder",
+      "type": "database",
+      "label": "Active ladder"
+    }
+  ],
+  "messages": [
+    {
+      "id": "m-03-ladder-0",
+      "from": "seed",
+      "to": "loop",
+      "label": "Skip candidates disqualified during evaluation",
+      "y": 160
+    },
+    {
+      "id": "m-03-ladder-1",
+      "from": "loop",
+      "to": "ladder",
+      "label": "Empty ladder: append first survivor",
+      "y": 188
+    },
+    {
+      "id": "m-03-ladder-2",
+      "from": "seed",
+      "to": "loop",
+      "label": "Take the next surviving candidate",
+      "y": 216
+    },
+    {
+      "id": "m-03-ladder-3",
+      "from": "ladder",
+      "to": "loop",
+      "label": "Start at position 0; read incumbent B",
+      "y": 244,
+      "variant": "return"
+    },
+    {
+      "id": "m-03-ladder-4",
+      "from": "loop",
+      "to": "judge",
+      "label": "A = new candidate; B = current incumbent",
+      "y": 272
+    },
+    {
+      "id": "m-03-ladder-5",
+      "from": "judge",
+      "to": "loop",
+      "label": "Return exactly one documented outcome",
+      "y": 300,
+      "variant": "return"
+    },
+    {
+      "id": "m-03-ladder-6",
+      "from": "loop",
+      "to": "ladder",
+      "label": "Record battle; apply outcome below",
+      "y": 328
+    },
+    {
+      "id": "m-03-ladder-7",
+      "from": "ladder",
+      "to": "loop",
+      "label": "Continue, finish insertion, or drop candidate",
+      "y": 356,
+      "variant": "return"
+    },
+    {
+      "id": "m-03-ladder-8",
+      "from": "loop",
+      "to": "judge",
+      "label": "If comparison continues: use next incumbent",
+      "y": 384
+    },
+    {
+      "id": "m-03-ladder-9",
+      "from": "loop",
+      "to": "ladder",
+      "label": "No earlier insertion: append at the end",
+      "y": 412
+    },
+    {
+      "id": "m-03-ladder-10",
+      "from": "seed",
+      "to": "loop",
+      "label": "Repeat for all seeded survivors",
+      "y": 440
+    },
+    {
+      "id": "m-03-ladder-11",
+      "from": "ladder",
+      "to": "loop",
+      "label": "Final ranked list + DQ list + battle records",
+      "y": 468,
+      "variant": "return"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Winning or losing a comparison",
+      "items": [
+        "A better: insert before B and finish. B better: advance one position; append A if it reaches the end."
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "Disqualification decisions",
+      "items": [
+        "A DQ: drop A. B DQ: remove B and compare A at the same position. Both DQ: remove both; finish A."
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "Order is not a round robin",
+      "items": [
+        "The application seeds by provider then candidate ID, case-insensitively; rates are not passed into seed costs. Pairs are compared as insertion needs them."
+      ]
+    }
+  ]
+}

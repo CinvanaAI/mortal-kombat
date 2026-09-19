@@ -1,0 +1,150 @@
+{
+  "schema_version": 1,
+  "diagram_type": "sequence",
+  "meta": {
+    "title": "01 — Configuration, planning and permission to execute",
+    "quality_profile": "showcase",
+    "animation": "none",
+    "column_fit": "spread",
+    "viewBox": [
+      1320,
+      600
+    ]
+  },
+  "participants": [
+    {
+      "id": "cli",
+      "type": "frontend",
+      "label": "CLI command"
+    },
+    {
+      "id": "task",
+      "type": "security",
+      "label": "Task contract"
+    },
+    {
+      "id": "dir",
+      "type": "database",
+      "label": "Output directory"
+    },
+    {
+      "id": "run",
+      "type": "backend",
+      "label": "Run workflow"
+    },
+    {
+      "id": "env",
+      "type": "security",
+      "label": "Environment"
+    }
+  ],
+  "messages": [
+    {
+      "id": "m-01-setup-0",
+      "from": "cli",
+      "to": "task",
+      "label": "Load file or packaged demo task",
+      "y": 160
+    },
+    {
+      "id": "m-01-setup-1",
+      "from": "task",
+      "to": "cli",
+      "label": "Validate schema, IDs, rubric and provider URLs",
+      "y": 188,
+      "variant": "return"
+    },
+    {
+      "id": "m-01-setup-2",
+      "from": "cli",
+      "to": "task",
+      "label": "Compute fingerprint + worst-case call counts",
+      "y": 216
+    },
+    {
+      "id": "m-01-setup-3",
+      "from": "task",
+      "to": "cli",
+      "label": "Plan-only run prints this and exits",
+      "y": 244,
+      "variant": "return"
+    },
+    {
+      "id": "m-01-setup-4",
+      "from": "cli",
+      "to": "dir",
+      "label": "Execution reserves a new --out directory",
+      "y": 272,
+      "variant": "security"
+    },
+    {
+      "id": "m-01-setup-5",
+      "from": "dir",
+      "to": "cli",
+      "label": "Existing path or I/O error: reject",
+      "y": 300,
+      "variant": "security"
+    },
+    {
+      "id": "m-01-setup-6",
+      "from": "cli",
+      "to": "run",
+      "label": "demo: offline; run: requires --execute",
+      "y": 328
+    },
+    {
+      "id": "m-01-setup-7",
+      "from": "run",
+      "to": "task",
+      "label": "Revalidate the effective task",
+      "y": 356
+    },
+    {
+      "id": "m-01-setup-8",
+      "from": "run",
+      "to": "env",
+      "label": "Resolve every required candidate/judge key",
+      "y": 384,
+      "variant": "security"
+    },
+    {
+      "id": "m-01-setup-9",
+      "from": "env",
+      "to": "run",
+      "label": "Missing key stops before any provider call",
+      "y": 412,
+      "variant": "security"
+    },
+    {
+      "id": "m-01-setup-10",
+      "from": "env",
+      "to": "run",
+      "label": "All required keys available: continue workflow",
+      "y": 440,
+      "variant": "return"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "What configuration supplies",
+      "items": [
+        "Instructions; artifacts and expected fields; candidate IDs; provider/model names; rubric; judge; max_calls; dated rates."
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "The preflight boundary",
+      "items": [
+        "CLI reserves the folder first. After preflight, run_task initializes its report and continues execution. Preflight failure can leave an empty folder."
+      ]
+    },
+    {
+      "dot": "violet",
+      "title": "Two other entry paths",
+      "items": [
+        "example writes a new fixture task file. report validates saved-result rendering and writes a new bundle; neither runs providers."
+      ]
+    }
+  ]
+}

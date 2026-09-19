@@ -1,8 +1,12 @@
 # Mortal Kombat
 
+Task-specific model evaluation.
+
 **Give candidate models the same task, compare what they return, and inspect why each one won or failed.**
 
 Mortal Kombat turns a task, its examples, and a declared judging rule into a recorded tournament. You get the exact outputs, field checks or judge decisions, a final ranking, and usage-based cost estimates when the necessary evidence exists.
+
+Follow [how the whole system runs](https://cinvanaai.github.io/mortal-kombat/operations/) through task setup, provider execution, the tournament ladder, judging, and saved results. The guide includes six linked operational diagrams and a readable source map.
 
 Explore the [recorded evaluation](https://cinvanaai.github.io/mortal-kombat/) to inspect the source, field checks, disqualification and ladder decisions before installing anything. For an offline replay, download or clone this repository, then open `demo/index.html` in a browser.
 

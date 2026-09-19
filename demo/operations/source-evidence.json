@@ -1,0 +1,145 @@
+{
+  "schema": "mortal-kombat.operations-source.v1",
+  "source_commit": "a8c714530e82e945b48aa939f4e14bb0bd26fa83",
+  "scope": "Current public implementation; historical large tournament not recovered or represented. No models executed to produce this guide.",
+  "source_files": [
+    {
+      "path": "README.md",
+      "sha256": "6662713454c273e3615e0b936065721eed1f9fb2168a7231c624fa2b404c92a6",
+      "bytes": 4382,
+      "source_url": "https://github.com/CinvanaAI/mortal-kombat/blob/a8c714530e82e945b48aa939f4e14bb0bd26fa83/README.md"
+    },
+    {
+      "path": "docs/TASKS.md",
+      "sha256": "1ea1e66ec97072cc3d68699583d5856fa3fd6d43884c7a95f0363ff981c32a9f",
+      "bytes": 4488,
+      "source_url": "https://github.com/CinvanaAI/mortal-kombat/blob/a8c714530e82e945b48aa939f4e14bb0bd26fa83/docs/TASKS.md"
+    },
+    {
+      "path": "docs/ORIGIN.md",
+      "sha256": "35a511d3a3fefbabc20bc62a2cb9364e3d0be8e4ef5b19a5d48a060cbc952949",
+      "bytes": 1024,
+      "source_url": "https://github.com/CinvanaAI/mortal-kombat/blob/a8c714530e82e945b48aa939f4e14bb0bd26fa83/docs/ORIGIN.md"
+    },
+    {
+      "path": "pyproject.toml",
+      "sha256": "c0dc0f71c02eeff5218e524dabf7ab7b0dea363672d7eede8ca9f14708bc5040",
+      "bytes": 693,
+      "source_url": "https://github.com/CinvanaAI/mortal-kombat/blob/a8c714530e82e945b48aa939f4e14bb0bd26fa83/pyproject.toml"
+    },
+    {
+      "path": "src/prompt_tournament/workflow_cli.py",
+      "sha256": "4ba95bd653329113e9a721f2d5b99a6aa5b0659d5c04fc3d51dac3ec55da08af",
+      "bytes": 3627,
+      "source_url": "https://github.com/CinvanaAI/mortal-kombat/blob/a8c714530e82e945b48aa939f4e14bb0bd26fa83/src/prompt_tournament/workflow_cli.py"
+    },
+    {
+      "path": "src/prompt_tournament/workflow.py",
+      "sha256": "713d2ae9ffd4830d5e75ccf82722b09d094f1196f1f976bd989bd3d32e02e2f6",
+      "bytes": 11587,
+      "source_url": "https://github.com/CinvanaAI/mortal-kombat/blob/a8c714530e82e945b48aa939f4e14bb0bd26fa83/src/prompt_tournament/workflow.py"
+    },
+    {
+      "path": "src/prompt_tournament/engine.py",
+      "sha256": "634810de54190acb182ec5cb4ead6b12d8cef2bcd3d3c0066915db159b02441b",
+      "bytes": 10558,
+      "source_url": "https://github.com/CinvanaAI/mortal-kombat/blob/a8c714530e82e945b48aa939f4e14bb0bd26fa83/src/prompt_tournament/engine.py"
+    },
+    {
+      "path": "src/prompt_tournament/task.py",
+      "sha256": "e798875d3a218f7fad34e91452deb2980d0959f94b4bddc0f401d40c884a222d",
+      "bytes": 7716,
+      "source_url": "https://github.com/CinvanaAI/mortal-kombat/blob/a8c714530e82e945b48aa939f4e14bb0bd26fa83/src/prompt_tournament/task.py"
+    },
+    {
+      "path": "src/prompt_tournament/providers.py",
+      "sha256": "1a2489f34d25b34c9fb93cecfbb6436f18d0893c541333c198eb2e853ccffb46",
+      "bytes": 6944,
+      "source_url": "https://github.com/CinvanaAI/mortal-kombat/blob/a8c714530e82e945b48aa939f4e14bb0bd26fa83/src/prompt_tournament/providers.py"
+    },
+    {
+      "path": "src/prompt_tournament/report.py",
+      "sha256": "164487abd554757e49e264c0e15770b050c0e776e316cba288aa435ff1435406",
+      "bytes": 4830,
+      "source_url": "https://github.com/CinvanaAI/mortal-kombat/blob/a8c714530e82e945b48aa939f4e14bb0bd26fa83/src/prompt_tournament/report.py"
+    },
+    {
+      "path": "src/prompt_tournament/fixtures/extraction.json",
+      "sha256": "2190eb8601caf8cdaa8a8bcafaa4716a74f20cf92ae8e96a9242e780c2caffdd",
+      "bytes": 1594,
+      "source_url": "https://github.com/CinvanaAI/mortal-kombat/blob/a8c714530e82e945b48aa939f4e14bb0bd26fa83/src/prompt_tournament/fixtures/extraction.json"
+    },
+    {
+      "path": "examples/demo-result.json",
+      "sha256": "b4dc74d7bc59e3d5b65448cbef76dc2058cd9f44a90c1739163fae47f0c233bf",
+      "bytes": 14628,
+      "source_url": "https://github.com/CinvanaAI/mortal-kombat/blob/a8c714530e82e945b48aa939f4e14bb0bd26fa83/examples/demo-result.json"
+    }
+  ],
+  "recorded_example": {
+    "source_path": "examples/demo-result.json",
+    "local_copy": "recorded-example.json",
+    "task_sha256": "28129bbae2a0f3413b26f819d4cc32b6c66fb90c84ad3ad6ee37363e498ea276",
+    "provider_calls_attempted": 0,
+    "captured_calls": 5,
+    "core_evaluations": 4,
+    "battles": 1
+  },
+  "coverage": [
+    {
+      "topic": "Define the job, then choose whether to execute",
+      "diagram": "01-setup.html",
+      "text_anchor": "setup",
+      "source_links": [
+        "[CLI dispatch and output reservation](https://github.com/CinvanaAI/mortal-kombat/blob/a8c714530e82e945b48aa939f4e14bb0bd26fa83/src/prompt_tournament/workflow_cli.py#L16)",
+        "[validate_task](https://github.com/CinvanaAI/mortal-kombat/blob/a8c714530e82e945b48aa939f4e14bb0bd26fa83/src/prompt_tournament/task.py#L26)",
+        "[plan_task](https://github.com/CinvanaAI/mortal-kombat/blob/a8c714530e82e945b48aa939f4e14bb0bd26fa83/src/prompt_tournament/task.py#L129)",
+        "[run_task preflight](https://github.com/CinvanaAI/mortal-kombat/blob/a8c714530e82e945b48aa939f4e14bb0bd26fa83/src/prompt_tournament/workflow.py#L70)"
+      ]
+    },
+    {
+      "topic": "Collect each candidate’s answers across the artifacts",
+      "diagram": "02-candidates.html",
+      "text_anchor": "candidates",
+      "source_links": [
+        "[run_tournament evaluation phase](https://github.com/CinvanaAI/mortal-kombat/blob/a8c714530e82e945b48aa939f4e14bb0bd26fa83/src/prompt_tournament/engine.py#L205)",
+        "[execute and evaluate callbacks](https://github.com/CinvanaAI/mortal-kombat/blob/a8c714530e82e945b48aa939f4e14bb0bd26fa83/src/prompt_tournament/workflow.py#L94)",
+        "[call_provider](https://github.com/CinvanaAI/mortal-kombat/blob/a8c714530e82e945b48aa939f4e14bb0bd26fa83/src/prompt_tournament/providers.py#L77)",
+        "[HTTP transport](https://github.com/CinvanaAI/mortal-kombat/blob/a8c714530e82e945b48aa939f4e14bb0bd26fa83/src/prompt_tournament/providers.py#L28)"
+      ]
+    },
+    {
+      "topic": "Insert surviving candidates into a ranked ladder",
+      "diagram": "03-ladder.html",
+      "text_anchor": "ladder",
+      "source_links": [
+        "[seed_models](https://github.com/CinvanaAI/mortal-kombat/blob/a8c714530e82e945b48aa939f4e14bb0bd26fa83/src/prompt_tournament/engine.py#L144)",
+        "[optional cost seed ordering](https://github.com/CinvanaAI/mortal-kombat/blob/a8c714530e82e945b48aa939f4e14bb0bd26fa83/src/prompt_tournament/engine.py#L183)",
+        "[insertion and five outcome branches](https://github.com/CinvanaAI/mortal-kombat/blob/a8c714530e82e945b48aa939f4e14bb0bd26fa83/src/prompt_tournament/engine.py#L264)",
+        "[application ModelRef construction](https://github.com/CinvanaAI/mortal-kombat/blob/a8c714530e82e945b48aa939f4e14bb0bd26fa83/src/prompt_tournament/workflow.py#L157)"
+      ]
+    },
+    {
+      "topic": "Choose the judge and understand the failure boundary",
+      "diagram": "04-judging.html",
+      "text_anchor": "judging",
+      "source_links": [
+        "[assess_output](https://github.com/CinvanaAI/mortal-kombat/blob/a8c714530e82e945b48aa939f4e14bb0bd26fa83/src/prompt_tournament/workflow.py#L15)",
+        "[provider judge request](https://github.com/CinvanaAI/mortal-kombat/blob/a8c714530e82e945b48aa939f4e14bb0bd26fa83/src/prompt_tournament/workflow.py#L26)",
+        "[strict provider decision parser](https://github.com/CinvanaAI/mortal-kombat/blob/a8c714530e82e945b48aa939f4e14bb0bd26fa83/src/prompt_tournament/workflow.py#L47)",
+        "[judging and result status](https://github.com/CinvanaAI/mortal-kombat/blob/a8c714530e82e945b48aa939f4e14bb0bd26fa83/src/prompt_tournament/workflow.py#L135)"
+      ]
+    },
+    {
+      "topic": "Account for usage and write the inspectable result",
+      "diagram": "05-evidence.html",
+      "text_anchor": "evidence",
+      "source_links": [
+        "[normalize_response](https://github.com/CinvanaAI/mortal-kombat/blob/a8c714530e82e945b48aa939f4e14bb0bd26fa83/src/prompt_tournament/providers.py#L52)",
+        "[estimate_cost](https://github.com/CinvanaAI/mortal-kombat/blob/a8c714530e82e945b48aa939f4e14bb0bd26fa83/src/prompt_tournament/providers.py#L97)",
+        "[cost and evidence finalization](https://github.com/CinvanaAI/mortal-kombat/blob/a8c714530e82e945b48aa939f4e14bb0bd26fa83/src/prompt_tournament/workflow.py#L167)",
+        "[render_report / save_report](https://github.com/CinvanaAI/mortal-kombat/blob/a8c714530e82e945b48aa939f4e14bb0bd26fa83/src/prompt_tournament/report.py#L8)"
+      ]
+    }
+  ]
+}

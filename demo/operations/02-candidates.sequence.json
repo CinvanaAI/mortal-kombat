@@ -1,0 +1,154 @@
+{
+  "schema_version": 1,
+  "diagram_type": "sequence",
+  "meta": {
+    "title": "02 — Gather candidate outputs before judging the ladder",
+    "quality_profile": "showcase",
+    "animation": "none",
+    "column_fit": "spread",
+    "viewBox": [
+      1320,
+      600
+    ]
+  },
+  "participants": [
+    {
+      "id": "core",
+      "type": "backend",
+      "label": "Tournament core"
+    },
+    {
+      "id": "eval",
+      "type": "backend",
+      "label": "evaluate callback"
+    },
+    {
+      "id": "call",
+      "type": "backend",
+      "label": "Call executor"
+    },
+    {
+      "id": "provider",
+      "type": "cloud",
+      "label": "Fixture / provider"
+    },
+    {
+      "id": "record",
+      "type": "database",
+      "label": "Run evidence"
+    }
+  ],
+  "messages": [
+    {
+      "id": "m-02-candidates-0",
+      "from": "core",
+      "to": "eval",
+      "label": "For each seeded candidate, then each artifact",
+      "y": 160
+    },
+    {
+      "id": "m-02-candidates-1",
+      "from": "eval",
+      "to": "call",
+      "label": "Instructions + this source artifact",
+      "y": 188
+    },
+    {
+      "id": "m-02-candidates-2",
+      "from": "call",
+      "to": "record",
+      "label": "Append a started call before execution",
+      "y": 216
+    },
+    {
+      "id": "m-02-candidates-3",
+      "from": "call",
+      "to": "provider",
+      "label": "Fixture text OR bounded provider request",
+      "y": 244
+    },
+    {
+      "id": "m-02-candidates-4",
+      "from": "provider",
+      "to": "call",
+      "label": "Text, completion flag and returned usage",
+      "y": 272,
+      "variant": "return"
+    },
+    {
+      "id": "m-02-candidates-5",
+      "from": "call",
+      "to": "record",
+      "label": "Copy response first; then compute its estimate",
+      "y": 300
+    },
+    {
+      "id": "m-02-candidates-6",
+      "from": "call",
+      "to": "eval",
+      "label": "Require complete, nonempty text",
+      "y": 328,
+      "variant": "return"
+    },
+    {
+      "id": "m-02-candidates-7",
+      "from": "eval",
+      "to": "record",
+      "label": "Rules mode: record exact-field assessment",
+      "y": 356
+    },
+    {
+      "id": "m-02-candidates-8",
+      "from": "eval",
+      "to": "core",
+      "label": "Return answer text for this artifact",
+      "y": 384,
+      "variant": "return"
+    },
+    {
+      "id": "m-02-candidates-9",
+      "from": "core",
+      "to": "eval",
+      "label": "Continue across all remaining artifacts",
+      "y": 412
+    },
+    {
+      "id": "m-02-candidates-10",
+      "from": "eval",
+      "to": "core",
+      "label": "Any candidate failure: DQ; skip its rest",
+      "y": 440,
+      "variant": "security"
+    },
+    {
+      "id": "m-02-candidates-11",
+      "from": "core",
+      "to": "eval",
+      "label": "Next candidate can still be evaluated",
+      "y": 468
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Three execution routes",
+      "items": [
+        "Fixture returns configured text. OpenAI POST /responses uses store:false. Ollama POST /api/chat uses stream:false."
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "No automatic retry",
+      "items": [
+        "max_calls gates attempted provider calls; no retry or discovery. HTTP failures, empty/incomplete output and invalid rules JSON can disqualify."
+      ]
+    },
+    {
+      "dot": "violet",
+      "title": "Core-owned cache and views",
+      "items": [
+        "The core caches successful text and builds CandidateViews internally. CLI uses a fresh cache; library callers may supply one. Invalid rules output stays in evidence, uncached."
+      ]
+    }
+  ]
+}
