@@ -1,145 +1,192 @@
 {
-  "schema": "mortal-kombat.operations-source.v1",
-  "source_commit": "a8c714530e82e945b48aa939f4e14bb0bd26fa83",
-  "scope": "Current public implementation; historical large tournament not recovered or represented. No models executed to produce this guide.",
-  "source_files": [
-    {
-      "path": "README.md",
-      "sha256": "6662713454c273e3615e0b936065721eed1f9fb2168a7231c624fa2b404c92a6",
-      "bytes": 4382,
-      "source_url": "https://github.com/CinvanaAI/mortal-kombat/blob/a8c714530e82e945b48aa939f4e14bb0bd26fa83/README.md"
-    },
-    {
-      "path": "docs/TASKS.md",
-      "sha256": "1ea1e66ec97072cc3d68699583d5856fa3fd6d43884c7a95f0363ff981c32a9f",
-      "bytes": 4488,
-      "source_url": "https://github.com/CinvanaAI/mortal-kombat/blob/a8c714530e82e945b48aa939f4e14bb0bd26fa83/docs/TASKS.md"
-    },
-    {
-      "path": "docs/ORIGIN.md",
-      "sha256": "35a511d3a3fefbabc20bc62a2cb9364e3d0be8e4ef5b19a5d48a060cbc952949",
-      "bytes": 1024,
-      "source_url": "https://github.com/CinvanaAI/mortal-kombat/blob/a8c714530e82e945b48aa939f4e14bb0bd26fa83/docs/ORIGIN.md"
-    },
-    {
-      "path": "pyproject.toml",
-      "sha256": "c0dc0f71c02eeff5218e524dabf7ab7b0dea363672d7eede8ca9f14708bc5040",
-      "bytes": 693,
-      "source_url": "https://github.com/CinvanaAI/mortal-kombat/blob/a8c714530e82e945b48aa939f4e14bb0bd26fa83/pyproject.toml"
-    },
-    {
-      "path": "src/prompt_tournament/workflow_cli.py",
-      "sha256": "4ba95bd653329113e9a721f2d5b99a6aa5b0659d5c04fc3d51dac3ec55da08af",
-      "bytes": 3627,
-      "source_url": "https://github.com/CinvanaAI/mortal-kombat/blob/a8c714530e82e945b48aa939f4e14bb0bd26fa83/src/prompt_tournament/workflow_cli.py"
-    },
-    {
-      "path": "src/prompt_tournament/workflow.py",
-      "sha256": "713d2ae9ffd4830d5e75ccf82722b09d094f1196f1f976bd989bd3d32e02e2f6",
-      "bytes": 11587,
-      "source_url": "https://github.com/CinvanaAI/mortal-kombat/blob/a8c714530e82e945b48aa939f4e14bb0bd26fa83/src/prompt_tournament/workflow.py"
-    },
+  "schema": "rubric-rumble.operating-atlas-source.v1",
+  "source_repository": "https://github.com/CinvanaAI/rubric-rumble",
+  "behavioral_commit": "2eac2d8d95af56a62525c5ac86248e653d19a6ae",
+  "scope": "Complete desktop/CLI workflow, explicit preparation actions and retained core API. Current branding is separate from pinned behavioral source.",
+  "files": [
     {
       "path": "src/prompt_tournament/engine.py",
       "sha256": "634810de54190acb182ec5cb4ead6b12d8cef2bcd3d3c0066915db159b02441b",
-      "bytes": 10558,
-      "source_url": "https://github.com/CinvanaAI/mortal-kombat/blob/a8c714530e82e945b48aa939f4e14bb0bd26fa83/src/prompt_tournament/engine.py"
+      "source_url": "https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/engine.py"
+    },
+    {
+      "path": "src/prompt_tournament/workflow.py",
+      "sha256": "0dd1369fef49d5b9aaf886fbe40bbf605816c61f058d9bd2fdb43ddfee9617a2",
+      "source_url": "https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/workflow.py"
     },
     {
       "path": "src/prompt_tournament/task.py",
-      "sha256": "e798875d3a218f7fad34e91452deb2980d0959f94b4bddc0f401d40c884a222d",
-      "bytes": 7716,
-      "source_url": "https://github.com/CinvanaAI/mortal-kombat/blob/a8c714530e82e945b48aa939f4e14bb0bd26fa83/src/prompt_tournament/task.py"
+      "sha256": "d81a031125ce816acbaa6d024bae0c09243c24ecf4ae663ba3975e265f5db797",
+      "source_url": "https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/task.py"
     },
     {
       "path": "src/prompt_tournament/providers.py",
-      "sha256": "1a2489f34d25b34c9fb93cecfbb6436f18d0893c541333c198eb2e853ccffb46",
-      "bytes": 6944,
-      "source_url": "https://github.com/CinvanaAI/mortal-kombat/blob/a8c714530e82e945b48aa939f4e14bb0bd26fa83/src/prompt_tournament/providers.py"
+      "sha256": "f52d55b37a427cd6286bd3e79988d11d43e9b3409d89c31bf8394c4adee6e4c9",
+      "source_url": "https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/providers.py"
     },
     {
-      "path": "src/prompt_tournament/report.py",
-      "sha256": "164487abd554757e49e264c0e15770b050c0e776e316cba288aa435ff1435406",
-      "bytes": 4830,
-      "source_url": "https://github.com/CinvanaAI/mortal-kombat/blob/a8c714530e82e945b48aa939f4e14bb0bd26fa83/src/prompt_tournament/report.py"
+      "path": "src/prompt_tournament/model_research.py",
+      "sha256": "8e56bedf07f6394b3bc384ce98289e90f5ba3075b10dc9311c8dd281cebb6bd6",
+      "source_url": "https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/model_research.py"
     },
     {
-      "path": "src/prompt_tournament/fixtures/extraction.json",
-      "sha256": "2190eb8601caf8cdaa8a8bcafaa4716a74f20cf92ae8e96a9242e780c2caffdd",
-      "bytes": 1594,
-      "source_url": "https://github.com/CinvanaAI/mortal-kombat/blob/a8c714530e82e945b48aa939f4e14bb0bd26fa83/src/prompt_tournament/fixtures/extraction.json"
+      "path": "src/prompt_tournament/workflow_cli.py",
+      "sha256": "ecc621a63d635b36b6f682e238d1985947b9fa71b33d361255a96a54ce5d603e",
+      "source_url": "https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/workflow_cli.py"
     },
     {
-      "path": "examples/demo-result.json",
-      "sha256": "b4dc74d7bc59e3d5b65448cbef76dc2058cd9f44a90c1739163fae47f0c233bf",
-      "bytes": 14628,
-      "source_url": "https://github.com/CinvanaAI/mortal-kombat/blob/a8c714530e82e945b48aa939f4e14bb0bd26fa83/examples/demo-result.json"
+      "path": "src/prompt_tournament/workbench.py",
+      "sha256": "f7b817ee663df8d130b851214f127668a9f2f6a01c5a39a36d06dbb30297aad9",
+      "source_url": "https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/workbench.py"
     }
   ],
-  "recorded_example": {
-    "source_path": "examples/demo-result.json",
-    "local_copy": "recorded-example.json",
-    "task_sha256": "28129bbae2a0f3413b26f819d4cc32b6c66fb90c84ad3ad6ee37363e498ea276",
-    "provider_calls_attempted": 0,
-    "captured_calls": 5,
-    "core_evaluations": 4,
-    "battles": 1
-  },
-  "coverage": [
+  "current_presentation_source": "https://github.com/CinvanaAI/rubric-rumble/blob/main/src/prompt_tournament/report.py",
+  "views": [
     {
-      "topic": "Define the job, then choose whether to execute",
-      "diagram": "01-setup.html",
-      "text_anchor": "setup",
-      "source_links": [
-        "[CLI dispatch and output reservation](https://github.com/CinvanaAI/mortal-kombat/blob/a8c714530e82e945b48aa939f4e14bb0bd26fa83/src/prompt_tournament/workflow_cli.py#L16)",
-        "[validate_task](https://github.com/CinvanaAI/mortal-kombat/blob/a8c714530e82e945b48aa939f4e14bb0bd26fa83/src/prompt_tournament/task.py#L26)",
-        "[plan_task](https://github.com/CinvanaAI/mortal-kombat/blob/a8c714530e82e945b48aa939f4e14bb0bd26fa83/src/prompt_tournament/task.py#L129)",
-        "[run_task preflight](https://github.com/CinvanaAI/mortal-kombat/blob/a8c714530e82e945b48aa939f4e14bb0bd26fa83/src/prompt_tournament/workflow.py#L70)"
+      "anchor": "workbench",
+      "title": "Start with the job you want to do",
+      "html": "00-overview.html",
+      "specification": "00-overview.sequence.json",
+      "sources": [
+        "[Workbench](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/workbench.py#L150)",
+        "[_preview](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/workbench.py#L669)",
+        "[_run](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/workbench.py#L687)",
+        "[main](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/workflow_cli.py#L19)"
       ]
     },
     {
-      "topic": "Collect each candidate’s answers across the artifacts",
-      "diagram": "02-candidates.html",
-      "text_anchor": "candidates",
-      "source_links": [
-        "[run_tournament evaluation phase](https://github.com/CinvanaAI/mortal-kombat/blob/a8c714530e82e945b48aa939f4e14bb0bd26fa83/src/prompt_tournament/engine.py#L205)",
-        "[execute and evaluate callbacks](https://github.com/CinvanaAI/mortal-kombat/blob/a8c714530e82e945b48aa939f4e14bb0bd26fa83/src/prompt_tournament/workflow.py#L94)",
-        "[call_provider](https://github.com/CinvanaAI/mortal-kombat/blob/a8c714530e82e945b48aa939f4e14bb0bd26fa83/src/prompt_tournament/providers.py#L77)",
-        "[HTTP transport](https://github.com/CinvanaAI/mortal-kombat/blob/a8c714530e82e945b48aa939f4e14bb0bd26fa83/src/prompt_tournament/providers.py#L28)"
+      "anchor": "inventory",
+      "title": "Find the models a connection actually lists",
+      "html": "06-inventory.html",
+      "specification": "06-inventory.sequence.json",
+      "sources": [
+        "[_connection](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/providers.py#L60)",
+        "[list_models](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/providers.py#L102)",
+        "[_save_connection](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/workbench.py#L495)",
+        "[_add_models](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/workbench.py#L522)"
       ]
     },
     {
-      "topic": "Insert surviving candidates into a ranked ladder",
-      "diagram": "03-ladder.html",
-      "text_anchor": "ladder",
-      "source_links": [
-        "[seed_models](https://github.com/CinvanaAI/mortal-kombat/blob/a8c714530e82e945b48aa939f4e14bb0bd26fa83/src/prompt_tournament/engine.py#L144)",
-        "[optional cost seed ordering](https://github.com/CinvanaAI/mortal-kombat/blob/a8c714530e82e945b48aa939f4e14bb0bd26fa83/src/prompt_tournament/engine.py#L183)",
-        "[insertion and five outcome branches](https://github.com/CinvanaAI/mortal-kombat/blob/a8c714530e82e945b48aa939f4e14bb0bd26fa83/src/prompt_tournament/engine.py#L264)",
-        "[application ModelRef construction](https://github.com/CinvanaAI/mortal-kombat/blob/a8c714530e82e945b48aa939f4e14bb0bd26fa83/src/prompt_tournament/workflow.py#L157)"
+      "anchor": "probes",
+      "title": "Observe a short response before running a larger task",
+      "html": "07-probes.html",
+      "specification": "07-probes.sequence.json",
+      "sources": [
+        "[probe_model](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/providers.py#L184)",
+        "[execute_probes](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/workbench.py#L109)",
+        "[_probe](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/workbench.py#L569)",
+        "[main](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/workflow_cli.py#L19)"
       ]
     },
     {
-      "topic": "Choose the judge and understand the failure boundary",
-      "diagram": "04-judging.html",
-      "text_anchor": "judging",
-      "source_links": [
-        "[assess_output](https://github.com/CinvanaAI/mortal-kombat/blob/a8c714530e82e945b48aa939f4e14bb0bd26fa83/src/prompt_tournament/workflow.py#L15)",
-        "[provider judge request](https://github.com/CinvanaAI/mortal-kombat/blob/a8c714530e82e945b48aa939f4e14bb0bd26fa83/src/prompt_tournament/workflow.py#L26)",
-        "[strict provider decision parser](https://github.com/CinvanaAI/mortal-kombat/blob/a8c714530e82e945b48aa939f4e14bb0bd26fa83/src/prompt_tournament/workflow.py#L47)",
-        "[judging and result status](https://github.com/CinvanaAI/mortal-kombat/blob/a8c714530e82e945b48aa939f4e14bb0bd26fa83/src/prompt_tournament/workflow.py#L135)"
+      "anchor": "research",
+      "title": "Keep documented facts separate from observed behavior",
+      "html": "08-research.html",
+      "specification": "08-research.sequence.json",
+      "sources": [
+        "[research_model](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/model_research.py#L127)",
+        "[_parse_response](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/model_research.py#L71)",
+        "[execute_research](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/workbench.py#L87)",
+        "[_start_research](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/workbench.py#L379)"
       ]
     },
     {
-      "topic": "Account for usage and write the inspectable result",
-      "diagram": "05-evidence.html",
-      "text_anchor": "evidence",
-      "source_links": [
-        "[normalize_response](https://github.com/CinvanaAI/mortal-kombat/blob/a8c714530e82e945b48aa939f4e14bb0bd26fa83/src/prompt_tournament/providers.py#L52)",
-        "[estimate_cost](https://github.com/CinvanaAI/mortal-kombat/blob/a8c714530e82e945b48aa939f4e14bb0bd26fa83/src/prompt_tournament/providers.py#L97)",
-        "[cost and evidence finalization](https://github.com/CinvanaAI/mortal-kombat/blob/a8c714530e82e945b48aa939f4e14bb0bd26fa83/src/prompt_tournament/workflow.py#L167)",
-        "[render_report / save_report](https://github.com/CinvanaAI/mortal-kombat/blob/a8c714530e82e945b48aa939f4e14bb0bd26fa83/src/prompt_tournament/report.py#L8)"
+      "anchor": "setup",
+      "title": "Validate a task, preview the request ceiling, then run",
+      "html": "01-setup.html",
+      "specification": "01-setup.sequence.json",
+      "sources": [
+        "[validate_task](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/task.py#L26)",
+        "[plan_task](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/task.py#L140)",
+        "[execute_preview](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/workbench.py#L51)",
+        "[run_task](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/workflow.py#L70)"
+      ]
+    },
+    {
+      "anchor": "modes",
+      "title": "Choose between capturing answers and judging them",
+      "html": "09-modes.html",
+      "specification": "09-modes.sequence.json",
+      "sources": [
+        "[validate_task](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/task.py#L26)",
+        "[select_task](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/workbench.py#L29)",
+        "[run_task](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/workflow.py#L70)"
+      ]
+    },
+    {
+      "anchor": "candidates",
+      "title": "Capture each answer with its source and call evidence",
+      "html": "02-candidates.html",
+      "specification": "02-candidates.sequence.json",
+      "sources": [
+        "[execute](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/workflow.py#L91)",
+        "[evaluate](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/workflow.py#L119)",
+        "[call_provider](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/providers.py#L167)",
+        "[normalize_response](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/providers.py#L130)",
+        "[run_tournament](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/engine.py#L205)"
+      ]
+    },
+    {
+      "anchor": "judging",
+      "title": "Judge the whole answer set under the chosen rubric",
+      "html": "04-judging.html",
+      "specification": "04-judging.sequence.json",
+      "sources": [
+        "[build_judge_request](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/workflow.py#L26)",
+        "[judge](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/workflow.py#L133)",
+        "[_parse_provider_decision](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/workflow.py#L47)",
+        "[run_tournament](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/engine.py#L205)"
+      ]
+    },
+    {
+      "anchor": "ladder",
+      "title": "Insert survivors according to recorded comparisons",
+      "html": "03-ladder.html",
+      "specification": "03-ladder.sequence.json",
+      "sources": [
+        "[seed_models](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/engine.py#L144)",
+        "[run_tournament](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/engine.py#L205)",
+        "[run_task](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/workflow.py#L70)"
+      ]
+    },
+    {
+      "anchor": "evidence",
+      "title": "Read the result, including what failed or stayed unknown",
+      "html": "05-evidence.html",
+      "specification": "05-evidence.sequence.json",
+      "sources": [
+        "[run_task](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/workflow.py#L70)",
+        "[estimate_cost](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/providers.py#L210)",
+        "[Report rendering and saving](https://github.com/CinvanaAI/rubric-rumble/blob/main/src/prompt_tournament/report.py)",
+        "[main](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/workflow_cli.py#L19)"
+      ]
+    },
+    {
+      "anchor": "core-api",
+      "title": "Understand what the retained core does for a caller",
+      "html": "10-core-api.html",
+      "specification": "10-core-api.sequence.json",
+      "sources": [
+        "[run_tournament](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/engine.py#L205)",
+        "[_cache_key](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/engine.py#L190)",
+        "[_new_candidate_key](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/engine.py#L183)",
+        "[parse_judge_output](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/engine.py#L112)",
+        "[_parse_provider_decision](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/workflow.py#L47)"
+      ]
+    },
+    {
+      "anchor": "example",
+      "title": "Inspect a complete record and reproduce a safe first run",
+      "html": null,
+      "specification": null,
+      "sources": [
+        "[Current package instructions](https://github.com/CinvanaAI/rubric-rumble#readme)",
+        "[Editable diagram sources](https://github.com/CinvanaAI/rubric-rumble/tree/main/demo/operations)",
+        "[Source map](source-evidence.json)"
       ]
     }
-  ]
+  ],
+  "historical_companion": "../history/historical-flow.html",
+  "historical_scope": "Preserved source and selected recorded battles; exact historical runtime revisions and cache hits are unverified.",
+  "synthetic_example": "recorded-example.json"
 }

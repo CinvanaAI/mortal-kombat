@@ -3,10 +3,10 @@
 Open the local desktop interface after installing the package:
 
 ```sh
-mortal-kombat gui
+rubric-rumble gui
 ```
 
-You can also open a saved task with `mortal-kombat gui path/to/task.json`, or launch the module directly with `python -m prompt_tournament.workbench`. The desktop uses Tkinter and needs a graphical desktop. Some Linux Python installations provide Tkinter as a separate operating-system package. The CLI remains usable without it.
+You can also open a saved task with `rubric-rumble gui path/to/task.json`, or launch the module directly with `python -m prompt_tournament.workbench`. The desktop uses Tkinter and needs a graphical desktop. Some Linux Python installations provide Tkinter as a separate operating-system package. The CLI remains usable without it.
 
 The workbench opens with the bundled offline demo. It makes no model calls while opening, editing or previewing a task.
 

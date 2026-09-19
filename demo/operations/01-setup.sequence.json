@@ -2,148 +2,149 @@
   "schema_version": 1,
   "diagram_type": "sequence",
   "meta": {
-    "title": "01 — Configuration, planning and permission to execute",
+    "title": "Rubric Rumble: validate, preview and explicitly execute",
     "quality_profile": "showcase",
     "animation": "none",
     "column_fit": "spread",
     "viewBox": [
-      1320,
-      600
+      1000,
+      538
     ]
   },
   "participants": [
     {
-      "id": "cli",
+      "id": "rr-setup-editor",
       "type": "frontend",
-      "label": "CLI command"
+      "label": "Desktop / CLI"
     },
     {
-      "id": "task",
+      "id": "rr-setup-contract",
       "type": "security",
       "label": "Task contract"
     },
     {
-      "id": "dir",
-      "type": "database",
-      "label": "Output directory"
-    },
-    {
-      "id": "run",
+      "id": "rr-setup-plan",
       "type": "backend",
-      "label": "Run workflow"
+      "label": "Call plan"
     },
     {
-      "id": "env",
+      "id": "rr-setup-folder",
+      "type": "database",
+      "label": "Output folder"
+    },
+    {
+      "id": "rr-setup-run",
+      "type": "backend",
+      "label": "run_task"
+    },
+    {
+      "id": "rr-setup-state",
+      "type": "database",
+      "label": "Run evidence"
+    },
+    {
+      "id": "rr-setup-keys",
       "type": "security",
       "label": "Environment"
     }
   ],
   "messages": [
     {
-      "id": "m-01-setup-0",
-      "from": "cli",
-      "to": "task",
-      "label": "Load file or packaged demo task",
+      "id": "rr-01-setup-1",
+      "from": "rr-setup-editor",
+      "to": "rr-setup-contract",
+      "label": "Selected task and execution mode",
       "y": 160
     },
     {
-      "id": "m-01-setup-1",
-      "from": "task",
-      "to": "cli",
-      "label": "Validate schema, IDs, rubric and provider URLs",
-      "y": 188,
+      "id": "rr-01-setup-3",
+      "from": "rr-setup-contract",
+      "to": "rr-setup-plan",
+      "label": "Validated configuration",
+      "y": 189
+    },
+    {
+      "id": "rr-01-setup-4",
+      "from": "rr-setup-plan",
+      "to": "rr-setup-editor",
+      "label": "Fingerprint + maximum candidate / judge calls",
+      "y": 218,
       "variant": "return"
     },
     {
-      "id": "m-01-setup-2",
-      "from": "cli",
-      "to": "task",
-      "label": "Compute fingerprint + worst-case call counts",
-      "y": 216
+      "id": "rr-01-setup-5",
+      "from": "rr-setup-editor",
+      "to": "rr-setup-contract",
+      "label": "Desktop Run: require unchanged preview",
+      "y": 247,
+      "variant": "security"
     },
     {
-      "id": "m-01-setup-3",
-      "from": "task",
-      "to": "cli",
-      "label": "Plan-only run prints this and exits",
-      "y": 244,
+      "id": "rr-01-setup-6",
+      "from": "rr-setup-editor",
+      "to": "rr-setup-folder",
+      "label": "Execution: reserve a new directory",
+      "y": 276
+    },
+    {
+      "id": "rr-01-setup-7",
+      "from": "rr-setup-editor",
+      "to": "rr-setup-run",
+      "label": "Run selected mode with explicit network flag",
+      "y": 305
+    },
+    {
+      "id": "rr-01-setup-8",
+      "from": "rr-setup-run",
+      "to": "rr-setup-contract",
+      "label": "Revalidate; require network permission",
+      "y": 334,
+      "variant": "security"
+    },
+    {
+      "id": "rr-01-setup-10",
+      "from": "rr-setup-run",
+      "to": "rr-setup-keys",
+      "label": "Check every required model key before calls",
+      "y": 363
+    },
+    {
+      "id": "rr-01-setup-11",
+      "from": "rr-setup-keys",
+      "to": "rr-setup-run",
+      "label": "Missing key stops before report initialization",
+      "y": 392,
       "variant": "return"
     },
     {
-      "id": "m-01-setup-4",
-      "from": "cli",
-      "to": "dir",
-      "label": "Execution reserves a new --out directory",
-      "y": 272,
-      "variant": "security"
+      "id": "rr-01-setup-12",
+      "from": "rr-setup-run",
+      "to": "rr-setup-state",
+      "label": "Initialize evidence, then execute this mode",
+      "y": 421
     },
     {
-      "id": "m-01-setup-5",
-      "from": "dir",
-      "to": "cli",
-      "label": "Existing path or I/O error: reject",
-      "y": 300,
-      "variant": "security"
-    },
-    {
-      "id": "m-01-setup-6",
-      "from": "cli",
-      "to": "run",
-      "label": "demo: offline; run: requires --execute",
-      "y": 328
-    },
-    {
-      "id": "m-01-setup-7",
-      "from": "run",
-      "to": "task",
-      "label": "Revalidate the effective task",
-      "y": 356
-    },
-    {
-      "id": "m-01-setup-8",
-      "from": "run",
-      "to": "env",
-      "label": "Resolve every required candidate/judge key",
-      "y": 384,
-      "variant": "security"
-    },
-    {
-      "id": "m-01-setup-9",
-      "from": "env",
-      "to": "run",
-      "label": "Missing key stops before any provider call",
-      "y": 412,
-      "variant": "security"
-    },
-    {
-      "id": "m-01-setup-10",
-      "from": "env",
-      "to": "run",
-      "label": "All required keys available: continue workflow",
-      "y": 440,
+      "id": "rr-01-setup-13",
+      "from": "rr-setup-run",
+      "to": "rr-setup-editor",
+      "label": "Return finalized result after execution",
+      "y": 450,
       "variant": "return"
     }
   ],
   "cards": [
     {
       "dot": "cyan",
-      "title": "What configuration supplies",
+      "title": "Two entry points, the same contract",
       "items": [
-        "Instructions; artifacts and expected fields; candidate IDs; provider/model names; rubric; judge; max_calls; dated rates."
+        "Invalid input stops before a call. Desktop Run requires its unchanged preview. CLI run prints a plan until --execute; network execution requires permission."
       ]
     },
     {
       "dot": "amber",
-      "title": "The preflight boundary",
+      "title": "A plan is a ceiling, not a bill",
       "items": [
-        "CLI reserves the folder first. After preflight, run_task initializes its report and continues execution. Preflight failure can leave an empty folder."
-      ]
-    },
-    {
-      "dot": "violet",
-      "title": "Two other entry paths",
-      "items": [
-        "example writes a new fixture task file. report validates saved-result rendering and writes a new bundle; neither runs providers."
+        "Maximum calls count configured provider candidates and possible pairwise judgments. The shared call limit is enforced during execution."
       ]
     }
   ]

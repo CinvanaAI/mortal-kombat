@@ -1,80 +1,101 @@
-# Mortal Kombat
+# Rubric Rumble
 
-Task-specific model evaluation.
+**Same task. Same rubric. Let the answers compete.**
 
-**Give candidate models the same task, compare what they return, and inspect why each one won or failed.**
+Which model actually does the job you care about? Rubric Rumble lets you give candidates the same examples, compare their answers, and open the judge's decision. It grew out of a model fight club inside our earlier system-building experiments. Sometimes the smaller contestant won. The interesting part was finding out why.
 
-Mortal Kombat turns a task, its examples, and a declared judging rule into a recorded tournament. You get the exact outputs, field checks or judge decisions, a final ranking, and usage-based cost estimates when the necessary evidence exists.
+This is a runnable experimental Python workbench with a desktop interface, four evaluation modes, and local reports. Formerly **Mortal Kombat**. [What changed](docs/RENAMING.md).
 
-Follow [how the whole system runs](https://cinvanaai.github.io/mortal-kombat/operations/) through task setup, provider execution, the tournament ladder, judging, and saved results. The guide includes six linked operational diagrams and a readable source map.
+| Take a look | What you will find |
+| --- | --- |
+| [Read two actual battles](https://cinvanaai.github.io/rubric-rumble/history/) | Every test input, all forty model answers, the rubric and the two recorded judge decisions |
+| [Follow the whole system](https://cinvanaai.github.io/rubric-rumble/operations/) | An explorable operating atlas, from discovering models to the saved result |
+| [Try the offline replay](https://cinvanaai.github.io/rubric-rumble/) | A small extraction task with fixed responses; inspect checks, failures and ladder changes in your browser |
+| [Open the sketchbook](docs/FUTURE-IDEAS.md) | Original characters, a selection screen and an animated fight driven by recorded outcomes: ideas we have not built yet |
 
-Read [two real model battles](https://cinvanaai.github.io/mortal-kombat/history/): **Gemma 3 27B beat DeepSeek V3.1 671B**, and **GPT-4.1 mini beat GPT-5 Chat**, according to GPT-5.4 judging the same ten-example transcript task and weighted rubric. Read every original answer and the judge's reasons, then follow the historical process diagram. These March 2026 records come from the evaluator inside Skeleton. [Methods and model context](docs/HISTORICAL-BATTLES.md).
+## A battle worth opening
 
-Explore the [offline fixture replay](https://cinvanaai.github.io/mortal-kombat/) to inspect the source, field checks, disqualification and ladder decisions before installing anything. For an offline replay, download or clone this repository, then open `demo/index.html` in a browser.
+On the same ten-example transcript task and weighted rubric, the recorded GPT-5.4 judge chose **Gemma 3 27B over DeepSeek V3.1 671B**, and **GPT-4.1 mini over GPT-5 Chat**. These are two particular whole-set judgments from March 2026.
 
-## Run your first evaluation
+Read the actual answers and decide what you make of the judgment. Each battle has one whole-set verdict, not ten individual scores. DeepSeek's 671B is its total parameter count, with 37B active per token; the comparison does not establish a compute or cost ratio. [Open the battles](https://cinvanaai.github.io/rubric-rumble/history/) · [Methods and context](docs/HISTORICAL-BATTLES.md).
 
-Python 3.11 or newer; the application uses only the standard library.
+## Run your first tournament
+
+You need Python 3.11 or newer. The application uses the standard library. Clone the repository below, or download and extract its ZIP and open a terminal in that folder.
 
 ```text
+git clone https://github.com/CinvanaAI/rubric-rumble.git
+cd rubric-rumble
 python -m pip install -e .
-mortal-kombat demo --out runs/first-run
+rubric-rumble demo --out runs/first-run
 ```
 
-Open `runs/first-run/report.html`. The complete machine-readable record is beside it in `result.json`.
+Open `runs/first-run/report.html`. It shows the original examples alongside the answers and decisions. The complete record is in `result.json` beside it.
 
-The first task extracts an owner and next action from two short source records. Three synthetic candidates supply complete JSON, JSON missing the owner, and plain text. The transparent rules judge produces:
+The starter uses three explicitly synthetic candidates on two owner/action examples:
 
-| Candidate | Exact fields | Result |
+| Candidate | Exact fields | Outcome |
 | --- | --- | --- |
 | complete-fixture | 4 of 4 | First |
 | missing-owner-fixture | 2 of 4 | Second |
 | malformed-fixture | 0 of 4 | Disqualified: not JSON |
 
-This is a real run of the evaluation workflow using fixed fixture responses. No model is called. The example shows correctness checks and failure handling; it is not a benchmark of real models. Fixture responses have no token bill, so their monetary cost is unavailable.
+This runs the actual evaluation workflow with fixed fixture responses and **zero model calls**. It demonstrates the mechanism. It is not another real-model benchmark, and fixture costs are unavailable.
 
-## Make the task yours
+A versioned Python wheel is also available in [Releases](https://github.com/CinvanaAI/rubric-rumble/releases/tag/v0.3.1). After downloading it, install the file with `python -m pip install path/to/the-downloaded.whl`. The same commands below then work.
 
-For a desktop interface, run `mortal-kombat gui`. Start with the offline task, or load a configured task file. Discover models from a connection, select candidates, preview calls, and save a run with readable results. [Workbench guide](docs/WORKBENCH.md).
+For the desktop interface, run:
 
 ```text
-mortal-kombat example my-task.json
-mortal-kombat run my-task.json
-mortal-kombat run my-task.json --execute --out runs/my-task
+rubric-rumble gui
 ```
 
-`example` writes a complete editable task. Change its source records, expected fields or supplied fixture responses. `run` alone validates it and prints the plan. `--execute` runs the chosen configuration. Every result uses a new output directory; existing runs are never overwritten.
+The workbench opens with the offline task. Python needs Tkinter and a graphical desktop; some Linux installations provide Tkinter separately. [Desktop walkthrough](docs/WORKBENCH.md).
 
-For real models, start with [the Ollama configuration](examples/ollama-task.json) or [the OpenAI configuration](examples/openai-task.json). Replace the two model placeholders with models available to your own setup. OpenAI credentials are read from the named environment variable, never from the task file. Configure any rates yourself; none are bundled as current prices.
+## Make it your experiment
 
-The rules judge works with real model responses too. For tasks without exact reference answers, [provider judging](docs/TASKS.md#provider-judging) uses a separately configured model and your rubric.
+Prepare a task in the desktop, or write an editable example:
 
-Use `--mode single` for one candidate, `--mode batch` to capture all selected candidates without a judge, `--mode battle` to compare exactly two, or the default `--mode tournament` for a ladder. [Connections and model discovery](docs/PROVIDERS.md).
+```text
+rubric-rumble example my-task.json
+rubric-rumble run my-task.json
+rubric-rumble run my-task.json --execute --out runs/my-task
+```
 
-## What you can inspect
+The middle command validates and previews. Execution is explicit, and every run uses a new output folder.
 
-- Each source artifact, the task instructions, and the exact rubric.
-- Every attempted candidate call and its captured text or bounded error.
-- Per-field expected/actual checks for the extraction rules judge.
-- Pairwise decisions, reasons, disqualifications, and the final ladder.
-- Provider-returned usage and separately labeled candidate/judge cost estimates.
-- The effective task configuration and its SHA-256 fingerprint.
+Configure your own [Ollama](examples/ollama-task.json) or [OpenAI-compatible](examples/openai-task.json) models. The workbench can list model IDs, explicitly probe a short text response, and extract model facts from documentation you supply. Credentials are read from named environment variables. [Connections](docs/PROVIDERS.md) · [Research](docs/MODEL-RESEARCH.md) · [Task format and judging](docs/TASKS.md).
 
-## How to read a result
+| Mode | What it does |
+| --- | --- |
+| Single | Capture one candidate's answers; no judge |
+| Batch | Capture all selected candidates sequentially; no judge |
+| Battle | Compare exactly two candidates across the example set |
+| Tournament | Build an insertion ladder from recorded comparisons |
 
-A ranking answers the question defined by your task and judge. Exact-field checks deliberately reward literal correctness. Provider judging depends on that judge's decisions. The ladder may not compare every possible pair; order and inconsistent judgments can affect the result. Tied rules scores use candidate ID order, explicitly recorded as a tie-break.
+Use `--mode single`, `--mode batch`, `--mode battle` or `--mode tournament` with `run`, or choose the mode in the desktop.
 
-Cost is displayed alongside the result. It does not silently decide the winner. Missing usage, missing rates, or unsupported cache-write pricing stays unavailable. The report is an estimate from returned usage and your dated rates, not a provider invoice or a measure of local hardware cost.
+## What a result means
 
-Each command run evaluates fresh responses. There is no cross-run cache in the application workflow. The lower-level library still supports caller-owned caching.
+You get the task, source examples, captured answers, field checks or judge reasons, failures, and available usage-based cost estimates. The insertion ladder may not compare every pair. Seed order and inconsistent judgments can affect the ranking. Exact-field ties use a recorded candidate-ID tie-break.
 
-## Library and development
+Cost is shown alongside quality evidence; it does not choose the winner. Estimates need provider-returned usage and your dated rates. Missing evidence stays unavailable. The call limit is not a dollar budget.
 
-Existing `prompt_tournament` imports and the original `prompt-tournament-demo` command remain available. See [the API](docs/API.md) for the full workflow and the small tournament core.
+Reports keep your input and model output locally, so review real-data runs before sharing. [Security and local output](SECURITY.md).
+
+## Where this stands
+
+The current release completes the prepare → run → inspect loop. The character roster, animated matches, resumed runs and learned routing are future possibilities. [Project status](docs/STATUS.md) separates current behavior, evidence and limits. [Related tools](docs/RELATED-TOOLS.md) compares the scope with Promptfoo, Not Diamond and Portkey.
+
+The tournament's history is part of the project: [where it came from](docs/ORIGIN.md), [what changed](CHANGELOG.md), and [what we wanted to try next](docs/FUTURE-IDEAS.md).
+
+## Build on it
+
+Own code is [MIT licensed](LICENSE.md). The Python distribution remains `prompt-tournament-engine`; existing `prompt_tournament` imports, `prompt-tournament-demo` and the earlier CLI alias continue to work. [Library API](docs/API.md) · [Names and compatibility](docs/RENAMING.md#names-you-may-see).
 
 ```text
 python -m pip install -e ".[test]"
 python -m pytest -q
 ```
 
-Tests use fixtures and injected transports. [Background](docs/ORIGIN.md) explains how the project grew. [MIT licensed](LICENSE.md); [security and local output](SECURITY.md).
+Tests use fixtures and injected transports. For a bug, include the version, chosen mode and a small synthetic task that reproduces it. Review any attached report for private material first. [Report an issue](https://github.com/CinvanaAI/rubric-rumble/issues).

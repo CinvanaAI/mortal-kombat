@@ -32,5 +32,7 @@
     "saved_result_reproduced_except_timestamps": true,
     "ladder_snapshots_observed": true,
     "network_calls": 0
-  }
+  },
+  "source_revision": "a8c714530e82e945b48aa939f4e14bb0bd26fa83",
+  "source_scope": "Source snapshot used for the recorded offline replay. The current application adds model preparation and capture modes; follow operations/ for the current source map."
 }

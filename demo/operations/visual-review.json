@@ -1,476 +1,159 @@
 {
-  "schema": "mortal-kombat.operations-visual-review.v1",
-  "status": "passed",
-  "review_scope": "Six static Archify sequence diagrams. Guide browser checks are a separate receipt. Twelve PNGs visually inspected; all 24 screenshots retained. No export or interactive viewer feature claim beyond captured READ/Still state.",
-  "diagrams": [
-    {
-      "name": "00-overview",
-      "diagram_type": "sequence",
-      "output": "00-overview.html",
-      "specification_sha256": "99b309788532d87107a571fc858a550856f5fce56a1e1d0ee589b8db1ee89583",
-      "artifact_sha256": "09a694c5ecb2fd0270b11f34b1788e4cafc9846568cd24a046fedb38803204e1",
-      "validation": {
-        "checksPassed": 9,
-        "checkCount": 9,
-        "compositionProfile": "showcase",
-        "compositionStatus": "pass",
-        "errors": 0,
-        "warnings": 0
-      },
-      "visual_check_receipt": "00-overview.visual-check.json",
-      "visual_review": "passed",
-      "inspected_screenshots": [
-        "00-overview.visual-check.1440x900.light.png",
-        "00-overview.visual-check.2048x1320.dark.png"
-      ],
-      "automated_capture_count": 4,
-      "desktop_viewports": [
-        {
-          "width": 1440,
-          "height": 900,
-          "theme": "light",
-          "innerWidth": 1440,
-          "innerHeight": 900,
-          "scrollWidth": 1440,
-          "scrollHeight": 900,
-          "overflowX": false,
-          "overflowY": false,
-          "ok": true,
-          "resolvedTheme": "light"
-        },
-        {
-          "width": 1600,
-          "height": 1000,
-          "theme": "light",
-          "innerWidth": 1600,
-          "innerHeight": 1000,
-          "scrollWidth": 1600,
-          "scrollHeight": 1000,
-          "overflowX": false,
-          "overflowY": false,
-          "ok": true,
-          "resolvedTheme": "light"
-        },
-        {
-          "width": 1920,
-          "height": 1080,
-          "theme": "light",
-          "innerWidth": 1920,
-          "innerHeight": 1080,
-          "scrollWidth": 1920,
-          "scrollHeight": 1080,
-          "overflowX": false,
-          "overflowY": false,
-          "ok": true,
-          "resolvedTheme": "light"
-        },
-        {
-          "width": 2048,
-          "height": 1320,
-          "theme": "light",
-          "innerWidth": 2048,
-          "innerHeight": 1320,
-          "scrollWidth": 2048,
-          "scrollHeight": 1320,
-          "overflowX": false,
-          "overflowY": false,
-          "ok": true,
-          "resolvedTheme": "light"
-        }
-      ],
-      "correction_rounds": 2,
-      "review_notes": "After one spacing round, one coordinated semantic correction round updated labels/order/cards. The final smallest/light and largest/dark PNGs were freshly inspected. Participant and timeline geometry remain readable and contained. No typography reduction or clipping."
-    },
-    {
-      "name": "01-setup",
-      "diagram_type": "sequence",
-      "output": "01-setup.html",
-      "specification_sha256": "137a5d81402567321e92f195d1c9347dbb416112551c272b1f7947f43420a230",
-      "artifact_sha256": "59c2bd940981207f25d3d3fbb795c7bc49bb14c53a34496e91c5cbd1dc6f4db0",
-      "validation": {
-        "checksPassed": 9,
-        "checkCount": 9,
-        "compositionProfile": "showcase",
-        "compositionStatus": "pass",
-        "errors": 0,
-        "warnings": 0
-      },
-      "visual_check_receipt": "01-setup.visual-check.json",
-      "visual_review": "passed",
-      "inspected_screenshots": [
-        "01-setup.visual-check.1440x900.light.png",
-        "01-setup.visual-check.2048x1320.dark.png"
-      ],
-      "automated_capture_count": 4,
-      "desktop_viewports": [
-        {
-          "width": 1440,
-          "height": 900,
-          "theme": "light",
-          "innerWidth": 1440,
-          "innerHeight": 900,
-          "scrollWidth": 1440,
-          "scrollHeight": 900,
-          "overflowX": false,
-          "overflowY": false,
-          "ok": true,
-          "resolvedTheme": "light"
-        },
-        {
-          "width": 1600,
-          "height": 1000,
-          "theme": "light",
-          "innerWidth": 1600,
-          "innerHeight": 1000,
-          "scrollWidth": 1600,
-          "scrollHeight": 1000,
-          "overflowX": false,
-          "overflowY": false,
-          "ok": true,
-          "resolvedTheme": "light"
-        },
-        {
-          "width": 1920,
-          "height": 1080,
-          "theme": "light",
-          "innerWidth": 1920,
-          "innerHeight": 1080,
-          "scrollWidth": 1920,
-          "scrollHeight": 1080,
-          "overflowX": false,
-          "overflowY": false,
-          "ok": true,
-          "resolvedTheme": "light"
-        },
-        {
-          "width": 2048,
-          "height": 1320,
-          "theme": "light",
-          "innerWidth": 2048,
-          "innerHeight": 1320,
-          "scrollWidth": 2048,
-          "scrollHeight": 1320,
-          "overflowX": false,
-          "overflowY": false,
-          "ok": true,
-          "resolvedTheme": "light"
-        }
-      ],
-      "correction_rounds": 2,
-      "review_notes": "After one spacing round, one coordinated semantic correction round updated labels/order/cards. The final smallest/light and largest/dark PNGs were freshly inspected. Participant and timeline geometry remain readable and contained. No typography reduction or clipping."
-    },
-    {
-      "name": "02-candidates",
-      "diagram_type": "sequence",
-      "output": "02-candidates.html",
-      "specification_sha256": "caf294258066573f93cc4e32e33f1d4fb8d9f9c369d238cbab6c660d155131b1",
-      "artifact_sha256": "9ccdc1485d91a91e0ce7f606f9dd38e9bec12d7e1fef6f4270e374080272c484",
-      "validation": {
-        "checksPassed": 9,
-        "checkCount": 9,
-        "compositionProfile": "showcase",
-        "compositionStatus": "pass",
-        "errors": 0,
-        "warnings": 0
-      },
-      "visual_check_receipt": "02-candidates.visual-check.json",
-      "visual_review": "passed",
-      "inspected_screenshots": [
-        "02-candidates.visual-check.1440x900.light.png",
-        "02-candidates.visual-check.2048x1320.dark.png"
-      ],
-      "automated_capture_count": 4,
-      "desktop_viewports": [
-        {
-          "width": 1440,
-          "height": 900,
-          "theme": "light",
-          "innerWidth": 1440,
-          "innerHeight": 900,
-          "scrollWidth": 1440,
-          "scrollHeight": 900,
-          "overflowX": false,
-          "overflowY": false,
-          "ok": true,
-          "resolvedTheme": "light"
-        },
-        {
-          "width": 1600,
-          "height": 1000,
-          "theme": "light",
-          "innerWidth": 1600,
-          "innerHeight": 1000,
-          "scrollWidth": 1600,
-          "scrollHeight": 1000,
-          "overflowX": false,
-          "overflowY": false,
-          "ok": true,
-          "resolvedTheme": "light"
-        },
-        {
-          "width": 1920,
-          "height": 1080,
-          "theme": "light",
-          "innerWidth": 1920,
-          "innerHeight": 1080,
-          "scrollWidth": 1920,
-          "scrollHeight": 1080,
-          "overflowX": false,
-          "overflowY": false,
-          "ok": true,
-          "resolvedTheme": "light"
-        },
-        {
-          "width": 2048,
-          "height": 1320,
-          "theme": "light",
-          "innerWidth": 2048,
-          "innerHeight": 1320,
-          "scrollWidth": 2048,
-          "scrollHeight": 1320,
-          "overflowX": false,
-          "overflowY": false,
-          "ok": true,
-          "resolvedTheme": "light"
-        }
-      ],
-      "correction_rounds": 2,
-      "review_notes": "After one spacing round, one coordinated semantic correction round updated labels/order/cards. The final smallest/light and largest/dark PNGs were freshly inspected. Participant and timeline geometry remain readable and contained. No typography reduction or clipping."
-    },
-    {
-      "name": "03-ladder",
-      "diagram_type": "sequence",
-      "output": "03-ladder.html",
-      "specification_sha256": "27b7f0cb23aa3f17d8b38b86e930cdf930143b2a0718b34e042b3c8397013b52",
-      "artifact_sha256": "d122324660b9e0466dcc273f7c6d812f430326ba94472e14443e65f93dff2486",
-      "validation": {
-        "checksPassed": 9,
-        "checkCount": 9,
-        "compositionProfile": "showcase",
-        "compositionStatus": "pass",
-        "errors": 0,
-        "warnings": 0
-      },
-      "visual_check_receipt": "03-ladder.visual-check.json",
-      "visual_review": "passed",
-      "inspected_screenshots": [
-        "03-ladder.visual-check.1440x900.light.png",
-        "03-ladder.visual-check.2048x1320.dark.png"
-      ],
-      "automated_capture_count": 4,
-      "desktop_viewports": [
-        {
-          "width": 1440,
-          "height": 900,
-          "theme": "light",
-          "innerWidth": 1440,
-          "innerHeight": 900,
-          "scrollWidth": 1440,
-          "scrollHeight": 900,
-          "overflowX": false,
-          "overflowY": false,
-          "ok": true,
-          "resolvedTheme": "light"
-        },
-        {
-          "width": 1600,
-          "height": 1000,
-          "theme": "light",
-          "innerWidth": 1600,
-          "innerHeight": 1000,
-          "scrollWidth": 1600,
-          "scrollHeight": 1000,
-          "overflowX": false,
-          "overflowY": false,
-          "ok": true,
-          "resolvedTheme": "light"
-        },
-        {
-          "width": 1920,
-          "height": 1080,
-          "theme": "light",
-          "innerWidth": 1920,
-          "innerHeight": 1080,
-          "scrollWidth": 1920,
-          "scrollHeight": 1080,
-          "overflowX": false,
-          "overflowY": false,
-          "ok": true,
-          "resolvedTheme": "light"
-        },
-        {
-          "width": 2048,
-          "height": 1320,
-          "theme": "light",
-          "innerWidth": 2048,
-          "innerHeight": 1320,
-          "scrollWidth": 2048,
-          "scrollHeight": 1320,
-          "overflowX": false,
-          "overflowY": false,
-          "ok": true,
-          "resolvedTheme": "light"
-        }
-      ],
-      "correction_rounds": 2,
-      "review_notes": "After one spacing round, one coordinated semantic correction round updated labels/order/cards. The final smallest/light and largest/dark PNGs were freshly inspected. Participant and timeline geometry remain readable and contained. No typography reduction or clipping."
-    },
-    {
-      "name": "04-judging",
-      "diagram_type": "sequence",
-      "output": "04-judging.html",
-      "specification_sha256": "f7028e4bc7a2f19457f2433c5436dff2ab9e4c12640ac3f0a4569b6ddf04fdc5",
-      "artifact_sha256": "d54b23d1976eeee40a257289838b53fffacef8a6dd80877131317de7e5473b7e",
-      "validation": {
-        "checksPassed": 9,
-        "checkCount": 9,
-        "compositionProfile": "showcase",
-        "compositionStatus": "pass",
-        "errors": 0,
-        "warnings": 0
-      },
-      "visual_check_receipt": "04-judging.visual-check.json",
-      "visual_review": "passed",
-      "inspected_screenshots": [
-        "04-judging.visual-check.1440x900.light.png",
-        "04-judging.visual-check.2048x1320.dark.png"
-      ],
-      "automated_capture_count": 4,
-      "desktop_viewports": [
-        {
-          "width": 1440,
-          "height": 900,
-          "theme": "light",
-          "innerWidth": 1440,
-          "innerHeight": 900,
-          "scrollWidth": 1440,
-          "scrollHeight": 900,
-          "overflowX": false,
-          "overflowY": false,
-          "ok": true,
-          "resolvedTheme": "light"
-        },
-        {
-          "width": 1600,
-          "height": 1000,
-          "theme": "light",
-          "innerWidth": 1600,
-          "innerHeight": 1000,
-          "scrollWidth": 1600,
-          "scrollHeight": 1000,
-          "overflowX": false,
-          "overflowY": false,
-          "ok": true,
-          "resolvedTheme": "light"
-        },
-        {
-          "width": 1920,
-          "height": 1080,
-          "theme": "light",
-          "innerWidth": 1920,
-          "innerHeight": 1080,
-          "scrollWidth": 1920,
-          "scrollHeight": 1080,
-          "overflowX": false,
-          "overflowY": false,
-          "ok": true,
-          "resolvedTheme": "light"
-        },
-        {
-          "width": 2048,
-          "height": 1320,
-          "theme": "light",
-          "innerWidth": 2048,
-          "innerHeight": 1320,
-          "scrollWidth": 2048,
-          "scrollHeight": 1320,
-          "overflowX": false,
-          "overflowY": false,
-          "ok": true,
-          "resolvedTheme": "light"
-        }
-      ],
-      "correction_rounds": 1,
-      "review_notes": "Inspected actual smallest/light and largest/dark PNGs. Timeline labels, direction, participant boxes, cards and legends remain visible; no desktop scrolling. Initial excess vertical whitespace was compacted in authored y spacing/viewBox without changing typography or clipping content."
-    },
-    {
-      "name": "05-evidence",
-      "diagram_type": "sequence",
-      "output": "05-evidence.html",
-      "specification_sha256": "1c24dc4114871489e78af0e7319ddadd545f7a74273c5c1d8ea4e2b367beb069",
-      "artifact_sha256": "f7619d1586f67392c3e0cf47a7253c2cb7258c369dfa23e5052c42f55e4eb225",
-      "validation": {
-        "checksPassed": 9,
-        "checkCount": 9,
-        "compositionProfile": "showcase",
-        "compositionStatus": "pass",
-        "errors": 0,
-        "warnings": 0
-      },
-      "visual_check_receipt": "05-evidence.visual-check.json",
-      "visual_review": "passed",
-      "inspected_screenshots": [
-        "05-evidence.visual-check.1440x900.light.png",
-        "05-evidence.visual-check.2048x1320.dark.png"
-      ],
-      "automated_capture_count": 4,
-      "desktop_viewports": [
-        {
-          "width": 1440,
-          "height": 900,
-          "theme": "light",
-          "innerWidth": 1440,
-          "innerHeight": 900,
-          "scrollWidth": 1440,
-          "scrollHeight": 900,
-          "overflowX": false,
-          "overflowY": false,
-          "ok": true,
-          "resolvedTheme": "light"
-        },
-        {
-          "width": 1600,
-          "height": 1000,
-          "theme": "light",
-          "innerWidth": 1600,
-          "innerHeight": 1000,
-          "scrollWidth": 1600,
-          "scrollHeight": 1000,
-          "overflowX": false,
-          "overflowY": false,
-          "ok": true,
-          "resolvedTheme": "light"
-        },
-        {
-          "width": 1920,
-          "height": 1080,
-          "theme": "light",
-          "innerWidth": 1920,
-          "innerHeight": 1080,
-          "scrollWidth": 1920,
-          "scrollHeight": 1080,
-          "overflowX": false,
-          "overflowY": false,
-          "ok": true,
-          "resolvedTheme": "light"
-        },
-        {
-          "width": 2048,
-          "height": 1320,
-          "theme": "light",
-          "innerWidth": 2048,
-          "innerHeight": 1320,
-          "scrollWidth": 2048,
-          "scrollHeight": 1320,
-          "overflowX": false,
-          "overflowY": false,
-          "ok": true,
-          "resolvedTheme": "light"
-        }
-      ],
-      "correction_rounds": 2,
-      "review_notes": "After one spacing round, one coordinated semantic correction round updated labels/order/cards. The final smallest/light and largest/dark PNGs were freshly inspected. Participant and timeline geometry remain readable and contained. No typography reduction or clipping."
-    }
+  "schema": "rubric-rumble.operating-atlas-review.v1",
+  "status": "reviewed",
+  "view_count": 11,
+  "diagram_type": "sequence",
+  "motion": "static",
+  "showcase": "9 of 9 checks per view; zero errors and warnings",
+  "desktop_viewports": [
+    [
+      1440,
+      900
+    ],
+    [
+      1600,
+      1000
+    ],
+    [
+      1920,
+      1080
+    ],
+    [
+      2048,
+      1320
+    ]
   ],
-  "semantic_corrections": "Five findings independently rechecked against current source; callback/ownership, preflight control flow, response-before-estimate ordering, zero/positive cache counts and possible all-pairs insertion clarified."
+  "desktop_containment_checks": 44,
+  "author_desktop_screens_inspected": 22,
+  "phone_viewport": [
+    390,
+    1000
+  ],
+  "phone_checks": "All 11 viewers render in both themes; top controls are visible and pages fit width. Wide diagrams use horizontal navigation.",
+  "phone_visual_review": "One captured phone image inspected per viewer; horizontal-wheel navigation inspected on the overview. A real-device touch gesture was not verified.",
+  "guide_checks": "74 combined browser checks passed, including guide links and fragments. Guide appearance inspected in light/dark at desktop/phone widths and four phone body sections.",
+  "behavioral_source_commit": "2eac2d8d95af56a62525c5ac86248e653d19a6ae",
+  "views": [
+    {
+      "html": "00-overview.html",
+      "specification": "00-overview.sequence.json",
+      "artifact_sha256": "e1996b528f51d0fa40908bd32a8296352cf8618036884c7955a3c3ffc5142b4b",
+      "specification_sha256": "3d5f34324f1a55bac1b4216e9048a1460896c03782bcc533df0d0d11a5563fbd",
+      "showcase_checks": 9,
+      "errors": 0,
+      "warnings": 0,
+      "desktop_containment": "passed",
+      "author_visual_review": "inspected at 1440x900 light and 2048x1320 dark"
+    },
+    {
+      "html": "01-setup.html",
+      "specification": "01-setup.sequence.json",
+      "artifact_sha256": "518af3d9e6ff05c138c3eebf947af3345548ffb55b533a02cbee3ec1a899dcf4",
+      "specification_sha256": "86a226cc6f062f407111f68f9874dbcf7c55dffe1fb0028e583de98631d7db9b",
+      "showcase_checks": 9,
+      "errors": 0,
+      "warnings": 0,
+      "desktop_containment": "passed",
+      "author_visual_review": "inspected at 1440x900 light and 2048x1320 dark"
+    },
+    {
+      "html": "02-candidates.html",
+      "specification": "02-candidates.sequence.json",
+      "artifact_sha256": "351c333319248339a39cc7eabc8ef2ad3ff479104f7f1c5401e4662a94eb8a83",
+      "specification_sha256": "4dc68add0b40612f741e0f8dcba02ae78e4ce2cce5cd2020a67b651359ee78c9",
+      "showcase_checks": 9,
+      "errors": 0,
+      "warnings": 0,
+      "desktop_containment": "passed",
+      "author_visual_review": "inspected at 1440x900 light and 2048x1320 dark"
+    },
+    {
+      "html": "03-ladder.html",
+      "specification": "03-ladder.sequence.json",
+      "artifact_sha256": "19636ad1c4f4a126f2e8a21c84de31ccd204653ba59b01519428f69f28e64e6b",
+      "specification_sha256": "5dc2b36b2ead8f45232aa7198974386ed1d20a12837b645e880a7d31469d69cd",
+      "showcase_checks": 9,
+      "errors": 0,
+      "warnings": 0,
+      "desktop_containment": "passed",
+      "author_visual_review": "inspected at 1440x900 light and 2048x1320 dark"
+    },
+    {
+      "html": "04-judging.html",
+      "specification": "04-judging.sequence.json",
+      "artifact_sha256": "e9cd15592073f10f267946f5f0f308a52eee0465bf5abf0eeafd00ca90cc2068",
+      "specification_sha256": "0325f1ffea76b5334bf02540b7d46c03d113f9785556b2468df9150cfb006378",
+      "showcase_checks": 9,
+      "errors": 0,
+      "warnings": 0,
+      "desktop_containment": "passed",
+      "author_visual_review": "inspected at 1440x900 light and 2048x1320 dark"
+    },
+    {
+      "html": "05-evidence.html",
+      "specification": "05-evidence.sequence.json",
+      "artifact_sha256": "ebebfa5a3ed0b5b6d28aae9e366346b777f7f51bfc252c425763002df385e935",
+      "specification_sha256": "9cd8679cea57e45aea4ee8b8fb60a17d2ad052079a8efeb5aeb8d61040271692",
+      "showcase_checks": 9,
+      "errors": 0,
+      "warnings": 0,
+      "desktop_containment": "passed",
+      "author_visual_review": "inspected at 1440x900 light and 2048x1320 dark"
+    },
+    {
+      "html": "06-inventory.html",
+      "specification": "06-inventory.sequence.json",
+      "artifact_sha256": "1c0998d6ab7ab7a672862f36d26eab7e525b9fa0a7ce904f902297495fca4d22",
+      "specification_sha256": "00b92e7f4dd3cf0f09384bf5e7474b0ce207bef04b16ce3a5b0713a43c5c716c",
+      "showcase_checks": 9,
+      "errors": 0,
+      "warnings": 0,
+      "desktop_containment": "passed",
+      "author_visual_review": "inspected at 1440x900 light and 2048x1320 dark"
+    },
+    {
+      "html": "07-probes.html",
+      "specification": "07-probes.sequence.json",
+      "artifact_sha256": "133224d4515afb45a583337efaed145b24ff4940db8c3627664e7e6440d9b0da",
+      "specification_sha256": "f151d565508762f8d9364ccc81cad17fac6f675059b601f34d43a19487a2e100",
+      "showcase_checks": 9,
+      "errors": 0,
+      "warnings": 0,
+      "desktop_containment": "passed",
+      "author_visual_review": "inspected at 1440x900 light and 2048x1320 dark"
+    },
+    {
+      "html": "08-research.html",
+      "specification": "08-research.sequence.json",
+      "artifact_sha256": "7e7363c4ba61a0b918e602cfa74b3efaed0256b3574d8c3ddde0d00f3ccb1a43",
+      "specification_sha256": "e0657904bbae2a3975300213bb67306856094c6f92648741d11ca9a3124a3158",
+      "showcase_checks": 9,
+      "errors": 0,
+      "warnings": 0,
+      "desktop_containment": "passed",
+      "author_visual_review": "inspected at 1440x900 light and 2048x1320 dark"
+    },
+    {
+      "html": "09-modes.html",
+      "specification": "09-modes.sequence.json",
+      "artifact_sha256": "030e5363e94c268327758389e4f06e39e94355d71609ac5468090c64a97b676e",
+      "specification_sha256": "5a2c4a6c7cf8efca4eea03a733e69d13fe363d944e7c26d24e8db7f5503a431b",
+      "showcase_checks": 9,
+      "errors": 0,
+      "warnings": 0,
+      "desktop_containment": "passed",
+      "author_visual_review": "inspected at 1440x900 light and 2048x1320 dark"
+    },
+    {
+      "html": "10-core-api.html",
+      "specification": "10-core-api.sequence.json",
+      "artifact_sha256": "7af7b194960db62a0db78e7314a35526fb8e59f2aaab1c9111a99fddf08097f8",
+      "specification_sha256": "22c08b8318bf53098d6fb39253982b62523c1ca14be1da6960986558bbce70b8",
+      "showcase_checks": 9,
+      "errors": 0,
+      "warnings": 0,
+      "desktop_containment": "passed",
+      "author_visual_review": "inspected at 1440x900 light and 2048x1320 dark"
+    }
+  ]
 }

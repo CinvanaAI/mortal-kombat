@@ -1,0 +1,137 @@
+{
+  "schema_version": 1,
+  "diagram_type": "sequence",
+  "meta": {
+    "title": "Rubric Rumble: choose capture or judged comparison",
+    "quality_profile": "showcase",
+    "animation": "none",
+    "column_fit": "spread",
+    "viewBox": [
+      1000,
+      520
+    ]
+  },
+  "participants": [
+    {
+      "id": "rr-modes-entry",
+      "type": "frontend",
+      "label": "Selected task"
+    },
+    {
+      "id": "rr-modes-check",
+      "type": "security",
+      "label": "Mode validation"
+    },
+    {
+      "id": "rr-modes-run",
+      "type": "backend",
+      "label": "Run workflow"
+    },
+    {
+      "id": "rr-modes-capture",
+      "type": "backend",
+      "label": "Capture / evaluate"
+    },
+    {
+      "id": "rr-modes-core",
+      "type": "backend",
+      "label": "Tournament core"
+    },
+    {
+      "id": "rr-modes-result",
+      "type": "database",
+      "label": "Result evidence"
+    }
+  ],
+  "messages": [
+    {
+      "id": "rr-09-modes-1",
+      "from": "rr-modes-entry",
+      "to": "rr-modes-check",
+      "label": "Single / Batch / Battle / Tournament",
+      "y": 160.0
+    },
+    {
+      "id": "rr-09-modes-2",
+      "from": "rr-modes-check",
+      "to": "rr-modes-entry",
+      "label": "Require counts: 1 / at least 1 / 2 / at least 2",
+      "y": 190.0,
+      "variant": "security"
+    },
+    {
+      "id": "rr-09-modes-3",
+      "from": "rr-modes-check",
+      "to": "rr-modes-run",
+      "label": "Validated candidates and examples",
+      "y": 220.0
+    },
+    {
+      "id": "rr-09-modes-4",
+      "from": "rr-modes-run",
+      "to": "rr-modes-capture",
+      "label": "Single or Batch: each requested candidate/artifact",
+      "y": 250.0
+    },
+    {
+      "id": "rr-09-modes-5",
+      "from": "rr-modes-capture",
+      "to": "rr-modes-result",
+      "label": "Each response / failure; no assessment or ranking",
+      "y": 280.0
+    },
+    {
+      "id": "rr-09-modes-6",
+      "from": "rr-modes-run",
+      "to": "rr-modes-core",
+      "label": "Battle or Tournament: evaluate callback + judge",
+      "y": 310.0
+    },
+    {
+      "id": "rr-09-modes-7",
+      "from": "rr-modes-core",
+      "to": "rr-modes-capture",
+      "label": "Evaluate candidates before insertion",
+      "y": 340.0
+    },
+    {
+      "id": "rr-09-modes-8",
+      "from": "rr-modes-capture",
+      "to": "rr-modes-core",
+      "label": "Text returns; core builds complete views",
+      "y": 370.0,
+      "variant": "return"
+    },
+    {
+      "id": "rr-09-modes-9",
+      "from": "rr-modes-core",
+      "to": "rr-modes-result",
+      "label": "Ranking, disqualifications and valid comparisons",
+      "y": 400.0
+    },
+    {
+      "id": "rr-09-modes-10",
+      "from": "rr-modes-result",
+      "to": "rr-modes-entry",
+      "label": "Capture status OR judged outcome + evidence",
+      "y": 430.0,
+      "variant": "return"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "One task format, four different jobs",
+      "items": [
+        "Capture modes need no judging rubric or judge. Judged modes require configured rules or a provider judge. A two-candidate Battle may have no comparison if evaluation disqualifies a candidate."
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "No silent candidate selection",
+      "items": [
+        "Desktop selection defines the copied task; CLI uses the candidates listed in the file. Batch runs sequentially and is not a provider\u2019s discounted Batch API."
+      ]
+    }
+  ]
+}

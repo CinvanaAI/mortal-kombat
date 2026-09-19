@@ -2,152 +2,156 @@
   "schema_version": 1,
   "diagram_type": "sequence",
   "meta": {
-    "title": "02 — Gather candidate outputs before judging the ladder",
+    "title": "Rubric Rumble: resolve one candidate answer",
     "quality_profile": "showcase",
     "animation": "none",
     "column_fit": "spread",
     "viewBox": [
-      1320,
-      600
+      1000,
+      567
     ]
   },
   "participants": [
     {
-      "id": "core",
+      "id": "rr-candidates-driver",
       "type": "backend",
-      "label": "Tournament core"
+      "label": "Mode driver"
     },
     {
-      "id": "eval",
+      "id": "rr-candidates-evaluate",
       "type": "backend",
-      "label": "evaluate callback"
+      "label": "evaluate"
     },
     {
-      "id": "call",
+      "id": "rr-candidates-call",
       "type": "backend",
-      "label": "Call executor"
+      "label": "execute"
     },
     {
-      "id": "provider",
-      "type": "cloud",
-      "label": "Fixture / provider"
-    },
-    {
-      "id": "record",
+      "id": "rr-candidates-ledger",
       "type": "database",
-      "label": "Run evidence"
+      "label": "Call ledger"
+    },
+    {
+      "id": "rr-candidates-provider",
+      "type": "cloud",
+      "label": "Provider"
+    },
+    {
+      "id": "rr-candidates-assess",
+      "type": "security",
+      "label": "Rules check"
+    },
+    {
+      "id": "rr-candidates-owner",
+      "type": "backend",
+      "label": "Driver / core"
     }
   ],
   "messages": [
     {
-      "id": "m-02-candidates-0",
-      "from": "core",
-      "to": "eval",
-      "label": "For each seeded candidate, then each artifact",
+      "id": "rr-02-candidates-1",
+      "from": "rr-candidates-driver",
+      "to": "rr-candidates-evaluate",
+      "label": "Candidate + one source artifact",
       "y": 160
     },
     {
-      "id": "m-02-candidates-1",
-      "from": "eval",
-      "to": "call",
-      "label": "Instructions + this source artifact",
-      "y": 188
+      "id": "rr-02-candidates-2",
+      "from": "rr-candidates-evaluate",
+      "to": "rr-candidates-call",
+      "label": "Instructions + source; append started record",
+      "y": 189
     },
     {
-      "id": "m-02-candidates-2",
-      "from": "call",
-      "to": "record",
-      "label": "Append a started call before execution",
-      "y": 216
+      "id": "rr-02-candidates-3",
+      "from": "rr-candidates-call",
+      "to": "rr-candidates-ledger",
+      "label": "Fixture route OR permitted provider attempt",
+      "y": 218
     },
     {
-      "id": "m-02-candidates-3",
-      "from": "call",
-      "to": "provider",
-      "label": "Fixture text OR bounded provider request",
-      "y": 244
+      "id": "rr-02-candidates-4",
+      "from": "rr-candidates-call",
+      "to": "rr-candidates-provider",
+      "label": "Configured endpoint: one generation request",
+      "y": 247
     },
     {
-      "id": "m-02-candidates-4",
-      "from": "provider",
-      "to": "call",
-      "label": "Text, completion flag and returned usage",
-      "y": 272,
+      "id": "rr-02-candidates-5",
+      "from": "rr-candidates-provider",
+      "to": "rr-candidates-call",
+      "label": "Text + normalized usage + completion state",
+      "y": 276,
       "variant": "return"
     },
     {
-      "id": "m-02-candidates-5",
-      "from": "call",
-      "to": "record",
-      "label": "Copy response first; then compute its estimate",
-      "y": 300
+      "id": "rr-02-candidates-6",
+      "from": "rr-candidates-call",
+      "to": "rr-candidates-ledger",
+      "label": "Retain response first; then estimated cost",
+      "y": 305
     },
     {
-      "id": "m-02-candidates-6",
-      "from": "call",
-      "to": "eval",
-      "label": "Require complete, nonempty text",
-      "y": 328,
-      "variant": "return"
-    },
-    {
-      "id": "m-02-candidates-7",
-      "from": "eval",
-      "to": "record",
-      "label": "Rules mode: record exact-field assessment",
-      "y": 356
-    },
-    {
-      "id": "m-02-candidates-8",
-      "from": "eval",
-      "to": "core",
-      "label": "Return answer text for this artifact",
-      "y": 384,
-      "variant": "return"
-    },
-    {
-      "id": "m-02-candidates-9",
-      "from": "core",
-      "to": "eval",
-      "label": "Continue across all remaining artifacts",
-      "y": 412
-    },
-    {
-      "id": "m-02-candidates-10",
-      "from": "eval",
-      "to": "core",
-      "label": "Any candidate failure: DQ; skip its rest",
-      "y": 440,
+      "id": "rr-02-candidates-7",
+      "from": "rr-candidates-call",
+      "to": "rr-candidates-ledger",
+      "label": "Incomplete / empty text becomes failed call",
+      "y": 334,
       "variant": "security"
     },
     {
-      "id": "m-02-candidates-11",
-      "from": "core",
-      "to": "eval",
-      "label": "Next candidate can still be evaluated",
-      "y": 468
+      "id": "rr-02-candidates-8",
+      "from": "rr-candidates-call",
+      "to": "rr-candidates-evaluate",
+      "label": "Return complete nonempty text, or raise",
+      "y": 363,
+      "variant": "return"
+    },
+    {
+      "id": "rr-02-candidates-9",
+      "from": "rr-candidates-evaluate",
+      "to": "rr-candidates-assess",
+      "label": "Judged rules mode: compare expected fields",
+      "y": 392
+    },
+    {
+      "id": "rr-02-candidates-10",
+      "from": "rr-candidates-assess",
+      "to": "rr-candidates-evaluate",
+      "label": "Assessment; invalid JSON object disqualifies",
+      "y": 421,
+      "variant": "return"
+    },
+    {
+      "id": "rr-02-candidates-11",
+      "from": "rr-candidates-evaluate",
+      "to": "rr-candidates-ledger",
+      "label": "Append captured output and assessment",
+      "y": 450
+    },
+    {
+      "id": "rr-02-candidates-12",
+      "from": "rr-candidates-evaluate",
+      "to": "rr-candidates-owner",
+      "label": "Return answer text; core constructs its view",
+      "y": 479,
+      "variant": "return"
     }
   ],
   "cards": [
     {
       "dot": "cyan",
-      "title": "Three execution routes",
+      "title": "Same inputs, different drivers",
       "items": [
-        "Fixture returns configured text. OpenAI POST /responses uses store:false. Ollama POST /api/chat uses stream:false."
+        "Single/Batch request every selected candidate/artifact. Battle/Tournament ask the core to evaluate candidates before any insertion comparisons."
       ]
     },
     {
-      "dot": "amber",
-      "title": "No automatic retry",
+      "dot": "rose",
+      "title": "Failure scope matters",
       "items": [
-        "max_calls gates attempted provider calls; no retry or discovery. HTTP failures, empty/incomplete output and invalid rules JSON can disqualify."
-      ]
-    },
-    {
-      "dot": "violet",
-      "title": "Core-owned cache and views",
-      "items": [
-        "The core caches successful text and builds CandidateViews internally. CLI uses a fresh cache; library callers may supply one. Invalid rules output stays in evidence, uncached."
+        "In judged modes a candidate evaluation failure skips its remaining artifacts. Capture modes continue to the next requested artifact; assessment is null."
       ]
     }
   ]

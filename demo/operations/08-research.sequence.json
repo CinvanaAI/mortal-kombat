@@ -1,0 +1,125 @@
+{
+  "schema_version": 1,
+  "diagram_type": "sequence",
+  "meta": {
+    "title": "Rubric Rumble: extract model facts from supplied documentation",
+    "quality_profile": "showcase",
+    "animation": "none",
+    "column_fit": "spread",
+    "viewBox": [
+      1000,
+      520
+    ]
+  },
+  "participants": [
+    {
+      "id": "rr-research-editor",
+      "type": "frontend",
+      "label": "Research tab / API"
+    },
+    {
+      "id": "rr-research-storage",
+      "type": "database",
+      "label": "Research evidence"
+    },
+    {
+      "id": "rr-research-research",
+      "type": "backend",
+      "label": "research_model"
+    },
+    {
+      "id": "rr-research-provider",
+      "type": "cloud",
+      "label": "Researcher model"
+    },
+    {
+      "id": "rr-research-quotes",
+      "type": "security",
+      "label": "Quote validation"
+    }
+  ],
+  "messages": [
+    {
+      "id": "rr-08-research-1",
+      "from": "rr-research-editor",
+      "to": "rr-research-storage",
+      "label": "Desktop explicit request: reserve output first",
+      "y": 160.0
+    },
+    {
+      "id": "rr-08-research-2",
+      "from": "rr-research-editor",
+      "to": "rr-research-research",
+      "label": "Supply text; URL is provenance, not fetched",
+      "y": 193.75
+    },
+    {
+      "id": "rr-08-research-3",
+      "from": "rr-research-research",
+      "to": "rr-research-quotes",
+      "label": "Validate input, model settings and size limits",
+      "y": 227.5
+    },
+    {
+      "id": "rr-08-research-4",
+      "from": "rr-research-research",
+      "to": "rr-research-provider",
+      "label": "One extraction request to researcher",
+      "y": 261.25
+    },
+    {
+      "id": "rr-08-research-5",
+      "from": "rr-research-provider",
+      "to": "rr-research-research",
+      "label": "Complete nonempty response and usage",
+      "y": 295.0,
+      "variant": "return"
+    },
+    {
+      "id": "rr-08-research-6",
+      "from": "rr-research-research",
+      "to": "rr-research-quotes",
+      "label": "Strict JSON; target identity; field types",
+      "y": 328.75
+    },
+    {
+      "id": "rr-08-research-7",
+      "from": "rr-research-quotes",
+      "to": "rr-research-research",
+      "label": "Known facts require source quotes; unknowns null",
+      "y": 362.5,
+      "variant": "return"
+    },
+    {
+      "id": "rr-08-research-8",
+      "from": "rr-research-research",
+      "to": "rr-research-editor",
+      "label": "Catalog + source hash + researcher receipt",
+      "y": 396.25,
+      "variant": "return"
+    },
+    {
+      "id": "rr-08-research-9",
+      "from": "rr-research-editor",
+      "to": "rr-research-storage",
+      "label": "Save model-research.json; show supported limits",
+      "y": 430.0
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Researcher and target are different roles",
+      "items": [
+        "Only the configured researcher model is called. The target ID is what the supplied document is about; this operation does not probe the target."
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "Textual provenance still needs judgment",
+      "items": [
+        "Quotes establish textual provenance, not correctness. Review aliases; task limits are not auto-edited. Recording time is not document publication time."
+      ]
+    }
+  ]
+}

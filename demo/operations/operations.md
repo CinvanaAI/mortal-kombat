@@ -1,143 +1,186 @@
-# How Mortal Kombat operates
+# Rubric Rumble: how the whole system runs
 
-Give several candidates the same task, keep their answers, compare the saved answers, and build a ladder whose decisions can be inspected.
+A source-linked atlas of the desktop/CLI workflow, preparation actions, capture and comparison modes, and saved evidence.
 
-This guide maps the standalone tournament branch, with source links pinned to the reviewed core snapshot. The recorded extraction example is synthetic. For original provider responses and judge decisions, read the [two historical model battles](../history/) and their companion flow. Those records come from the archived evaluator, whose execution path differs from this standalone workflow. Sequence views show order and responsibility; conditional labels describe alternative paths, not steps every run takes.
+Behavioral source basis: `2eac2d8d95af56a62525c5ac86248e653d19a6ae`. Public branding uses Rubric Rumble; retained compatibility identifiers are called out below. Report presentation follows the current source; behavior links are pinned to the reviewed snapshot.
 
-Source snapshot: `a8c714530e82e945b48aa939f4e14bb0bd26fa83`. [Open the complete operating path](00-overview.html).
+[Open the complete operating map](00-overview.html) · [Offline replay](../) · [Historical battles](../history/)
 
-## Start in the desktop workbench
+## Start with the job you want to do
 
-Run `mortal-kombat gui` to prepare a task: configure connections, discover model IDs, inspect documented model facts and explicitly probe a selected model for a short text response. Research uses documentation you supply and preserves source quotes. Discovery, sourced claims and observed responses remain separate evidence.
+[Open the sequence](00-overview.html) · [Editable JSON](00-overview.sequence.json)
 
-Single and Batch capture answers without a judge or ranking. Battle compares exactly two candidates; Tournament uses the ladder explained below. The provider adapter supports both OpenAI Responses and an explicitly selected Chat Completions endpoint, plus Ollama chat. [Workbench controls](https://github.com/CinvanaAI/mortal-kombat/blob/main/docs/WORKBENCH.md) · [Model preparation](https://github.com/CinvanaAI/mortal-kombat/blob/main/docs/PROVIDERS.md).
+Rubric Rumble is a local desktop and command-line workbench for collecting model answers and comparing them against a task. Open `rubric-rumble gui` to load the offline starter task or a saved JSON task. The Task, Connections & candidates, Examples, Judge & rubric, Model research, and Run & results tabs describe different parts of that work.
 
-## 01. Define the job, then choose whether to execute
+The complete path is: choose candidates and examples, select an execution mode, validate and preview the request ceiling, explicitly execute, then inspect the saved results. Model discovery, greeting probes, and documented-capability research are optional preparation actions you invoke separately. They do not run just because the workbench opens.
 
-A task file is the experiment contract. Planning validates that contract; execution is a separate step.
+The desktop keeps network work on a worker thread and reports results on the Tk thread. Editing and previewing do not call models. Its copied preview fixes the selected task and mode; changing either requires a new preview. The CLI exposes the same task workflow without opening a desktop.
 
-[Open sequence view](01-setup.html)
+The diagrams show call and data ownership from top to bottom. Conditional labels describe alternatives, not instructions to perform every branch. The text below gives the exact boundary for each view. On narrow screens, use the diagram canvas pan and zoom controls; the guide itself reads as a normal page.
 
-The JSON task supplies instructions, source artifacts, candidate configurations, a rubric, and a judge. Rules judging requires an expected string value for every rubric field in every artifact. Provider judging receives a written rubric instead. The validator checks supported fields, unique artifact/candidate/judge IDs, provider references, URLs, token limits, optional rate records, and the provider-call limit.
+Source: [Workbench](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/workbench.py#L150) · [_preview](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/workbench.py#L669) · [_run](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/workbench.py#L687) · [main](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/workflow_cli.py#L19)
 
-`mortal-kombat run task.json` validates and prints a plan without calling providers or writing a result. The plan reports candidate/artifact counts, whether network access is needed, the configured call limit, a normalized task hash, and upper bounds: live candidates × artifacts, plus at most n(n−1)/2 judge calls in provider-judge mode. This is a call-count ceiling, not a dollar quote.
+## Find the models a connection actually lists
 
-`run ... --execute --out new-folder` reserves a new output directory, then calls the workflow with network permission. `demo --out new-folder` uses the packaged fixture offline. The workflow validates again and resolves every required candidate and judge environment variable before its first provider call. Missing keys stop preflight. Because the CLI has already reserved the folder, that failure can leave an empty directory with no result bundle.
+[Open the sequence](06-inventory.html) · [Editable JSON](06-inventory.sequence.json)
 
-| Command | Effect |
-| --- | --- |
-| `example task.json` | Write a complete editable fixture task; reject an existing file. |
-| `run task.json` | Validate and print the plan; no execution. |
-| `run task.json --execute --out new-folder` | Execute the configured task, including explicit network routes. |
-| `demo --out new-folder` | Run the offline fixture through the same workflow. |
-| `report result.json --out new-report` | Render previously saved evidence; no candidate or judge execution. |
+Save a named connection with its protocol, base URL, generation endpoint, and API-key **environment variable name**. The adapter reads that named environment value when explicitly invoked. It does not load credential files. OpenAI-compatible connections use HTTPS; loopback HTTP is allowed for local endpoints such as Ollama.
 
-Source: [CLI dispatch and output reservation](https://github.com/CinvanaAI/mortal-kombat/blob/a8c714530e82e945b48aa939f4e14bb0bd26fa83/src/prompt_tournament/workflow_cli.py#L16) · [validate_task](https://github.com/CinvanaAI/mortal-kombat/blob/a8c714530e82e945b48aa939f4e14bb0bd26fa83/src/prompt_tournament/task.py#L26) · [plan_task](https://github.com/CinvanaAI/mortal-kombat/blob/a8c714530e82e945b48aa939f4e14bb0bd26fa83/src/prompt_tournament/task.py#L129) · [run_task preflight](https://github.com/CinvanaAI/mortal-kombat/blob/a8c714530e82e945b48aa939f4e14bb0bd26fa83/src/prompt_tournament/workflow.py#L70)
+**Discover models** makes one GET request: `/models` for an OpenAI-compatible connection or `/api/tags` for Ollama. The adapter rejects malformed lists, validates every ID, and returns sorted unique identifiers. The CLI equivalent is `rubric-rumble models task.json --provider connection-name`.
 
-## 02. Collect each candidate’s answers across the artifacts
+Choose listed IDs to add candidates, or choose exactly one as a provider judge. A known manual ID can also be added or used as judge when model listing is unavailable. Editing the saved connection that produced the visible list clears that old list.
 
-The tournament core drives evaluation. The workflow supplies the candidate/provider callback and records the evidence.
+A listed ID means the connection exposed it. It does not establish text generation, a supported endpoint, token limits, task quality, or continued availability. Discovery does not launch greetings, research, retries, or a tournament.
 
-[Open sequence view](02-candidates.html)
+Source: [_connection](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/providers.py#L60) · [list_models](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/providers.py#L102) · [_save_connection](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/workbench.py#L495) · [_add_models](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/workbench.py#L522)
 
-The core first establishes a seed order, then loops through candidates. For each candidate it visits the artifacts in task order. The evaluation callback combines the task instructions with one source artifact, adds a started call record, and either reads that artifact’s fixture response or invokes the configured provider. This is sequential work; there is no parallel model race.
+## Observe a short response before running a larger task
 
-The OpenAI adapter appends `/responses` to the configured base URL and sends a non-streaming request with `store: false` and the output-token limit. The Ollama adapter appends `/api/chat`, sets `stream: false`, and supplies `num_predict`. Keys come from named environment variables. The transport refuses redirects, applies the configured timeout and an 8 MB response limit, and requires a JSON-object response. There is no automatic retry or model discovery.
+[Open the sequence](07-probes.html) · [Editable JSON](07-probes.sequence.json)
 
-The executor first copies returned text, normalized/raw token usage, available response/model IDs and completion state into the call record. It then calculates and stores the cost estimate, before checking completion and output text. Incomplete or empty output fails the call. In rules mode, a non-object or invalid JSON answer disqualifies the candidate; its remaining artifacts are skipped. The next candidate can still run. A syntactically valid JSON object with missing or wrong fields instead receives fewer points.
+Select one or more discovered models and choose **Probe selected**. Its preview gives the exact request count: one request for each selected model, run sequentially. After explicit confirmation, each request uses `Reply with exactly: hi` and an output ceiling of 32 tokens. Discovery alone never sends that prompt.
 
-The callback returns answer text for one artifact. The core caches successful text and constructs each complete CandidateView internally; it does not export that object to the workflow’s call ledger. Every candidate’s evaluation phase finishes before the ladder begins. Battles reuse these captured views; they do not ask candidates to answer again. The application creates a fresh in-memory cache per run. The lower-level core accepts a caller-supplied cache, but the CLI does not persist or resume one.
+The CLI accepts repeated candidate IDs: `rubric-rumble probe task.json --candidate first --candidate second`. This prints a plan. Add `--execute --out new-probes` to execute, after the required key checks and a new output directory are reserved.
 
-| What failed? | Recorded meaning |
-| --- | --- |
-| Transport, empty text, or incomplete response | Call status is failed; the candidate is disqualified. |
-| Rules assessment rejects returned JSON | Call may be completed, while the output assessment is invalid and the candidate is disqualified. |
-| Valid object has wrong or missing fields | Candidate remains eligible; exact-field score is lower. |
+Every observation has its own status: `text-response`, `empty`, `incomplete`, or `failed`. A nonempty completed response qualifies as text-response even if it does not literally say “hi”. The adapter keeps an exact output prefix of at most 4096 characters and marks truncation. Returned token usage and completion metadata remain visible.
 
-Source: [run_tournament evaluation phase](https://github.com/CinvanaAI/mortal-kombat/blob/a8c714530e82e945b48aa939f4e14bb0bd26fa83/src/prompt_tournament/engine.py#L205) · [execute and evaluate callbacks](https://github.com/CinvanaAI/mortal-kombat/blob/a8c714530e82e945b48aa939f4e14bb0bd26fa83/src/prompt_tournament/workflow.py#L94) · [call_provider](https://github.com/CinvanaAI/mortal-kombat/blob/a8c714530e82e945b48aa939f4e14bb0bd26fa83/src/prompt_tournament/providers.py#L77) · [HTTP transport](https://github.com/CinvanaAI/mortal-kombat/blob/a8c714530e82e945b48aa939f4e14bb0bd26fa83/src/prompt_tournament/providers.py#L28)
+The desktop writes separate `probe-NNNN.json` records with the model, connection, endpoint and recording time. The CLI updates `probes.json` after each observation. A failed greeting does not cancel the remaining selected probes. These records show what happened to those requests; they are not a general capability certificate.
 
-## 03. Insert surviving candidates into a ranked ladder
+Source: [probe_model](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/providers.py#L184) · [execute_probes](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/workbench.py#L109) · [_probe](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/workbench.py#L569) · [main](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/workflow_cli.py#L19)
 
-Initial seed order decides who is considered first. Pairwise judgments determine where each survivor lands.
+## Keep documented facts separate from observed behavior
 
-[Open sequence view](03-ladder.html)
+[Open the sequence](08-research.html) · [Editable JSON](08-research.sequence.json)
 
-The application seeds candidates by provider name and candidate ID, case-insensitively. It passes neither rate costs nor a prior ranking into the core. The reusable core also supports prior-ranking seeds and explicit model costs: known active ranks first, new candidates next, previously disqualified candidates last; newly priced candidates sort by descending input-plus-output unit cost before unpriced candidates. Those optional core inputs are not part of this task CLI.
+In **Model research**, provide a target model ID, a researcher connection and model, an official source URL, and the documentation text to inspect. The URL records provenance; this module does not fetch it or browse for sources. The target is the subject of the document. Only the configured researcher model receives the generation request.
 
-The first surviving candidate becomes the ladder’s first entry without a battle. For each later survivor, the insertion loop begins at ladder position 0. A is always the candidate being inserted; B is the incumbent at the current position. The judge receives both candidates’ complete saved output sets. Each valid comparison produces one battle record, and its outcome changes the ladder as shown below.
+After the one-request preview is accepted, the desktop reserves a new evidence file before calling the researcher. The module validates the supplied text and settings, then asks for context-window tokens, maximum output tokens, input modalities and output modalities. Unknown values must remain null. Source text is limited to 400 KB and returned research text to 200 KB.
 
-This is an insertion tournament. It compares pairs as insertion requires, which can include every pair in the worst case. It does not repeat judgments for confidence or validate that a judge’s preferences are transitive. Different seed orders or inconsistent judgments can affect the result. Disqualified entries appear separately; their appended numbers in `current_ranking` are status positions, not quality ranks.
+A complete nonempty response must be one strict JSON object. Duplicate keys, unsupported fields, invalid values and unsupported modality labels fail validation. The target identity needs a source quote, and every non-null fact needs a verbatim supporting quote present in the supplied text.
 
-| Judge outcome | Ladder action |
-| --- | --- |
-| `model_a_better` | Insert A immediately before B; finish this candidate. |
-| `model_b_better` | Advance one position. If A reaches the end, append it. |
-| `model_a_disqualified` | Drop A; finish this candidate. |
-| `model_b_disqualified` | Remove B; compare A at the same position against the next incumbent. |
-| `both_disqualified` | Remove both A and B; finish this candidate. |
+The returned record keeps the supplied source and hash, quoted evidence, unknowns, researcher usage, raw response and target-association flag. Literal quotes prove textual provenance; they do not prove the model interpreted the quote correctly. An alias association remains visible for operator review. The timestamp records this receipt, not document publication.
 
-Source: [seed_models](https://github.com/CinvanaAI/mortal-kombat/blob/a8c714530e82e945b48aa939f4e14bb0bd26fa83/src/prompt_tournament/engine.py#L144) · [optional cost seed ordering](https://github.com/CinvanaAI/mortal-kombat/blob/a8c714530e82e945b48aa939f4e14bb0bd26fa83/src/prompt_tournament/engine.py#L183) · [insertion and five outcome branches](https://github.com/CinvanaAI/mortal-kombat/blob/a8c714530e82e945b48aa939f4e14bb0bd26fa83/src/prompt_tournament/engine.py#L264) · [application ModelRef construction](https://github.com/CinvanaAI/mortal-kombat/blob/a8c714530e82e945b48aa939f4e14bb0bd26fa83/src/prompt_tournament/workflow.py#L157)
+The desktop saves `model-research.json` and shows the supported limits above the underlying evidence. It does not silently update candidate limits or test the target. On a research failure the desktop wrapper retains a sanitized failure record; the return-only API itself does not write files.
 
-## 04. Choose the judge and understand the failure boundary
+Source: [research_model](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/model_research.py#L127) · [_parse_response](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/model_research.py#L71) · [execute_research](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/workbench.py#L87) · [_start_research](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/workbench.py#L379)
 
-Rules and provider judging are alternative modes. A candidate disqualification and a failed judging run have different consequences.
+## Validate a task, preview the request ceiling, then run
 
-[Open sequence view](04-judging.html)
+[Open the sequence](01-setup.html) · [Editable JSON](01-setup.sequence.json)
 
-The rules judge sums exact, case-sensitive field matches across all artifacts. Each present string equal to the expected string earns one point; extra fields earn none. Higher total wins. Equal totals use the lexically smaller candidate ID and explicitly report a deterministic tie-break, not a quality difference. This proves behavior on the chosen extraction cases; it is not a general measure of model quality.
+A task supplies instructions, source artifacts, candidate configurations, named connections, and a maximum provider-call count. Judged modes also require rules or a provider judge and a rubric. The validator rejects unsupported configuration fields, duplicate identities, invalid model counts, missing fixture outputs and malformed rates before execution.
 
-A provider judge receives the instructions, rubric, every source artifact, and labeled A/B outputs. Its prompt requests one of the five documented winner values, a reason, and optional confidence. The workflow requires a JSON object, a nonempty string reason, and confidence that is omitted/null or a finite number from 0 to 1. It rejects booleans, strings, nonfinite values and invalid winners. This stricter workflow boundary is separate from the legacy core parser API.
+A rules rubric lists exact field names, and every artifact must supply expected string values for those fields. A provider rubric is written comparison criteria sent with the full example set. Include desired weighting and tie-break instructions in that text; the program does not fabricate category scores.
 
-An exception from candidate evaluation removes that candidate and allows the tournament to proceed. A judge call failure or malformed decision instead propagates out of the core. The workflow returns status `failed`, keeps earlier call/output/decision evidence, and has no returned tournament object or ranking. If the core finishes with no survivors the status is `no-ranked-candidates`; with at least one survivor it is `completed`. A sole survivor can therefore rank without a successful battle.
+The plan includes the normalized task fingerprint, selected mode, candidate and artifact counts, maximum candidate calls, maximum judge calls, configured shared ceiling, and whether a provider is required. For n candidates and a provider judge, the comparison ceiling is n × (n − 1) / 2. It is a maximum possible count, not a promised call total or a monetary quote.
 
-The configuration requires distinct candidate/judge IDs, but it does not prove that the configured underlying model is independent from the candidates. Provider-judge confidence is the judge’s supplied number, not a calibrated statistical confidence interval. Prompt wording treats evidence as data; it is not an adversarial prompt-injection guarantee.
+CLI `rubric-rumble run task.json --mode battle` stops after the plan. Execution needs `--execute --out new-results`. In the desktop, Run checks the current selection against the frozen preview and requires its explicit provider-call checkbox when needed. Both reserve a new result directory before executing.
 
-| Terminal condition | Result available from the workflow |
-| --- | --- |
-| Preflight rejected before ledger creation | Exception to CLI; no result dictionary. |
-| Tournament returned ≥1 survivor | `completed`, ranked survivors, DQs and battle records. |
-| Tournament returned 0 survivors | `no-ranked-candidates`, DQs and any completed battles. |
-| Judge/other tournament exception | `failed`, error and captured evidence; `tournament: null`. |
+`run_task` revalidates, recomputes the plan, rejects required network access without permission, and checks every required candidate key and any used provider-judge key before the first call. Only then does it initialize the run report. A preflight failure therefore produces an error before a result dictionary exists; a wrapper may already have reserved an empty output folder.
 
-Source: [assess_output](https://github.com/CinvanaAI/mortal-kombat/blob/a8c714530e82e945b48aa939f4e14bb0bd26fa83/src/prompt_tournament/workflow.py#L15) · [provider judge request](https://github.com/CinvanaAI/mortal-kombat/blob/a8c714530e82e945b48aa939f4e14bb0bd26fa83/src/prompt_tournament/workflow.py#L26) · [strict provider decision parser](https://github.com/CinvanaAI/mortal-kombat/blob/a8c714530e82e945b48aa939f4e14bb0bd26fa83/src/prompt_tournament/workflow.py#L47) · [judging and result status](https://github.com/CinvanaAI/mortal-kombat/blob/a8c714530e82e945b48aa939f4e14bb0bd26fa83/src/prompt_tournament/workflow.py#L135)
+Source: [validate_task](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/task.py#L26) · [plan_task](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/task.py#L140) · [execute_preview](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/workbench.py#L51) · [run_task](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/workflow.py#L70)
 
-## 05. Account for usage and write the inspectable result
+## Choose between capturing answers and judging them
 
-The result keeps the evidence needed to explain a ranking. Cost accounting runs alongside the judgments.
+[Open the sequence](09-modes.html) · [Editable JSON](09-modes.sequence.json)
 
-[Open sequence view](05-evidence.html)
+The selected mode changes the work performed, not just the report title. Desktop selection determines the candidates copied into the task. The CLI uses the candidates listed in the task file; it does not silently choose the first candidate to satisfy a mode.
 
-A cost estimate requires returned input/output token counts and user-configured per-million rates with currency, source and date. If the reported cached-input count is greater than zero, the matching cache rate must be present. A reported count of zero does not require a cached-input rate. If a cache rate is configured but cache usage is missing, the estimate is unavailable. A positive reported cache-write count makes the estimate unavailable; zero cache-write tokens do not block an estimate. Missing counts/rates and impossible cache counts also remain unavailable rather than silently becoming zero.
+Single and Batch attempt every requested candidate/artifact pair. They do not call an unused judge, assess exact-field quality, create decisions or infer a ranking from successful execution. Individual errors are recorded and capture continues. Batch is sequential local application work, not a provider’s discounted Batch API.
 
-For supported usage, the amount is ((input − cached input) × input rate + cached input × cached-input rate + output × output rate) / 1,000,000. The workflow groups known subtotals by candidate/judge phase and currency, and counts attempted provider calls with no estimate. A failed call can still have a usable estimate when its returned usage was captured. These are usage-and-rate estimates, not invoices, energy measurements or subscription/hardware costs.
+Battle and Tournament share the core evaluation and insertion algorithm. Battle requires two candidates; if evaluation removes a candidate, no pairwise judgment may occur. Tournament requires at least two candidates and can compare surviving pairs as insertion needs them.
 
-Rates do not enter the application’s judging prompt, rules scores, or seed ModelRefs. A cheaper model does not automatically win. There is a provider-call cap, but no dollar budget or quality-per-dollar optimizer. Fixture calls have no returned billable usage and no configured rates; zero attempted provider calls is not a measured model-cost result.
+| Mode | Candidate selection | Behavior |
+| --- | --- | --- |
+| Single | Exactly one | Capture its responses; no judge or ranking |
+| Batch | One or more | Capture each candidate’s responses; no judge or ranking |
+| Battle | Exactly two | Evaluate, then compare survivors once when possible |
+| Tournament | Two or more | Evaluate, then build a judged insertion ranking |
 
-The workflow returns a `mortal-kombat.result.v1` dictionary with normalized task and hash, plan, call records, outputs/field checks, candidate summaries, decisions, tournament when available, errors and cost summary. The CLI writes `result.json`, then a self-contained escaped `report.html`. Saved-result reporting reads this evidence without executing providers. These are two filesystem writes, not a transaction: an I/O failure can leave a partial folder. The original request/source/output text is retained, so a real result should be reviewed before sharing.
+Source: [validate_task](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/task.py#L26) · [select_task](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/workbench.py#L29) · [run_task](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/workflow.py#L70)
 
-Source: [normalize_response](https://github.com/CinvanaAI/mortal-kombat/blob/a8c714530e82e945b48aa939f4e14bb0bd26fa83/src/prompt_tournament/providers.py#L52) · [estimate_cost](https://github.com/CinvanaAI/mortal-kombat/blob/a8c714530e82e945b48aa939f4e14bb0bd26fa83/src/prompt_tournament/providers.py#L97) · [cost and evidence finalization](https://github.com/CinvanaAI/mortal-kombat/blob/a8c714530e82e945b48aa939f4e14bb0bd26fa83/src/prompt_tournament/workflow.py#L167) · [render_report / save_report](https://github.com/CinvanaAI/mortal-kombat/blob/a8c714530e82e945b48aa939f4e14bb0bd26fa83/src/prompt_tournament/report.py#L8)
+## Capture each answer with its source and call evidence
 
-## A recorded synthetic walkthrough
+[Open the sequence](02-candidates.html) · [Editable JSON](02-candidates.sequence.json)
 
-The bundled example uses two source artifacts and three fixture candidates. This is an existing engine result, not a live model evaluation.
+For one candidate and artifact, the evaluation callback combines the task instructions with the source text and creates a started call record. Fixture candidates supply their configured synthetic text. A live candidate first checks the shared provider-call ceiling, then sends one request through the selected adapter. The same ceiling includes candidate and judge calls.
 
-| Recorded step | What the evidence shows |
-| --- | --- |
-| Seed | complete-fixture → malformed-fixture → missing-owner-fixture. |
-| Evaluate | Complete answers earn 4/4. Malformed JSON disqualifies that candidate after one artifact. Missing-owner answers earn 2/4. |
-| First ladder entry | complete-fixture becomes the first survivor; malformed-fixture is skipped. |
-| One battle | A = missing-owner-fixture; B = complete-fixture. Exact-field totals choose model_b_better. |
-| Final result | complete-fixture first; missing-owner-fixture second; malformed-fixture disqualified. Five captured calls, four successful core evaluations, one battle, zero provider calls. |
+OpenAI Responses uses `/responses`, explicitly selected Chat Completions uses `/chat/completions`, and Ollama uses `/api/chat`. The adapter normalizes answer text, returned model, usage and completion information. HTTP errors and connection failures are bounded; raw authorization headers and provider error bodies are not copied into those error messages.
 
-[Exact recorded JSON](recorded-example.json)
+The workflow stores the returned response before estimating its token cost. Incomplete or empty output becomes failed evidence. In a judged rules run, exact-field assessment is also stored; a response that is not a JSON object disqualifies that candidate and skips its remaining artifacts. Missing or incorrect string fields reduce the score without automatically disqualifying a valid object.
 
-From this version’s checkout with Python 3.11 or newer:
+The callback returns answer text. In judged modes, the core owns its successful text cache and creates complete CandidateViews. All candidate evaluation finishes before ladder comparison starts. The complete workflow gives the core a fresh cache, so it does not reuse a previous run’s answers.
 
-```text
-python -m pip install .
-mortal-kombat demo --out my-first-tournament
-mortal-kombat report my-first-tournament/result.json --out rendered-again
-```
+Source: [execute](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/workflow.py#L91) · [evaluate](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/workflow.py#L119) · [call_provider](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/providers.py#L167) · [normalize_response](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/providers.py#L130) · [run_tournament](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/engine.py#L205)
 
-Use new output folders. Timestamps differ; compare the task hash, outputs, decisions and ranking rather than the entire result file.
+## Judge the whole answer set under the chosen rubric
 
+[Open the sequence](04-judging.html) · [Editable JSON](04-judging.sequence.json)
+
+The core calls the judge with candidate A and incumbent B. Each view contains that candidate’s answer for every completed source artifact. The rules path totals exact, case-sensitive expected-field matches across the set. More matches win; equal totals choose the lexically smaller candidate ID and record that this is a deterministic tie-break rather than a quality difference.
+
+The provider path constructs one request containing the task, rubric, both candidate identities, every source, any expected values, and both outputs for each example. Source and output text are presented as evidence to judge, not new instructions. The result is one judgment for the complete pair of answer sets.
+
+A provider decision must contain one supported winner and a nonempty short_reason. Optional confidence must be null or a finite numeric value between zero and one; strings, booleans and non-finite numbers fail. Accepted outcomes are model_a_better, model_b_better, model_a_disqualified, model_b_disqualified, or both_disqualified.
+
+A valid decision is appended to the evidence before it returns to the core. The core applies it to the ladder. A failed provider call or malformed decision fails the run; it does not become a guessed winner. Provider confidence is the judge’s supplied value, not a calibrated probability measured by this application.
+
+Source: [build_judge_request](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/workflow.py#L26) · [judge](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/workflow.py#L133) · [_parse_provider_decision](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/workflow.py#L47) · [run_tournament](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/engine.py#L205)
+
+## Insert survivors according to recorded comparisons
+
+[Open the sequence](03-ladder.html) · [Editable JSON](03-ladder.sequence.json)
+
+The core first creates seed order and evaluates the candidates. Evaluation failures are marked disqualified; their remaining artifacts are skipped. The first surviving candidate starts an empty ladder. Each next survivor begins as A against the current incumbent B at the top position.
+
+If A is better, it is inserted before B. If B is better, A advances to the next position and is appended at the end if it never wins. If A is disqualified, it is removed and its insertion stops. If B is disqualified, B is removed and A continues at that position. If both are disqualified, both are removed and A stops.
+
+The next surviving seed repeats the process. The result contains the final ranking, battle records, disqualifications, successful evaluation count and cache-hit count. Comparisons occur as insertion needs them: every pair is possible in the worst case, but an all-pairs pass is not required.
+
+This algorithm assumes the pairwise decisions are useful for building an order; it does not establish transitive quality or statistical significance. A different task, rubric, seed or judge can produce a different order. Configured token rates do not choose winners. In the full workflow the seed does not receive those rates.
+
+Source: [seed_models](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/engine.py#L144) · [run_tournament](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/engine.py#L205) · [run_task](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/workflow.py#L70)
+
+## Read the result, including what failed or stayed unknown
+
+[Open the sequence](05-evidence.html) · [Editable JSON](05-evidence.sequence.json)
+
+Each recorded call includes its phase, candidate identity, request text, returned text, usage when available, completion or error, and an estimated cost or explicit reason that estimation is unavailable. Captured outputs, rules assessments, valid pairwise decisions and candidate summaries remain separate fields.
+
+Capture status is completed when no requested output failed, failed when all failed, and partial otherwise. A returned judged result is completed if it has a ranking, or no-ranked-candidates if none remain. An exception from judging or the outer run becomes failed evidence. Candidate disqualification alone does not make a completed surviving ranking a failed run.
+
+When judging raises, earlier call records, captured outputs and already accepted decisions remain in the report, but the core does not return its partial ladder. The report therefore leaves tournament null. It does not reconstruct or invent an intermediate ranking.
+
+Cost is estimated from returned input/output counts and explicitly configured rates with currency, source and as-of date. Positive cached-input counts require a cache rate; an explicit zero does not. If a cache rate is supplied but cache usage is absent, the estimate is unavailable. Positive cache-write counts are also unavailable because this estimator does not price them.
+
+Missing rates, incomplete usage or inconsistent cached counts also leave cost unknown. Available amounts are subtotaled by candidate/judge phase and currency; omitted attempted calls are counted. Hardware, energy, subscriptions and provider invoices are not inferred. These monetary estimates never enter the judge’s winner decision.
+
+The wrapper saves result.json and report.html in the new folder. The HTML escapes captured text and links to the complete evidence. `rubric-rumble report result.json --out another-new-folder` renders saved evidence without running a task or contacting a provider.
+
+Source: [run_task](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/workflow.py#L70) · [estimate_cost](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/providers.py#L210) · [Report rendering and saving](https://github.com/CinvanaAI/rubric-rumble/blob/main/src/prompt_tournament/report.py) · [main](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/workflow_cli.py#L19)
+
+## Understand what the retained core does for a caller
+
+[Open the sequence](10-core-api.html) · [Editable JSON](10-core-api.sequence.json)
+
+The `prompt_tournament` Python API remains usable independently of the complete task workflow. `run_tournament` accepts ModelRefs, Artifacts, an evaluate callback returning text, and a judge callback returning JudgeDecision. Its TournamentResult contains ranking/battles/disqualifications and counts; it does not embed a complete captured-output ledger or save a report for you.
+
+A caller may pass prior ranking, a reusable text cache and a judge_model to exclude by identity. Seed order puts known-ranked candidates first, new candidates next and previously disqualified candidates last. New candidates with both price fields use their summed price in descending order for seeding, followed by stable provider/model ordering. This affects who is compared first, not the result of a comparison.
+
+The cache key includes prompt_id, model identity, artifact ID, filename and source text. The caller owns the meaning and validity of cached text and must change prompt_id when other task context changes. The complete workflow supplies a task fingerprint in its prompt ID, a fresh cache, no prior ranking, no judge-model exclusion argument and no price metadata on its ModelRefs.
+
+The retained legacy parse_judge_output helper has its historical coercion and confidence-clamping behavior. The complete provider-judge workflow adds strict field validation before using that parser. Direct core callers remain responsible for their callbacks, evidence, provider configuration and stricter contracts.
+
+Rubric Rumble is the public name and preferred command. Existing mortal-kombat commands, prompt_tournament imports and mortal-kombat.* JSON schema identifiers remain compatibility surfaces.
+
+Source: [run_tournament](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/engine.py#L205) · [_cache_key](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/engine.py#L190) · [_new_candidate_key](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/engine.py#L183) · [parse_judge_output](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/engine.py#L112) · [_parse_provider_decision](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/workflow.py#L47)
+
+## Inspect a complete record and reproduce a safe first run
+
+Run `rubric-rumble demo --out a-new-demo-folder` for the bundled deterministic extraction fixture. It exercises complete, incomplete and malformed candidate outputs with transparent rules and no provider requests. [Open the recorded offline replay](../) or [inspect the captured result JSON](recorded-example.json).
+
+The [historical battle showcase](../history/) preserves two selected March 2026 model comparisons with their source examples, original answers, rubric and whole-battle judge decisions. Its [historical flow companion](../history/historical-flow.html) describes the preserved source version. Historical output resolution occurred inside each battle; the current complete workflow evaluates candidates before its insertion loop.
+
+Historical records, current source behavior and synthetic demonstration are different evidence. This atlas explains the current complete implementation and retained core boundary. It does not claim an animation, a recovered continuous tournament replay, or quality-per-dollar validation.
+
+Source: [Current package instructions](https://github.com/CinvanaAI/rubric-rumble#readme) · [Editable diagram sources](https://github.com/CinvanaAI/rubric-rumble/tree/main/demo/operations) · [Source map](source-evidence.json)

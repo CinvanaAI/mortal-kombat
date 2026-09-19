@@ -2,162 +2,145 @@
   "schema_version": 1,
   "diagram_type": "sequence",
   "meta": {
-    "title": "Mortal Kombat: the complete operating path",
+    "title": "Rubric Rumble: from model setup to recorded results",
     "quality_profile": "showcase",
     "animation": "none",
     "column_fit": "spread",
     "viewBox": [
-      1320,
-      610
+      1000,
+      538
     ]
   },
   "participants": [
     {
-      "id": "cli",
+      "id": "rr-entry",
       "type": "frontend",
-      "label": "CLI / task file"
+      "label": "Desktop / CLI"
     },
     {
-      "id": "task",
+      "id": "rr-prepare",
+      "type": "backend",
+      "label": "Preparation"
+    },
+    {
+      "id": "rr-contract",
       "type": "security",
-      "label": "Task contract"
+      "label": "Task and plan"
     },
     {
-      "id": "run",
+      "id": "rr-run",
       "type": "backend",
       "label": "Run workflow"
     },
     {
-      "id": "engine",
+      "id": "rr-execute",
       "type": "backend",
-      "label": "Tournament core"
+      "label": "Capture / compare"
     },
     {
-      "id": "evidence",
+      "id": "rr-files",
       "type": "database",
-      "label": "Result / report"
+      "label": "Local evidence"
     }
   ],
   "messages": [
     {
-      "id": "m-00-overview-0",
-      "from": "cli",
-      "to": "task",
-      "label": "Validate task; compute plan",
-      "y": 160
+      "id": "rr-whole-01",
+      "from": "rr-entry",
+      "to": "rr-prepare",
+      "y": 160,
+      "label": "Optional explicit list, probe or research"
     },
     {
-      "id": "m-00-overview-1",
-      "from": "task",
-      "to": "cli",
-      "label": "Normalized task + call ceiling",
-      "y": 188,
+      "id": "rr-whole-02",
+      "from": "rr-prepare",
+      "to": "rr-entry",
+      "y": 189,
+      "label": "Visible IDs / observed text / quoted facts",
       "variant": "return"
     },
     {
-      "id": "m-00-overview-2",
-      "from": "cli",
-      "to": "evidence",
-      "label": "Execute: reserve a NEW directory",
-      "y": 216,
+      "id": "rr-whole-03",
+      "from": "rr-entry",
+      "to": "rr-contract",
+      "y": 218,
+      "label": "Task, examples, candidates and mode"
+    },
+    {
+      "id": "rr-whole-04",
+      "from": "rr-contract",
+      "to": "rr-entry",
+      "y": 247,
+      "label": "Validate and preview maximum calls",
+      "variant": "return"
+    },
+    {
+      "id": "rr-whole-05",
+      "from": "rr-entry",
+      "to": "rr-files",
+      "y": 276,
+      "label": "Explicit run: reserve a new result folder",
       "variant": "security"
     },
     {
-      "id": "m-00-overview-3",
-      "from": "cli",
-      "to": "run",
-      "label": "Run task; permit network only explicitly",
-      "y": 244
+      "id": "rr-whole-06",
+      "from": "rr-entry",
+      "to": "rr-run",
+      "y": 305,
+      "label": "Execute selected task and mode"
     },
     {
-      "id": "m-00-overview-4",
-      "from": "run",
-      "to": "task",
-      "label": "Revalidate task before provider preflight",
-      "y": 272,
+      "id": "rr-whole-07",
+      "from": "rr-run",
+      "to": "rr-contract",
+      "y": 334,
+      "label": "Revalidate; gate network; check required keys",
       "variant": "security"
     },
     {
-      "id": "m-00-overview-5",
-      "from": "run",
-      "to": "engine",
-      "label": "Start with models, artifacts and callbacks",
-      "y": 300
+      "id": "rr-whole-08",
+      "from": "rr-run",
+      "to": "rr-execute",
+      "y": 363,
+      "label": "Capture answers OR evaluate then compare"
     },
     {
-      "id": "m-00-overview-6",
-      "from": "engine",
-      "to": "run",
-      "label": "Evaluate every surviving candidate/artifact",
-      "y": 328
-    },
-    {
-      "id": "m-00-overview-7",
-      "from": "run",
-      "to": "engine",
-      "label": "Return answer text for this artifact",
-      "y": 356,
+      "id": "rr-whole-09",
+      "from": "rr-execute",
+      "to": "rr-run",
+      "y": 392,
+      "label": "Outputs, failures; judged modes add a ladder",
       "variant": "return"
     },
     {
-      "id": "m-00-overview-8",
-      "from": "engine",
-      "to": "run",
-      "label": "Judge candidate A against incumbent B",
-      "y": 384
-    },
-    {
-      "id": "m-00-overview-9",
-      "from": "run",
-      "to": "engine",
-      "label": "One of five decisions; repeat as needed",
-      "y": 412,
+      "id": "rr-whole-10",
+      "from": "rr-run",
+      "to": "rr-entry",
+      "y": 421,
+      "label": "Finalize status, usage and estimated subtotals",
       "variant": "return"
     },
     {
-      "id": "m-00-overview-10",
-      "from": "engine",
-      "to": "run",
-      "label": "Return ladder, battles and disqualifications",
-      "y": 440,
-      "variant": "return"
-    },
-    {
-      "id": "m-00-overview-11",
-      "from": "run",
-      "to": "evidence",
-      "label": "Finalize calls, status and cost subtotals",
-      "y": 468
-    },
-    {
-      "id": "m-00-overview-12",
-      "from": "run",
-      "to": "cli",
-      "label": "Return result dictionary",
-      "y": 496,
-      "variant": "return"
-    },
-    {
-      "id": "m-00-overview-13",
-      "from": "cli",
-      "to": "evidence",
-      "label": "Write result.json and report.html",
-      "y": 524
+      "id": "rr-whole-11",
+      "from": "rr-entry",
+      "to": "rr-files",
+      "y": 450,
+      "label": "Save result.json and report.html"
     }
   ],
   "cards": [
     {
       "dot": "cyan",
-      "title": "Two phases, one record",
+      "title": "Choose the work, then inspect it",
       "items": [
-        "The core caches answer text and builds CandidateViews. All candidate evaluation finishes before ladder comparisons reuse those views."
+        "Single and Batch collect responses. Battle compares two candidates. Tournament inserts evaluated candidates into a judged ladder."
       ]
     },
     {
       "dot": "amber",
-      "title": "Other commands remain distinct",
+      "title": "Preparation is not automatic",
       "items": [
-        "run without --execute only prints a plan. report renders a saved result. demo supplies offline fixtures."
+        "Discovery, greetings and supplied-source research are separate explicit actions. Their evidence does not automatically change task limits or certify a model."
       ]
     }
   ]

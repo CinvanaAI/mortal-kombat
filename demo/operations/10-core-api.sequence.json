@@ -1,0 +1,146 @@
+{
+  "schema_version": 1,
+  "diagram_type": "sequence",
+  "meta": {
+    "title": "Rubric Rumble: reuse the low-level tournament engine",
+    "quality_profile": "showcase",
+    "animation": "none",
+    "column_fit": "spread",
+    "viewBox": [
+      1000,
+      538
+    ]
+  },
+  "participants": [
+    {
+      "id": "rr-core-api-caller",
+      "type": "frontend",
+      "label": "Python caller"
+    },
+    {
+      "id": "rr-core-api-seed",
+      "type": "backend",
+      "label": "Seed ordering"
+    },
+    {
+      "id": "rr-core-api-core",
+      "type": "backend",
+      "label": "run_tournament"
+    },
+    {
+      "id": "rr-core-api-cache",
+      "type": "database",
+      "label": "Caller text cache"
+    },
+    {
+      "id": "rr-core-api-evaluate",
+      "type": "backend",
+      "label": "Evaluate callback"
+    },
+    {
+      "id": "rr-core-api-judge",
+      "type": "backend",
+      "label": "Judge callback"
+    }
+  ],
+  "messages": [
+    {
+      "id": "rr-10-core-api-1",
+      "from": "rr-core-api-caller",
+      "to": "rr-core-api-core",
+      "label": "ModelRefs, artifacts and two injected callbacks",
+      "y": 160
+    },
+    {
+      "id": "rr-10-core-api-2",
+      "from": "rr-core-api-core",
+      "to": "rr-core-api-seed",
+      "label": "Optional prior ranking; exclude supplied judge model",
+      "y": 189
+    },
+    {
+      "id": "rr-10-core-api-3",
+      "from": "rr-core-api-seed",
+      "to": "rr-core-api-core",
+      "label": "Known-ranked, new, then previously disqualified",
+      "y": 218,
+      "variant": "return"
+    },
+    {
+      "id": "rr-10-core-api-4",
+      "from": "rr-core-api-core",
+      "to": "rr-core-api-cache",
+      "label": "Hash prompt ID + model + full artifact identity",
+      "y": 247
+    },
+    {
+      "id": "rr-10-core-api-5",
+      "from": "rr-core-api-cache",
+      "to": "rr-core-api-core",
+      "label": "Cached text, when supplied and present",
+      "y": 276,
+      "variant": "return"
+    },
+    {
+      "id": "rr-10-core-api-6",
+      "from": "rr-core-api-core",
+      "to": "rr-core-api-evaluate",
+      "label": "Cache miss: model + one artifact",
+      "y": 305
+    },
+    {
+      "id": "rr-10-core-api-7",
+      "from": "rr-core-api-evaluate",
+      "to": "rr-core-api-core",
+      "label": "Nonempty answer text; exceptions disqualify",
+      "y": 334,
+      "variant": "return"
+    },
+    {
+      "id": "rr-10-core-api-8",
+      "from": "rr-core-api-core",
+      "to": "rr-core-api-cache",
+      "label": "Store successful text; finish candidate views",
+      "y": 363
+    },
+    {
+      "id": "rr-10-core-api-9",
+      "from": "rr-core-api-core",
+      "to": "rr-core-api-judge",
+      "label": "Insertion: candidate A and incumbent B views",
+      "y": 392
+    },
+    {
+      "id": "rr-10-core-api-10",
+      "from": "rr-core-api-judge",
+      "to": "rr-core-api-core",
+      "label": "JudgeDecision with a supported winner",
+      "y": 421,
+      "variant": "return"
+    },
+    {
+      "id": "rr-10-core-api-11",
+      "from": "rr-core-api-core",
+      "to": "rr-core-api-caller",
+      "label": "TournamentResult: ranking, battles and counts",
+      "y": 450,
+      "variant": "return"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "The core is a library boundary",
+      "items": [
+        "It does not configure providers, price usage, build a task rubric, save captured outputs to files, or render reports. The complete workflow supplies those services."
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "Caller-owned features stay explicit",
+      "items": [
+        "A caller may supply prior ranking, reusable cache, judge-model exclusion, or price metadata used only for new-candidate seeding. The complete workflow supplies a fresh cache and no prior ranking or price seed."
+      ]
+    }
+  ]
+}

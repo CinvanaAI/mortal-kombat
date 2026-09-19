@@ -1,0 +1,125 @@
+{
+  "schema_version": 1,
+  "diagram_type": "sequence",
+  "meta": {
+    "title": "Rubric Rumble: check selected models with a short greeting",
+    "quality_profile": "showcase",
+    "animation": "none",
+    "column_fit": "spread",
+    "viewBox": [
+      1000,
+      520
+    ]
+  },
+  "participants": [
+    {
+      "id": "rr-probes-entry",
+      "type": "frontend",
+      "label": "Desktop / probe CLI"
+    },
+    {
+      "id": "rr-probes-storage",
+      "type": "database",
+      "label": "New probe folder"
+    },
+    {
+      "id": "rr-probes-loop",
+      "type": "backend",
+      "label": "Selected-model loop"
+    },
+    {
+      "id": "rr-probes-adapter",
+      "type": "backend",
+      "label": "probe_model"
+    },
+    {
+      "id": "rr-probes-provider",
+      "type": "cloud",
+      "label": "Generation endpoint"
+    }
+  ],
+  "messages": [
+    {
+      "id": "rr-07-probes-1",
+      "from": "rr-probes-entry",
+      "to": "rr-probes-storage",
+      "label": "Explicit execute: reserve new output",
+      "y": 160.0
+    },
+    {
+      "id": "rr-07-probes-2",
+      "from": "rr-probes-entry",
+      "to": "rr-probes-loop",
+      "label": "Sequential selection; one request per model",
+      "y": 193.75
+    },
+    {
+      "id": "rr-07-probes-3",
+      "from": "rr-probes-loop",
+      "to": "rr-probes-adapter",
+      "label": "Requested model with 32-token output ceiling",
+      "y": 227.5
+    },
+    {
+      "id": "rr-07-probes-4",
+      "from": "rr-probes-adapter",
+      "to": "rr-probes-provider",
+      "label": "Reply with exactly: hi",
+      "y": 261.25
+    },
+    {
+      "id": "rr-07-probes-5",
+      "from": "rr-probes-provider",
+      "to": "rr-probes-adapter",
+      "label": "Returned text, usage and completion state",
+      "y": 295.0,
+      "variant": "return"
+    },
+    {
+      "id": "rr-07-probes-6",
+      "from": "rr-probes-adapter",
+      "to": "rr-probes-loop",
+      "label": "Individual status + bounded text + usage",
+      "y": 328.75,
+      "variant": "return"
+    },
+    {
+      "id": "rr-07-probes-7",
+      "from": "rr-probes-loop",
+      "to": "rr-probes-storage",
+      "label": "Save this observation before the next model",
+      "y": 362.5
+    },
+    {
+      "id": "rr-07-probes-8",
+      "from": "rr-probes-loop",
+      "to": "rr-probes-adapter",
+      "label": "Repeat for next model, even after a failed greeting",
+      "y": 396.25
+    },
+    {
+      "id": "rr-07-probes-9",
+      "from": "rr-probes-storage",
+      "to": "rr-probes-entry",
+      "label": "Display individual statuses and responses",
+      "y": 430.0,
+      "variant": "return"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Preview first; inspect each observed status",
+      "items": [
+        "The preview states the exact call count. Each result is text-response, empty, incomplete or failed. Text-response is not a guarantee of literal \u201chi\u201d or task quality."
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "Two storage wrappers, one probe adapter",
+      "items": [
+        "Desktop writes individual probe-NNNN.json records. CLI updates probes.json after each observation. Captured text is capped at 4096 characters and marked when truncated."
+      ]
+    }
+  ]
+}

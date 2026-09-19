@@ -2,145 +2,149 @@
   "schema_version": 1,
   "diagram_type": "sequence",
   "meta": {
-    "title": "05 — Usage, estimates and the durable result bundle",
+    "title": "Rubric Rumble: keep failures, usage and the final report",
     "quality_profile": "showcase",
     "animation": "none",
     "column_fit": "spread",
     "viewBox": [
-      1320,
-      600
+      1000,
+      567
     ]
   },
   "participants": [
     {
-      "id": "response",
-      "type": "cloud",
-      "label": "Normalized response"
+      "id": "rr-evidence-calls",
+      "type": "backend",
+      "label": "Calls and outputs"
     },
     {
-      "id": "estimate",
+      "id": "rr-evidence-cost",
       "type": "backend",
       "label": "Cost estimator"
     },
     {
-      "id": "rates",
-      "type": "frontend",
-      "label": "Configured rates"
+      "id": "rr-evidence-run",
+      "type": "backend",
+      "label": "Run finalization"
     },
     {
-      "id": "ledger",
+      "id": "rr-evidence-state",
       "type": "database",
-      "label": "Run ledger"
+      "label": "Result dictionary"
     },
     {
-      "id": "report",
+      "id": "rr-evidence-entry",
       "type": "frontend",
-      "label": "JSON / HTML"
+      "label": "Desktop / CLI"
+    },
+    {
+      "id": "rr-evidence-files",
+      "type": "database",
+      "label": "Result files"
     }
   ],
   "messages": [
     {
-      "id": "m-05-evidence-0",
-      "from": "response",
-      "to": "ledger",
-      "label": "Copy returned text, usage, IDs and completion",
+      "id": "rr-05-evidence-1",
+      "from": "rr-evidence-calls",
+      "to": "rr-evidence-cost",
+      "label": "Returned usage + explicit dated rates",
       "y": 160
     },
     {
-      "id": "m-05-evidence-1",
-      "from": "ledger",
-      "to": "estimate",
-      "label": "Request estimate using normalized counts",
-      "y": 188
+      "id": "rr-05-evidence-2",
+      "from": "rr-evidence-cost",
+      "to": "rr-evidence-calls",
+      "label": "Estimated amount OR unavailable with reason",
+      "y": 189,
+      "variant": "return"
     },
     {
-      "id": "m-05-evidence-2",
-      "from": "rates",
-      "to": "estimate",
-      "label": "Supply currency, unit rates, source and date",
-      "y": 216,
-      "variant": "default"
+      "id": "rr-05-evidence-3",
+      "from": "rr-evidence-calls",
+      "to": "rr-evidence-run",
+      "label": "Completed and failed call records",
+      "y": 218
     },
     {
-      "id": "m-05-evidence-3",
-      "from": "estimate",
-      "to": "ledger",
-      "label": "Missing or unsupported inputs: unavailable",
-      "y": 244,
+      "id": "rr-05-evidence-4",
+      "from": "rr-evidence-run",
+      "to": "rr-evidence-state",
+      "label": "Capture mode: completed / partial / failed",
+      "y": 247
+    },
+    {
+      "id": "rr-05-evidence-5",
+      "from": "rr-evidence-run",
+      "to": "rr-evidence-state",
+      "label": "Judged mode: completed / no-ranked-candidates",
+      "y": 276
+    },
+    {
+      "id": "rr-05-evidence-6",
+      "from": "rr-evidence-run",
+      "to": "rr-evidence-state",
+      "label": "Judge / outer exception: failed with safe error",
+      "y": 305,
       "variant": "security"
     },
     {
-      "id": "m-05-evidence-4",
-      "from": "estimate",
-      "to": "ledger",
-      "label": "Valid usage + rates: estimated amount",
-      "y": 272,
+      "id": "rr-05-evidence-7",
+      "from": "rr-evidence-run",
+      "to": "rr-evidence-state",
+      "label": "Summarize candidates and attempted calls",
+      "y": 334
+    },
+    {
+      "id": "rr-05-evidence-8",
+      "from": "rr-evidence-run",
+      "to": "rr-evidence-state",
+      "label": "Subtotal estimates by phase and currency",
+      "y": 363
+    },
+    {
+      "id": "rr-05-evidence-9",
+      "from": "rr-evidence-run",
+      "to": "rr-evidence-state",
+      "label": "Count attempted calls missing an estimate",
+      "y": 392
+    },
+    {
+      "id": "rr-05-evidence-10",
+      "from": "rr-evidence-run",
+      "to": "rr-evidence-entry",
+      "label": "Return one result dictionary",
+      "y": 421,
       "variant": "return"
     },
     {
-      "id": "m-05-evidence-5",
-      "from": "ledger",
-      "to": "report",
-      "label": "Group known subtotals by phase and currency",
-      "y": 300
+      "id": "rr-05-evidence-11",
+      "from": "rr-evidence-entry",
+      "to": "rr-evidence-files",
+      "label": "Write result.json; escape text into report.html",
+      "y": 450
     },
     {
-      "id": "m-05-evidence-6",
-      "from": "ledger",
-      "to": "report",
-      "label": "Count attempted calls without an estimate",
-      "y": 328
-    },
-    {
-      "id": "m-05-evidence-7",
-      "from": "ledger",
-      "to": "report",
-      "label": "Save task/hash, calls, assessments and decisions",
-      "y": 356
-    },
-    {
-      "id": "m-05-evidence-8",
-      "from": "ledger",
-      "to": "report",
-      "label": "Attach status, error and tournament when returned",
-      "y": 384
-    },
-    {
-      "id": "m-05-evidence-9",
-      "from": "ledger",
-      "to": "report",
-      "label": "CLI writes result.json, then escaped report.html",
-      "y": 412
-    },
-    {
-      "id": "m-05-evidence-10",
-      "from": "report",
-      "to": "ledger",
-      "label": "Saved-result replay reads evidence only",
-      "y": 440,
-      "variant": "return"
+      "id": "rr-05-evidence-12",
+      "from": "rr-evidence-entry",
+      "to": "rr-evidence-files",
+      "label": "report command can render saved JSON only",
+      "y": 479
     }
   ],
   "cards": [
     {
-      "dot": "cyan",
-      "title": "The estimate is auditable",
-      "items": [
-        "Amount = uncached input × input rate + cached input × cached rate + output × output rate, divided by one million."
-      ]
-    },
-    {
       "dot": "amber",
-      "title": "Unavailable means unknown",
+      "title": "Unknown cost is not zero",
       "items": [
-        "Missing usage/rates, incompatible cache pricing or positive cache-write counts yield no amount. Zero cached input needs no cache rate. Phase/currency subtotals stay separate."
+        "Missing usage/rates, positive unpriced cached input, positive cache writes, or inconsistent counts leave cost unavailable. Zero cache counts are allowed."
       ]
     },
     {
-      "dot": "violet",
-      "title": "What this does not promise",
+      "dot": "cyan",
+      "title": "What remains recoverable",
       "items": [
-        "Cost does not pick the winner. No dollar-budget enforcement, paid retry or transactional bundle write. A disk error can leave a partial folder."
+        "Call text, returned usage, captured outputs and valid decisions remain in failed-run evidence. If the core raises, its partial ladder is not returned; no intermediate ranking is invented."
       ]
     }
   ]

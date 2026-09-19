@@ -4,16 +4,23 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "prompt-tournament-engine"
-version = "0.3.0"
-description = "Mortal Kombat: task evaluation, model tournaments, and inspectable evidence."
+version = "0.3.1"
+description = "Rubric Rumble: task evaluation, model tournaments, and inspectable evidence."
 readme = "README.md"
 requires-python = ">=3.11"
 license = {file = "LICENSE.md"}
+
+[project.urls]
+Homepage = "https://cinvanaai.github.io/rubric-rumble/"
+Documentation = "https://cinvanaai.github.io/rubric-rumble/operations/"
+Source = "https://github.com/CinvanaAI/rubric-rumble"
+Issues = "https://github.com/CinvanaAI/rubric-rumble/issues"
 
 [project.optional-dependencies]
 test = ["pytest>=8"]
 
 [project.scripts]
+rubric-rumble = "prompt_tournament.workflow_cli:main"
 mortal-kombat = "prompt_tournament.workflow_cli:main"
 prompt-tournament-demo = "prompt_tournament.cli:main"
 

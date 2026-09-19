@@ -1,0 +1,127 @@
+{
+  "schema_version": 1,
+  "diagram_type": "sequence",
+  "meta": {
+    "title": "Rubric Rumble: discover model IDs from a saved connection",
+    "quality_profile": "showcase",
+    "animation": "none",
+    "column_fit": "spread",
+    "viewBox": [
+      1000,
+      520
+    ]
+  },
+  "participants": [
+    {
+      "id": "rr-inventory-entry",
+      "type": "frontend",
+      "label": "Desktop / models CLI"
+    },
+    {
+      "id": "rr-inventory-config",
+      "type": "security",
+      "label": "Connection settings"
+    },
+    {
+      "id": "rr-inventory-adapter",
+      "type": "backend",
+      "label": "list_models"
+    },
+    {
+      "id": "rr-inventory-endpoint",
+      "type": "cloud",
+      "label": "Model-list endpoint"
+    },
+    {
+      "id": "rr-inventory-list",
+      "type": "database",
+      "label": "Visible model IDs"
+    }
+  ],
+  "messages": [
+    {
+      "id": "rr-06-inventory-1",
+      "from": "rr-inventory-entry",
+      "to": "rr-inventory-config",
+      "label": "Choose kind, base URL, endpoint and env name",
+      "y": 160.0
+    },
+    {
+      "id": "rr-06-inventory-2",
+      "from": "rr-inventory-config",
+      "to": "rr-inventory-entry",
+      "label": "Save configuration; no network request",
+      "y": 193.75,
+      "variant": "return"
+    },
+    {
+      "id": "rr-06-inventory-3",
+      "from": "rr-inventory-entry",
+      "to": "rr-inventory-adapter",
+      "label": "Explicit Discover models / models command",
+      "y": 227.5
+    },
+    {
+      "id": "rr-06-inventory-4",
+      "from": "rr-inventory-adapter",
+      "to": "rr-inventory-config",
+      "label": "Validate connection and resolve named key",
+      "y": 261.25,
+      "variant": "security"
+    },
+    {
+      "id": "rr-06-inventory-5",
+      "from": "rr-inventory-adapter",
+      "to": "rr-inventory-endpoint",
+      "label": "GET /models (OpenAI) OR /api/tags (Ollama)",
+      "y": 295.0
+    },
+    {
+      "id": "rr-06-inventory-6",
+      "from": "rr-inventory-endpoint",
+      "to": "rr-inventory-adapter",
+      "label": "Provider model-list JSON",
+      "y": 328.75,
+      "variant": "return"
+    },
+    {
+      "id": "rr-06-inventory-7",
+      "from": "rr-inventory-adapter",
+      "to": "rr-inventory-list",
+      "label": "Validated, sorted, deduplicated exact model IDs",
+      "y": 362.5
+    },
+    {
+      "id": "rr-06-inventory-8",
+      "from": "rr-inventory-list",
+      "to": "rr-inventory-entry",
+      "label": "Choose candidates or one judge",
+      "y": 396.25,
+      "variant": "return"
+    },
+    {
+      "id": "rr-06-inventory-9",
+      "from": "rr-inventory-entry",
+      "to": "rr-inventory-list",
+      "label": "Edited saved connection clears its old list",
+      "y": 430.0,
+      "variant": "security"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Inventory answers a narrow question",
+      "items": [
+        "This connection listed these IDs. Listing does not test generation or task quality. A known manual ID can be used when listing is unavailable."
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "No hidden preparation loop",
+      "items": [
+        "Discovery sends one GET and does not greet, research, retry, or run a task automatically. Local Ollama and hosted OpenAI-compatible connections use separate routes."
+      ]
+    }
+  ]
+}

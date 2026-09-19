@@ -2,149 +2,150 @@
   "schema_version": 1,
   "diagram_type": "sequence",
   "meta": {
-    "title": "04 — Judging choices and the boundary between DQ and failed run",
+    "title": "Rubric Rumble: turn two answer sets into one decision",
     "quality_profile": "showcase",
     "animation": "none",
     "column_fit": "spread",
     "viewBox": [
-      1320,
-      600
+      1000,
+      538
     ]
   },
   "participants": [
     {
-      "id": "core",
+      "id": "rr-judging-core",
       "type": "backend",
       "label": "Tournament core"
     },
     {
-      "id": "judge",
+      "id": "rr-judging-judge",
       "type": "backend",
-      "label": "Judging callback"
+      "label": "Judge callback"
     },
     {
-      "id": "rules",
-      "type": "backend",
-      "label": "Rules scorer"
+      "id": "rr-judging-rules",
+      "type": "security",
+      "label": "Field rules"
     },
     {
-      "id": "model",
+      "id": "rr-judging-bundle",
+      "type": "backend",
+      "label": "Pair request"
+    },
+    {
+      "id": "rr-judging-provider",
       "type": "cloud",
-      "label": "Provider judge"
+      "label": "Judge provider"
     },
     {
-      "id": "run",
+      "id": "rr-judging-contract",
+      "type": "security",
+      "label": "Decision check"
+    },
+    {
+      "id": "rr-judging-ledger",
       "type": "database",
-      "label": "Run workflow"
+      "label": "Decision log"
     }
   ],
   "messages": [
     {
-      "id": "m-04-judging-0",
-      "from": "core",
-      "to": "judge",
-      "label": "Supply both complete candidate views",
+      "id": "rr-04-judging-1",
+      "from": "rr-judging-core",
+      "to": "rr-judging-judge",
+      "label": "Candidate A and incumbent B views",
       "y": 160
     },
     {
-      "id": "m-04-judging-1",
-      "from": "judge",
-      "to": "rules",
-      "label": "RULES: compare total exact-field scores",
-      "y": 188
+      "id": "rr-04-judging-2",
+      "from": "rr-judging-judge",
+      "to": "rr-judging-rules",
+      "label": "Rules path: aggregate case-sensitive matches",
+      "y": 189
     },
     {
-      "id": "m-04-judging-2",
-      "from": "rules",
-      "to": "judge",
-      "label": "Higher score wins; equal score uses ID tie-break",
-      "y": 216,
+      "id": "rr-04-judging-3",
+      "from": "rr-judging-rules",
+      "to": "rr-judging-judge",
+      "label": "Greater score wins; equal score uses ID order",
+      "y": 218,
       "variant": "return"
     },
     {
-      "id": "m-04-judging-3",
-      "from": "judge",
-      "to": "core",
-      "label": "Return decision and explicit reason",
-      "y": 244,
+      "id": "rr-04-judging-4",
+      "from": "rr-judging-judge",
+      "to": "rr-judging-bundle",
+      "label": "Provider path: task + rubric + all artifacts",
+      "y": 247
+    },
+    {
+      "id": "rr-04-judging-5",
+      "from": "rr-judging-bundle",
+      "to": "rr-judging-provider",
+      "label": "Source text and both outputs for every example",
+      "y": 276
+    },
+    {
+      "id": "rr-04-judging-6",
+      "from": "rr-judging-provider",
+      "to": "rr-judging-judge",
+      "label": "Returned text, usage and completion state",
+      "y": 305,
       "variant": "return"
     },
     {
-      "id": "m-04-judging-4",
-      "from": "judge",
-      "to": "model",
-      "label": "PROVIDER: task + rubric + sources + A/B outputs",
-      "y": 272
-    },
-    {
-      "id": "m-04-judging-5",
-      "from": "model",
-      "to": "judge",
-      "label": "JSON winner, short_reason, optional confidence",
-      "y": 300,
-      "variant": "return"
-    },
-    {
-      "id": "m-04-judging-6",
-      "from": "judge",
-      "to": "core",
-      "label": "Valid reply: return one of five outcomes",
-      "y": 328,
-      "variant": "return"
-    },
-    {
-      "id": "m-04-judging-7",
-      "from": "judge",
-      "to": "core",
-      "label": "Bad reply or provider failure: raise",
-      "y": 356,
+      "id": "rr-04-judging-7",
+      "from": "rr-judging-judge",
+      "to": "rr-judging-contract",
+      "label": "Require supported winner + nonempty reason",
+      "y": 334,
       "variant": "security"
     },
     {
-      "id": "m-04-judging-8",
-      "from": "core",
-      "to": "run",
-      "label": "Abort ranking; workflow marks run failed",
-      "y": 384,
-      "variant": "security"
-    },
-    {
-      "id": "m-04-judging-10",
-      "from": "core",
-      "to": "run",
-      "label": "No surviving ranks: no-ranked-candidates",
-      "y": 412,
-      "variant": "security"
-    },
-    {
-      "id": "m-04-judging-11",
-      "from": "core",
-      "to": "run",
-      "label": "At least one surviving rank: completed",
-      "y": 440,
+      "id": "rr-04-judging-8",
+      "from": "rr-judging-contract",
+      "to": "rr-judging-judge",
+      "label": "Accept only null / finite numeric 0..1 confidence",
+      "y": 363,
       "variant": "return"
+    },
+    {
+      "id": "rr-04-judging-9",
+      "from": "rr-judging-judge",
+      "to": "rr-judging-ledger",
+      "label": "Append valid A/B decision and explanation",
+      "y": 392
+    },
+    {
+      "id": "rr-04-judging-10",
+      "from": "rr-judging-judge",
+      "to": "rr-judging-core",
+      "label": "Return decision; core applies it to insertion",
+      "y": 421,
+      "variant": "return"
+    },
+    {
+      "id": "rr-04-judging-11",
+      "from": "rr-judging-judge",
+      "to": "rr-judging-core",
+      "label": "Malformed / failed judgment raises",
+      "y": 450,
+      "variant": "security"
     }
   ],
   "cards": [
     {
       "dot": "cyan",
-      "title": "Rules are transparent",
+      "title": "One comparison covers the whole example set",
       "items": [
-        "Only present string values exactly matching expected fields earn points. Extra fields earn none. A non-object JSON response is a candidate DQ."
-      ]
-    },
-    {
-      "dot": "violet",
-      "title": "Provider replies are strict",
-      "items": [
-        "Reason must be nonempty text. Confidence is null/omitted or a finite number 0–1. The five winner values are mandatory; malformed judgment fails the run."
+        "A provider judge sees the task, rubric, every source and both candidates\u2019 outputs. Its decision is not a collection of per-example scores."
       ]
     },
     {
       "dot": "rose",
-      "title": "Alternative modes, not two judges",
+      "title": "Rules and provider judgments stay distinct",
       "items": [
-        "Rules and provider branches above are mutually exclusive. Candidate failure removes that candidate; judge failure stops the whole ranking. Earlier calls, outputs and decisions remain in the result."
+        "Rules award exact string-field matches and disqualify non-object JSON. Provider judgments may choose either winner or disqualify A, B, or both; malformed judgment fails the run."
       ]
     }
   ]

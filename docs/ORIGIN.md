@@ -1,6 +1,6 @@
 # Background
 
-Mortal Kombat grew from CinvanaAI's experiments with task-specific model comparison. Its tournament core was previously presented as Prompt Tournament Engine, extracted from the Active Prompt battle subsystem in Transcript Model Evaluator. That work has design ancestry through Skeleton and earlier system-building experiments.
+Rubric Rumble, originally named Mortal Kombat, grew from CinvanaAI's experiments with task-specific model comparison. Its tournament core was previously presented as Prompt Tournament Engine, extracted from the Active Prompt battle subsystem in Transcript Model Evaluator. That work has design ancestry through Skeleton and earlier system-building experiments.
 
 This package keeps the original provider-neutral tournament implementation and public Python API. The complete task workflow adapts provider request/response ideas from Model Provider Compatibility Lab, judge request assembly from Transcript Model Evaluator, and their usage/rate handling. It supplies its own portable configuration, synthetic task fixtures and reports so it can be tried independently.
 
@@ -8,4 +8,6 @@ The historical implementations remain intact. This repository does not claim tha
 
 Version 0.3 restores a standalone desktop entry point and model preparation inspired by the evaluator's original provider inventory, Single/Batch controls, model catalogue and text capability tests. The desktop workbench and source-grounded research are new portable implementations, with the earlier projects retained as their design sources. A direct two-candidate Battle mode is provided alongside the tournament ladder.
 
-Two selected historical comparisons are available in the [battle viewer](https://cinvanaai.github.io/mortal-kombat/history/). Their captured model responses and judgments are historical evidence; the desktop workbench is the current application.
+Two selected historical comparisons are available in the [battle viewer](https://cinvanaai.github.io/rubric-rumble/history/). Their captured model responses and judgments are historical evidence; the desktop workbench is the current application.
+
+Version 0.3.1 gives the project its own public name, a complete current operating atlas, and a report organized around the original examples and decisions. The [future ideas](FUTURE-IDEAS.md) preserve the playful character-roster and fighting-match direction as unbuilt possibilities. Existing Python APIs, commands and saved-file formats remain compatible; see [the rename note](RENAMING.md).

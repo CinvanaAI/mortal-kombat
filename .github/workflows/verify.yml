@@ -12,5 +12,5 @@ jobs:
           python-version: "3.11"
       - run: python -m pip install -e ".[test]" build
       - run: python -m pytest -q
-      - run: mortal-kombat demo --out runs/ci-demo
+      - run: rubric-rumble demo --out runs/ci-demo
       - run: python -m build

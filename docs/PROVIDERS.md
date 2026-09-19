@@ -5,7 +5,7 @@ Configure a provider in the task file using its base URL and the **name** of an 
 ## Discover models
 
 ```text
-mortal-kombat models examples/openai-task.json --provider openai
+rubric-rumble models examples/openai-task.json --provider openai
 ```
 
 Replace the provider name with the key under `providers` in your task. This explicitly requests the connection's model list; it does not generate model responses. The desktop workbench exposes the same operation as Discover.
@@ -23,8 +23,8 @@ Candidates and the judge can use different configured connections. Batch means l
 In the workbench, select candidate models and choose **Probe selected**. The equivalent command first previews the count:
 
 ```text
-mortal-kombat probe my-task.json --candidate my-candidate-id
-mortal-kombat probe my-task.json --candidate my-candidate-id --execute --out runs/greeting-check
+rubric-rumble probe my-task.json --candidate my-candidate-id
+rubric-rumble probe my-task.json --candidate my-candidate-id --execute --out runs/greeting-check
 ```
 
 Repeat `--candidate` to check several candidates. Each selected model receives `Reply with exactly: hi` with a 32-token output budget. Results distinguish a completed text response, an empty response, an incomplete response and a failed call. A model can exhaust this small budget without being incapable of text generation; increase the normal task's output limit for a fuller trial. A greeting response establishes a working text request through that connection, not the model's quality on your task.

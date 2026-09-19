@@ -2,147 +2,131 @@
   "schema_version": 1,
   "diagram_type": "sequence",
   "meta": {
-    "title": "03 — Insert candidates into the ladder using saved evidence",
+    "title": "Rubric Rumble: insert evaluated candidates into a ranking",
     "quality_profile": "showcase",
     "animation": "none",
     "column_fit": "spread",
     "viewBox": [
-      1320,
-      600
+      1000,
+      520
     ]
   },
   "participants": [
     {
-      "id": "seed",
-      "type": "backend",
-      "label": "Seeded candidates"
+      "id": "rr-ladder-seed",
+      "type": "database",
+      "label": "Candidate order"
     },
     {
-      "id": "loop",
+      "id": "rr-ladder-core",
       "type": "backend",
-      "label": "Insertion loop"
+      "label": "Tournament core"
     },
     {
-      "id": "judge",
+      "id": "rr-ladder-views",
+      "type": "database",
+      "label": "Candidate views"
+    },
+    {
+      "id": "rr-ladder-judge",
       "type": "backend",
       "label": "Judge callback"
     },
     {
-      "id": "ladder",
+      "id": "rr-ladder-ladder",
       "type": "database",
-      "label": "Active ladder"
+      "label": "Current ladder"
     }
   ],
   "messages": [
     {
-      "id": "m-03-ladder-0",
-      "from": "seed",
-      "to": "loop",
-      "label": "Skip candidates disqualified during evaluation",
-      "y": 160
+      "id": "rr-03-ladder-1",
+      "from": "rr-ladder-seed",
+      "to": "rr-ladder-core",
+      "label": "Deduplicated candidate order",
+      "y": 160.0
     },
     {
-      "id": "m-03-ladder-1",
-      "from": "loop",
-      "to": "ladder",
-      "label": "Empty ladder: append first survivor",
-      "y": 188
+      "id": "rr-03-ladder-2",
+      "from": "rr-ladder-core",
+      "to": "rr-ladder-views",
+      "label": "Finish all candidate evaluation first",
+      "y": 190.0
     },
     {
-      "id": "m-03-ladder-2",
-      "from": "seed",
-      "to": "loop",
-      "label": "Take the next surviving candidate",
-      "y": 216
-    },
-    {
-      "id": "m-03-ladder-3",
-      "from": "ladder",
-      "to": "loop",
-      "label": "Start at position 0; read incumbent B",
-      "y": 244,
+      "id": "rr-03-ladder-3",
+      "from": "rr-ladder-views",
+      "to": "rr-ladder-core",
+      "label": "Complete answer bundles; failed candidates skip",
+      "y": 220.0,
       "variant": "return"
     },
     {
-      "id": "m-03-ladder-4",
-      "from": "loop",
-      "to": "judge",
-      "label": "A = new candidate; B = current incumbent",
-      "y": 272
+      "id": "rr-03-ladder-4",
+      "from": "rr-ladder-core",
+      "to": "rr-ladder-ladder",
+      "label": "First surviving candidate starts the ladder",
+      "y": 250.0
     },
     {
-      "id": "m-03-ladder-5",
-      "from": "judge",
-      "to": "loop",
-      "label": "Return exactly one documented outcome",
-      "y": 300,
+      "id": "rr-03-ladder-6",
+      "from": "rr-ladder-core",
+      "to": "rr-ladder-judge",
+      "label": "A and incumbent B: complete answer bundles",
+      "y": 280.0
+    },
+    {
+      "id": "rr-03-ladder-7",
+      "from": "rr-ladder-judge",
+      "to": "rr-ladder-core",
+      "label": "One of five supported outcomes",
+      "y": 310.0,
       "variant": "return"
     },
     {
-      "id": "m-03-ladder-6",
-      "from": "loop",
-      "to": "ladder",
-      "label": "Record battle; apply outcome below",
-      "y": 328
+      "id": "rr-03-ladder-8",
+      "from": "rr-ladder-core",
+      "to": "rr-ladder-ladder",
+      "label": "A better: insert A before B",
+      "y": 340.0
     },
     {
-      "id": "m-03-ladder-7",
-      "from": "ladder",
-      "to": "loop",
-      "label": "Continue, finish insertion, or drop candidate",
-      "y": 356,
-      "variant": "return"
+      "id": "rr-03-ladder-9",
+      "from": "rr-ladder-core",
+      "to": "rr-ladder-ladder",
+      "label": "B better: advance; append A if no win",
+      "y": 370.0
     },
     {
-      "id": "m-03-ladder-8",
-      "from": "loop",
-      "to": "judge",
-      "label": "If comparison continues: use next incumbent",
-      "y": 384
+      "id": "rr-03-ladder-10",
+      "from": "rr-ladder-core",
+      "to": "rr-ladder-ladder",
+      "label": "Disqualify A, B or both: apply outcome below",
+      "y": 400.0,
+      "variant": "security"
     },
     {
-      "id": "m-03-ladder-9",
-      "from": "loop",
-      "to": "ladder",
-      "label": "No earlier insertion: append at the end",
-      "y": 412
-    },
-    {
-      "id": "m-03-ladder-10",
-      "from": "seed",
-      "to": "loop",
-      "label": "Repeat for all seeded survivors",
-      "y": 440
-    },
-    {
-      "id": "m-03-ladder-11",
-      "from": "ladder",
-      "to": "loop",
-      "label": "Final ranked list + DQ list + battle records",
-      "y": 468,
+      "id": "rr-03-ladder-14",
+      "from": "rr-ladder-ladder",
+      "to": "rr-ladder-core",
+      "label": "Ranking + battle records + disqualifications",
+      "y": 430.0,
       "variant": "return"
     }
   ],
   "cards": [
     {
-      "dot": "cyan",
-      "title": "Winning or losing a comparison",
-      "items": [
-        "A better: insert before B and finish. B better: advance one position; append A if it reaches the end."
-      ]
-    },
-    {
       "dot": "rose",
-      "title": "Disqualification decisions",
+      "title": "Disqualification changes the current insertion",
       "items": [
-        "A DQ: drop A. B DQ: remove B and compare A at the same position. Both DQ: remove both; finish A."
+        "A: remove A and stop. B: remove B, keep A at this position. Both: remove both and stop A. Continue with the next surviving candidate."
       ]
     },
     {
       "dot": "amber",
-      "title": "Order is not a round robin",
+      "title": "Comparisons follow insertion needs",
       "items": [
-        "The application seeds by provider then candidate ID, case-insensitively; rates are not passed into seed costs. Pairs are compared as insertion needs them."
+        "The order can require every pair in the worst case. The workflow seeds fresh by ID; library callers can supply prior rank or price for seeding. Judgments decide winners."
       ]
     }
   ]
