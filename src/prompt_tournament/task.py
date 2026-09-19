@@ -23,7 +23,10 @@ def _keys(value, allowed, name):
         raise ValueError(f'{name} contains unsupported fields: {", ".join(sorted(unknown))}.')
 
 
-def validate_task(raw: dict) -> dict:
+def validate_task(raw: dict, *, mode: str = 'tournament') -> dict:
+    if mode not in ('single', 'batch', 'battle', 'tournament'):
+        raise ValueError('Execution mode must be single, batch, battle or tournament.')
+    compare = mode in ('battle','tournament')
     task = copy.deepcopy(raw)
     _keys(task, ('schema','id','instructions','artifacts','models','providers','rubric','judge','max_calls'), 'task')
     if task.get('schema') != 'mortal-kombat.task.v1':
@@ -45,9 +48,12 @@ def validate_task(raw: dict) -> dict:
         raise ValueError('providers must be an object.')
     for name,provider in providers.items():
         _text(name,'provider name')
-        _keys(provider,('kind','base_url','api_key_env','timeout_seconds'),'provider')
+        _keys(provider,('kind','base_url','api_key_env','timeout_seconds','endpoint'),'provider')
         if provider.get('kind') not in ('openai','ollama'):
             raise ValueError('Provider kind must be openai or ollama.')
+        endpoints = ('responses', 'chat-completions') if provider['kind']=='openai' else ('chat',)
+        if provider.get('endpoint', endpoints[0]) not in endpoints:
+            raise ValueError('Provider endpoint is not supported for its kind.')
         url=urlsplit(_text(provider.get('base_url'),'provider.base_url'))
         if url.username or url.password or url.query or url.fragment or not url.hostname:
             raise ValueError('Provider URL must have a host and no credentials, query or fragment.')
@@ -61,16 +67,21 @@ def validate_task(raw: dict) -> dict:
         if isinstance(timeout,bool) or not isinstance(timeout,(int,float)) or not 1<=timeout<=600:
             raise ValueError('timeout_seconds must be between 1 and 600.')
     models=task.get('models')
-    if not isinstance(models,list) or len(models)<2:
-        raise ValueError('Supply at least two candidate models.')
-    judge=task.get('judge')
+    minimum = 2 if mode in ('battle','tournament') else 1
+    if not isinstance(models,list) or len(models)<minimum:
+        raise ValueError(f'Supply at least {minimum} candidate models for {mode}.')
+    if mode=='single' and len(models)!=1:
+        raise ValueError('Single mode requires exactly one candidate.')
+    if mode=='battle' and len(models)!=2:
+        raise ValueError('Battle mode requires exactly two candidates.')
+    judge=task.get('judge') if compare else task.setdefault('judge',{'kind':'none'})
     _keys(judge,('kind','model'),'judge')
-    if judge.get('kind') not in ('rules','provider'):
+    if judge.get('kind') not in (('rules','provider') if compare else ('rules','provider','none')):
         raise ValueError('judge.kind must be rules or provider.')
-    rubric=task.get('rubric')
+    rubric=task.get('rubric') if compare else task.setdefault('rubric',{'kind':'pairwise','description':'Capture responses without judging.'})
     _keys(rubric,('kind','description','fields'),'rubric')
     _text(rubric.get('description'),'rubric.description')
-    if judge['kind']=='rules':
+    if compare and judge['kind']=='rules':
         if rubric.get('kind')!='exact_fields' or not isinstance(rubric.get('fields'),list) or not rubric['fields']:
             raise ValueError('Rules judging requires an exact_fields rubric with fields.')
         if any(not isinstance(x,str) or not x for x in rubric['fields']) or len(set(rubric['fields']))!=len(rubric['fields']):
@@ -82,7 +93,7 @@ def validate_task(raw: dict) -> dict:
     elif rubric.get('kind') not in ('pairwise','exact_fields'):
         raise ValueError('Provider rubric kind must be pairwise or exact_fields.')
     all_models=list(models)
-    if judge['kind']=='provider':
+    if judge['kind']=='provider' and (compare or judge.get('model') is not None):
         all_models.append(judge.get('model'))
     ids=[]
     for model in all_models:
@@ -126,8 +137,9 @@ def fingerprint(task: dict) -> str:
     return hashlib.sha256(json.dumps(task,sort_keys=True,separators=(',',':'),ensure_ascii=False).encode()).hexdigest()
 
 
-def plan_task(task: dict) -> dict:
+def plan_task(task: dict, *, mode: str = 'tournament') -> dict:
+    task = validate_task(task, mode=mode)
     live_candidates=sum(model['provider']!='fixture' for model in task['models'])
     n=len(task['models'])
-    judge_calls=n*(n-1)//2 if task['judge']['kind']=='provider' else 0
-    return {'task_id':task['id'],'candidate_count':n,'artifact_count':len(task['artifacts']),'judge':task['judge']['kind'],'network_required':bool(live_candidates or judge_calls),'maximum_candidate_calls':live_candidates*len(task['artifacts']),'maximum_judge_calls':judge_calls,'configured_call_limit':task['max_calls'],'task_sha256':fingerprint(task)}
+    judge_calls=n*(n-1)//2 if task['judge']['kind']=='provider' and mode in ('battle','tournament') else 0
+    return {'execution_mode':mode,'task_id':task['id'],'candidate_count':n,'artifact_count':len(task['artifacts']),'judge':task['judge']['kind'],'network_required':bool(live_candidates or judge_calls),'maximum_candidate_calls':live_candidates*len(task['artifacts']),'maximum_judge_calls':judge_calls,'configured_call_limit':task['max_calls'],'task_sha256':fingerprint(task)}

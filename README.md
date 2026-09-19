@@ -8,7 +8,9 @@ Mortal Kombat turns a task, its examples, and a declared judging rule into a rec
 
 Follow [how the whole system runs](https://cinvanaai.github.io/mortal-kombat/operations/) through task setup, provider execution, the tournament ladder, judging, and saved results. The guide includes six linked operational diagrams and a readable source map.
 
-Explore the [recorded evaluation](https://cinvanaai.github.io/mortal-kombat/) to inspect the source, field checks, disqualification and ladder decisions before installing anything. For an offline replay, download or clone this repository, then open `demo/index.html` in a browser.
+Read [two real model battles](https://cinvanaai.github.io/mortal-kombat/history/): **Gemma 3 27B beat DeepSeek V3.1 671B**, and **GPT-4.1 mini beat GPT-5 Chat**, according to GPT-5.4 judging the same ten-example transcript task and weighted rubric. Read every original answer and the judge's reasons, then follow the historical process diagram. These March 2026 records come from the evaluator inside Skeleton. [Methods and model context](docs/HISTORICAL-BATTLES.md).
+
+Explore the [offline fixture replay](https://cinvanaai.github.io/mortal-kombat/) to inspect the source, field checks, disqualification and ladder decisions before installing anything. For an offline replay, download or clone this repository, then open `demo/index.html` in a browser.
 
 ## Run your first evaluation
 
@@ -33,6 +35,8 @@ This is a real run of the evaluation workflow using fixed fixture responses. No 
 
 ## Make the task yours
 
+For a desktop interface, run `mortal-kombat gui`. Start with the offline task, or load a configured task file. Discover models from a connection, select candidates, preview calls, and save a run with readable results. [Workbench guide](docs/WORKBENCH.md).
+
 ```text
 mortal-kombat example my-task.json
 mortal-kombat run my-task.json
@@ -44,6 +48,8 @@ mortal-kombat run my-task.json --execute --out runs/my-task
 For real models, start with [the Ollama configuration](examples/ollama-task.json) or [the OpenAI configuration](examples/openai-task.json). Replace the two model placeholders with models available to your own setup. OpenAI credentials are read from the named environment variable, never from the task file. Configure any rates yourself; none are bundled as current prices.
 
 The rules judge works with real model responses too. For tasks without exact reference answers, [provider judging](docs/TASKS.md#provider-judging) uses a separately configured model and your rubric.
+
+Use `--mode single` for one candidate, `--mode batch` to capture all selected candidates without a judge, `--mode battle` to compare exactly two, or the default `--mode tournament` for a ladder. [Connections and model discovery](docs/PROVIDERS.md).
 
 ## What you can inspect
 

@@ -2,9 +2,15 @@
 
 Give several candidates the same task, keep their answers, compare the saved answers, and build a ladder whose decisions can be inspected.
 
-This guide maps the current public Python implementation. The recorded extraction example is synthetic. It does not reconstruct the earlier large historical tournament; recovering that artifact and its version is separate work. Sequence views show order and responsibility; conditional labels describe alternative paths, not steps every run takes.
+This guide maps the standalone tournament branch, with source links pinned to the reviewed core snapshot. The recorded extraction example is synthetic. For original provider responses and judge decisions, read the [two historical model battles](../history/) and their companion flow. Those records come from the archived evaluator, whose execution path differs from this standalone workflow. Sequence views show order and responsibility; conditional labels describe alternative paths, not steps every run takes.
 
 Source snapshot: `a8c714530e82e945b48aa939f4e14bb0bd26fa83`. [Open the complete operating path](00-overview.html).
+
+## Start in the desktop workbench
+
+Run `mortal-kombat gui` to prepare a task: configure connections, discover model IDs, inspect documented model facts and explicitly probe a selected model for a short text response. Research uses documentation you supply and preserves source quotes. Discovery, sourced claims and observed responses remain separate evidence.
+
+Single and Batch capture answers without a judge or ranking. Battle compares exactly two candidates; Tournament uses the ladder explained below. The provider adapter supports both OpenAI Responses and an explicitly selected Chat Completions endpoint, plus Ollama chat. [Workbench controls](https://github.com/CinvanaAI/mortal-kombat/blob/main/docs/WORKBENCH.md) · [Model preparation](https://github.com/CinvanaAI/mortal-kombat/blob/main/docs/PROVIDERS.md).
 
 ## 01. Define the job, then choose whether to execute
 

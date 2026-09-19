@@ -1,0 +1,177 @@
+{
+  "schema_version": 1,
+  "diagram_type": "workflow",
+  "meta": {
+    "title": "Inside one historical Mortal Kombat battle",
+    "quality_profile": "showcase",
+    "animation": "none",
+    "viewBox": [
+      800,
+      345
+    ],
+    "legend": {
+      "entries": {
+        "frontend": {
+          "label": "Task selection"
+        },
+        "backend": {
+          "label": "Evaluator logic"
+        },
+        "database": {
+          "label": "Saved evidence"
+        },
+        "cloud": {
+          "label": "Judge provider"
+        },
+        "security": {
+          "label": "Failure handling"
+        }
+      }
+    }
+  },
+  "lanes": [
+    {
+      "id": "battle",
+      "label": "One battle: ten example pairs, one weighted-rubric judgment"
+    },
+    {
+      "id": "errors",
+      "label": "Failure branches in the preserved source",
+      "variant": "exception"
+    }
+  ],
+  "mainPath": [
+    "battle-input",
+    "candidate-results",
+    "judge-request",
+    "saved-record"
+  ],
+  "nodes": [
+    {
+      "id": "battle-input",
+      "lane": "battle",
+      "col": 0,
+      "type": "frontend",
+      "label": "Task + pair",
+      "sublabel": "ten example inputs"
+    },
+    {
+      "id": "candidate-results",
+      "lane": "battle",
+      "col": 1,
+      "type": "backend",
+      "label": "Resolve A / B",
+      "sublabel": "per input: cache / call"
+    },
+    {
+      "id": "candidate-error",
+      "lane": "errors",
+      "col": 1,
+      "type": "security",
+      "label": "Keep error",
+      "sublabel": "candidate failure"
+    },
+    {
+      "id": "judge-request",
+      "lane": "battle",
+      "col": 3,
+      "type": "cloud",
+      "label": "GPT-5.4",
+      "sublabel": "whole-battle decision"
+    },
+    {
+      "id": "judge-error",
+      "lane": "errors",
+      "col": 3,
+      "type": "security",
+      "label": "Judge error",
+      "sublabel": "request or parsing"
+    },
+    {
+      "id": "saved-record",
+      "lane": "battle",
+      "col": 5,
+      "type": "database",
+      "label": "Save record",
+      "sublabel": "battle + ten items"
+    }
+  ],
+  "edges": [
+    {
+      "id": "request-candidates",
+      "from": "battle-input",
+      "to": "candidate-results",
+      "role": "main"
+    },
+    {
+      "id": "submit-bundle",
+      "from": "candidate-results",
+      "to": "judge-request",
+      "label": "ten pairs + rubric",
+      "role": "main",
+      "route": "straight"
+    },
+    {
+      "id": "save-decision",
+      "from": "judge-request",
+      "to": "saved-record",
+      "label": "decision or DQ",
+      "role": "main",
+      "route": "straight"
+    },
+    {
+      "id": "candidate-failed",
+      "from": "candidate-results",
+      "to": "candidate-error",
+      "label": "if failed",
+      "role": "error",
+      "variant": "security",
+      "labelDy": 15
+    },
+    {
+      "id": "include-error",
+      "from": "candidate-error",
+      "to": "judge-request",
+      "label": "include error",
+      "role": "branch",
+      "variant": "dashed"
+    },
+    {
+      "id": "judge-failed",
+      "from": "judge-request",
+      "to": "judge-error",
+      "label": "if failed",
+      "role": "error",
+      "variant": "security",
+      "labelDy": 15
+    },
+    {
+      "id": "save-failure",
+      "from": "judge-error",
+      "to": "saved-record",
+      "label": "retain failure",
+      "role": "error",
+      "variant": "security"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "violet",
+      "title": "What one decision means",
+      "items": [
+        "The request bundles the task, all ten source texts, paired outputs or errors, and the full 100-point rubric.",
+        "GPT-5.4 returns a winner, reason and confidence; disqualification is also supported.",
+        "No per-example judgments or numeric category scores are stored."
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "Read the evidence in context",
+      "items": [
+        "Preserved source flow; exact runtime revisions and particular cache hits remain unverified.",
+        "The backfilled ranking is a separate endpoint, not an intermediate ladder replay.",
+        "The companion showcase links two recorded wins to their examples, rubric and decisions."
+      ]
+    }
+  ]
+}

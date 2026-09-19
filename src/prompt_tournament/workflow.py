@@ -67,13 +67,14 @@ def _parse_provider_decision(text: str) -> JudgeDecision:
         raise ProviderFailure('Judge winner must be one of the documented outcomes.') from exc
 
 
-def run_task(raw: dict, *, allow_network: bool=False, transport=http_transport) -> dict[str, Any]:
-    task=validate_task(raw)
-    plan=plan_task(task)
+def run_task(raw: dict, *, allow_network: bool=False, transport=http_transport, mode: str='tournament') -> dict[str, Any]:
+    task=validate_task(raw, mode=mode)
+    plan=plan_task(task, mode=mode)
+    compare = mode in ('battle','tournament')
     if plan['network_required'] and not allow_network:
         raise ValueError('Live providers require explicit execution. Review the plan, then use --execute.')
     models=list(task['models'])
-    if task['judge']['kind']=='provider': models.append(task['judge']['model'])
+    if compare and task['judge']['kind']=='provider': models.append(task['judge']['model'])
     # Resolve every required key before the first call: partial paid runs must
     # not start because a later model's required configuration was overlooked.
     for model in models:
@@ -82,7 +83,7 @@ def run_task(raw: dict, *, allow_network: bool=False, transport=http_transport) 
         name=provider.get('api_key_env')
         if name and not os.environ.get(name,'').strip():
             raise ValueError(f'Required environment variable {name} is unset.')
-    report: dict[str,Any]={'schema':'mortal-kombat.result.v1','status':'running','started_at':datetime.now(timezone.utc).isoformat(),'mode':'configured-providers' if plan['network_required'] else 'synthetic-fixtures','task':task,'task_sha256':fingerprint(task),'plan':plan,'calls':[],'candidate_outputs':[],'candidate_summaries':[],'decisions':[],'tournament':None,'error':None}
+    report: dict[str,Any]={'schema':'mortal-kombat.result.v1','status':'running','execution_mode':mode,'started_at':datetime.now(timezone.utc).isoformat(),'mode':'configured-providers' if plan['network_required'] else 'synthetic-fixtures','task':task,'task_sha256':fingerprint(task),'plan':plan,'calls':[],'candidate_outputs':[],'candidate_summaries':[],'decisions':[],'tournament':None,'error':None}
     model_configs={model['id']:model for model in models}
     artifacts={artifact['id']:artifact for artifact in task['artifacts']}
     live_call_count=0
@@ -119,9 +120,9 @@ def run_task(raw: dict, *, allow_network: bool=False, transport=http_transport) 
         config=model_configs[model.model_id]
         prompt=task['instructions']+'\n\nSource artifact:\n'+artifact.source_text
         text=execute(config,prompt,'candidate',artifact.artifact_id)
-        assessment=assess_output(text,artifacts[artifact.artifact_id]['expected']) if task['judge']['kind']=='rules' else None
+        assessment=assess_output(text,artifacts[artifact.artifact_id]['expected']) if compare and task['judge']['kind']=='rules' else None
         report['candidate_outputs'].append({'candidate_id':model.model_id,'artifact_id':artifact.artifact_id,'text':text,'assessment':assessment})
-        if assessment is not None and not assessment['valid_json_object']:
+        if compare and assessment is not None and not assessment['valid_json_object']:
             raise ProviderFailure('Candidate output is not a JSON object; remaining artifacts for this candidate were skipped.')
         return text
 
@@ -151,15 +152,29 @@ def run_task(raw: dict, *, allow_network: bool=False, transport=http_transport) 
 
     refs=[ModelRef(model['provider'],model['provider'],model['id'],model['id']) for model in task['models']]
     try:
-        result=run_tournament(prompt_id=task['id']+':'+report['task_sha256'],models=refs,artifacts=[Artifact(a['id'],a['id'],a['text']) for a in task['artifacts']],evaluate=evaluate,judge=judge,cache={})
-        report['tournament']=result.as_dict()
-        report['status']='completed' if result.ranking else 'no-ranked-candidates'
+        if compare:
+            result=run_tournament(prompt_id=task['id']+':'+report['task_sha256'],models=refs,artifacts=[Artifact(a['id'],a['id'],a['text']) for a in task['artifacts']],evaluate=evaluate,judge=judge,cache={})
+            report['tournament']=result.as_dict()
+            report['status']='completed' if result.ranking else 'no-ranked-candidates'
+        else:
+            # Single and batch capture every requested output. They do not call
+            # the configured judge or invent a ranking from execution success.
+            failures = 0
+            for model in refs:
+                for artifact in task['artifacts']:
+                    try:
+                        evaluate(model, Artifact(artifact['id'],artifact['id'],artifact['text']))
+                    except ProviderFailure:
+                        failures += 1
+            attempted = len(refs)*len(task['artifacts'])
+            report['status'] = 'completed' if not failures else 'failed' if failures==attempted else 'partial'
+
     except Exception as exc:
         report['status']='failed'
         report['error']=_safe_error(exc)
     for model in task['models']:
         calls=[call for call in report['calls'] if call['phase']=='candidate' and call['candidate_id']==model['id']]
-        report['candidate_summaries'].append({'candidate_id':model['id'],'assessment':candidate_score(model['id']) if task['judge']['kind']=='rules' else None,'calls':len(calls),'failed_calls':sum(c['status']=='failed' for c in calls)})
+        report['candidate_summaries'].append({'candidate_id':model['id'],'assessment':candidate_score(model['id']) if compare and task['judge']['kind']=='rules' else None,'calls':len(calls),'failed_calls':sum(c['status']=='failed' for c in calls)})
     totals={}
     unknown=0
     for call in report['calls']:
