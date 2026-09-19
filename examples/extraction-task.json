@@ -1,0 +1,62 @@
+{
+  "schema": "mortal-kombat.task.v1",
+  "id": "owner-and-action",
+  "instructions": "Extract the owner and next action from each source. Return only a JSON object with string fields owner and action. Preserve the exact name and action wording.",
+  "artifacts": [
+    {
+      "id": "review",
+      "text": "Morgan owns this item. The next action is review the fixture.",
+      "expected": {
+        "owner": "Morgan",
+        "action": "review the fixture"
+      }
+    },
+    {
+      "id": "release",
+      "text": "Riley owns this item. The next action is check the release notes.",
+      "expected": {
+        "owner": "Riley",
+        "action": "check the release notes"
+      }
+    }
+  ],
+  "rubric": {
+    "kind": "exact_fields",
+    "description": "One point per exact, case-sensitive expected field across two artifacts. Extra fields earn no points. An output that is not a JSON object disqualifies the candidate. Equal scores use candidate ID order as a deterministic tie-break.",
+    "fields": [
+      "owner",
+      "action"
+    ]
+  },
+  "judge": {
+    "kind": "rules"
+  },
+  "providers": {},
+  "models": [
+    {
+      "id": "complete-fixture",
+      "provider": "fixture",
+      "fixture_outputs": {
+        "review": "{\"owner\": \"Morgan\", \"action\": \"review the fixture\"}",
+        "release": "{\"owner\": \"Riley\", \"action\": \"check the release notes\"}"
+      }
+    },
+    {
+      "id": "missing-owner-fixture",
+      "provider": "fixture",
+      "fixture_outputs": {
+        "review": "{\"action\": \"review the fixture\"}",
+        "release": "{\"action\": \"check the release notes\"}"
+      }
+    },
+    {
+      "id": "malformed-fixture",
+      "provider": "fixture",
+      "fixture_outputs": {
+        "review": "Morgan should review the fixture.",
+        "release": "Riley should check the release notes."
+      }
+    }
+  ],
+  "max_calls": 100
+}

@@ -1,0 +1,118 @@
+{
+  "schema": "mortal-kombat.presentation-trace.v1",
+  "basis": "Observed local variables during an offline execution of engine.run_tournament using sys.settrace; source was not modified.",
+  "task_sha256": "28129bbae2a0f3413b26f819d4cc32b6c66fb90c84ad3ad6ee37363e498ea276",
+  "result_match": "All result fields match examples/demo-result.json except started_at and finished_at.",
+  "observations": [
+    {
+      "seed_order": [
+        "complete-fixture",
+        "malformed-fixture",
+        "missing-owner-fixture"
+      ],
+      "ladder": [],
+      "disqualified": [
+        "malformed-fixture"
+      ],
+      "battle_ids": []
+    },
+    {
+      "seed_order": [
+        "complete-fixture",
+        "malformed-fixture",
+        "missing-owner-fixture"
+      ],
+      "ladder": [
+        "complete-fixture"
+      ],
+      "disqualified": [
+        "malformed-fixture"
+      ],
+      "battle_ids": []
+    },
+    {
+      "seed_order": [
+        "complete-fixture",
+        "malformed-fixture",
+        "missing-owner-fixture"
+      ],
+      "ladder": [
+        "complete-fixture"
+      ],
+      "disqualified": [
+        "malformed-fixture"
+      ],
+      "battle_ids": [
+        "battle-0001"
+      ]
+    },
+    {
+      "seed_order": [
+        "complete-fixture",
+        "malformed-fixture",
+        "missing-owner-fixture"
+      ],
+      "ladder": [
+        "complete-fixture",
+        "missing-owner-fixture"
+      ],
+      "disqualified": [
+        "malformed-fixture"
+      ],
+      "battle_ids": [
+        "battle-0001"
+      ]
+    }
+  ],
+  "seed_order": [
+    "complete-fixture",
+    "malformed-fixture",
+    "missing-owner-fixture"
+  ],
+  "queue_reason": "No prior ranking or prices are supplied. The engine orders these fixture candidates by provider and candidate ID.",
+  "snapshots": [
+    {
+      "id": "evaluate",
+      "title": "Check each output",
+      "ladder": [],
+      "disqualified": [
+        "malformed-fixture"
+      ],
+      "battles": 0
+    },
+    {
+      "id": "seed",
+      "title": "Seed the ladder",
+      "ladder": [
+        "complete-fixture"
+      ],
+      "disqualified": [
+        "malformed-fixture"
+      ],
+      "battles": 0
+    },
+    {
+      "id": "compare",
+      "title": "Compare once",
+      "ladder": [
+        "complete-fixture"
+      ],
+      "disqualified": [
+        "malformed-fixture"
+      ],
+      "battles": 1
+    },
+    {
+      "id": "insert",
+      "title": "Insert the challenger",
+      "ladder": [
+        "complete-fixture",
+        "missing-owner-fixture"
+      ],
+      "disqualified": [
+        "malformed-fixture"
+      ],
+      "battles": 1
+    }
+  ]
+}

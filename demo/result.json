@@ -1,0 +1,438 @@
+{
+  "schema": "mortal-kombat.result.v1",
+  "status": "completed",
+  "started_at": "2026-09-19T13:48:05.633027+00:00",
+  "mode": "synthetic-fixtures",
+  "task": {
+    "schema": "mortal-kombat.task.v1",
+    "id": "owner-and-action",
+    "instructions": "Extract the owner and next action from each source. Return only a JSON object with string fields owner and action. Preserve the exact name and action wording.",
+    "artifacts": [
+      {
+        "id": "review",
+        "text": "Morgan owns this item. The next action is review the fixture.",
+        "expected": {
+          "owner": "Morgan",
+          "action": "review the fixture"
+        }
+      },
+      {
+        "id": "release",
+        "text": "Riley owns this item. The next action is check the release notes.",
+        "expected": {
+          "owner": "Riley",
+          "action": "check the release notes"
+        }
+      }
+    ],
+    "rubric": {
+      "kind": "exact_fields",
+      "description": "One point per exact, case-sensitive expected field across two artifacts. Extra fields earn no points. An output that is not a JSON object disqualifies the candidate. Equal scores use candidate ID order as a deterministic tie-break.",
+      "fields": [
+        "owner",
+        "action"
+      ]
+    },
+    "judge": {
+      "kind": "rules"
+    },
+    "providers": {},
+    "models": [
+      {
+        "id": "complete-fixture",
+        "provider": "fixture",
+        "fixture_outputs": {
+          "review": "{\"owner\": \"Morgan\", \"action\": \"review the fixture\"}",
+          "release": "{\"owner\": \"Riley\", \"action\": \"check the release notes\"}"
+        }
+      },
+      {
+        "id": "missing-owner-fixture",
+        "provider": "fixture",
+        "fixture_outputs": {
+          "review": "{\"action\": \"review the fixture\"}",
+          "release": "{\"action\": \"check the release notes\"}"
+        }
+      },
+      {
+        "id": "malformed-fixture",
+        "provider": "fixture",
+        "fixture_outputs": {
+          "review": "Morgan should review the fixture.",
+          "release": "Riley should check the release notes."
+        }
+      }
+    ],
+    "max_calls": 100
+  },
+  "task_sha256": "28129bbae2a0f3413b26f819d4cc32b6c66fb90c84ad3ad6ee37363e498ea276",
+  "plan": {
+    "task_id": "owner-and-action",
+    "candidate_count": 3,
+    "artifact_count": 2,
+    "judge": "rules",
+    "network_required": false,
+    "maximum_candidate_calls": 0,
+    "maximum_judge_calls": 0,
+    "configured_call_limit": 100,
+    "task_sha256": "28129bbae2a0f3413b26f819d4cc32b6c66fb90c84ad3ad6ee37363e498ea276"
+  },
+  "calls": [
+    {
+      "sequence": 1,
+      "phase": "candidate",
+      "candidate_id": "complete-fixture",
+      "provider": "fixture",
+      "configured_model": null,
+      "artifact_id": "review",
+      "request_text": "Extract the owner and next action from each source. Return only a JSON object with string fields owner and action. Preserve the exact name and action wording.\n\nSource artifact:\nMorgan owns this item. The next action is review the fixture.",
+      "status": "completed",
+      "text": "{\"owner\": \"Morgan\", \"action\": \"review the fixture\"}",
+      "usage": null,
+      "cost": {
+        "status": "unavailable",
+        "amount": null,
+        "currency": null,
+        "basis": "Returned token usage and user-configured rates; estimate, not an invoice.",
+        "reason": "No rates configured."
+      },
+      "provider_call_attempted": false,
+      "usage_raw": null,
+      "returned_model": null,
+      "response_id": null,
+      "complete": true
+    },
+    {
+      "sequence": 2,
+      "phase": "candidate",
+      "candidate_id": "complete-fixture",
+      "provider": "fixture",
+      "configured_model": null,
+      "artifact_id": "release",
+      "request_text": "Extract the owner and next action from each source. Return only a JSON object with string fields owner and action. Preserve the exact name and action wording.\n\nSource artifact:\nRiley owns this item. The next action is check the release notes.",
+      "status": "completed",
+      "text": "{\"owner\": \"Riley\", \"action\": \"check the release notes\"}",
+      "usage": null,
+      "cost": {
+        "status": "unavailable",
+        "amount": null,
+        "currency": null,
+        "basis": "Returned token usage and user-configured rates; estimate, not an invoice.",
+        "reason": "No rates configured."
+      },
+      "provider_call_attempted": false,
+      "usage_raw": null,
+      "returned_model": null,
+      "response_id": null,
+      "complete": true
+    },
+    {
+      "sequence": 3,
+      "phase": "candidate",
+      "candidate_id": "malformed-fixture",
+      "provider": "fixture",
+      "configured_model": null,
+      "artifact_id": "review",
+      "request_text": "Extract the owner and next action from each source. Return only a JSON object with string fields owner and action. Preserve the exact name and action wording.\n\nSource artifact:\nMorgan owns this item. The next action is review the fixture.",
+      "status": "completed",
+      "text": "Morgan should review the fixture.",
+      "usage": null,
+      "cost": {
+        "status": "unavailable",
+        "amount": null,
+        "currency": null,
+        "basis": "Returned token usage and user-configured rates; estimate, not an invoice.",
+        "reason": "No rates configured."
+      },
+      "provider_call_attempted": false,
+      "usage_raw": null,
+      "returned_model": null,
+      "response_id": null,
+      "complete": true
+    },
+    {
+      "sequence": 4,
+      "phase": "candidate",
+      "candidate_id": "missing-owner-fixture",
+      "provider": "fixture",
+      "configured_model": null,
+      "artifact_id": "review",
+      "request_text": "Extract the owner and next action from each source. Return only a JSON object with string fields owner and action. Preserve the exact name and action wording.\n\nSource artifact:\nMorgan owns this item. The next action is review the fixture.",
+      "status": "completed",
+      "text": "{\"action\": \"review the fixture\"}",
+      "usage": null,
+      "cost": {
+        "status": "unavailable",
+        "amount": null,
+        "currency": null,
+        "basis": "Returned token usage and user-configured rates; estimate, not an invoice.",
+        "reason": "No rates configured."
+      },
+      "provider_call_attempted": false,
+      "usage_raw": null,
+      "returned_model": null,
+      "response_id": null,
+      "complete": true
+    },
+    {
+      "sequence": 5,
+      "phase": "candidate",
+      "candidate_id": "missing-owner-fixture",
+      "provider": "fixture",
+      "configured_model": null,
+      "artifact_id": "release",
+      "request_text": "Extract the owner and next action from each source. Return only a JSON object with string fields owner and action. Preserve the exact name and action wording.\n\nSource artifact:\nRiley owns this item. The next action is check the release notes.",
+      "status": "completed",
+      "text": "{\"action\": \"check the release notes\"}",
+      "usage": null,
+      "cost": {
+        "status": "unavailable",
+        "amount": null,
+        "currency": null,
+        "basis": "Returned token usage and user-configured rates; estimate, not an invoice.",
+        "reason": "No rates configured."
+      },
+      "provider_call_attempted": false,
+      "usage_raw": null,
+      "returned_model": null,
+      "response_id": null,
+      "complete": true
+    }
+  ],
+  "candidate_outputs": [
+    {
+      "candidate_id": "complete-fixture",
+      "artifact_id": "review",
+      "text": "{\"owner\": \"Morgan\", \"action\": \"review the fixture\"}",
+      "assessment": {
+        "valid_json_object": true,
+        "score": 2,
+        "maximum": 2,
+        "checks": [
+          {
+            "field": "owner",
+            "expected": "Morgan",
+            "actual": "Morgan",
+            "present": true,
+            "passed": true
+          },
+          {
+            "field": "action",
+            "expected": "review the fixture",
+            "actual": "review the fixture",
+            "present": true,
+            "passed": true
+          }
+        ],
+        "reason": "Exact, case-sensitive field matches; extra fields do not earn points."
+      }
+    },
+    {
+      "candidate_id": "complete-fixture",
+      "artifact_id": "release",
+      "text": "{\"owner\": \"Riley\", \"action\": \"check the release notes\"}",
+      "assessment": {
+        "valid_json_object": true,
+        "score": 2,
+        "maximum": 2,
+        "checks": [
+          {
+            "field": "owner",
+            "expected": "Riley",
+            "actual": "Riley",
+            "present": true,
+            "passed": true
+          },
+          {
+            "field": "action",
+            "expected": "check the release notes",
+            "actual": "check the release notes",
+            "present": true,
+            "passed": true
+          }
+        ],
+        "reason": "Exact, case-sensitive field matches; extra fields do not earn points."
+      }
+    },
+    {
+      "candidate_id": "malformed-fixture",
+      "artifact_id": "review",
+      "text": "Morgan should review the fixture.",
+      "assessment": {
+        "valid_json_object": false,
+        "score": 0,
+        "maximum": 2,
+        "checks": [],
+        "reason": "Output is not valid JSON."
+      }
+    },
+    {
+      "candidate_id": "missing-owner-fixture",
+      "artifact_id": "review",
+      "text": "{\"action\": \"review the fixture\"}",
+      "assessment": {
+        "valid_json_object": true,
+        "score": 1,
+        "maximum": 2,
+        "checks": [
+          {
+            "field": "owner",
+            "expected": "Morgan",
+            "actual": null,
+            "present": false,
+            "passed": false
+          },
+          {
+            "field": "action",
+            "expected": "review the fixture",
+            "actual": "review the fixture",
+            "present": true,
+            "passed": true
+          }
+        ],
+        "reason": "Exact, case-sensitive field matches; extra fields do not earn points."
+      }
+    },
+    {
+      "candidate_id": "missing-owner-fixture",
+      "artifact_id": "release",
+      "text": "{\"action\": \"check the release notes\"}",
+      "assessment": {
+        "valid_json_object": true,
+        "score": 1,
+        "maximum": 2,
+        "checks": [
+          {
+            "field": "owner",
+            "expected": "Riley",
+            "actual": null,
+            "present": false,
+            "passed": false
+          },
+          {
+            "field": "action",
+            "expected": "check the release notes",
+            "actual": "check the release notes",
+            "present": true,
+            "passed": true
+          }
+        ],
+        "reason": "Exact, case-sensitive field matches; extra fields do not earn points."
+      }
+    }
+  ],
+  "candidate_summaries": [
+    {
+      "candidate_id": "complete-fixture",
+      "assessment": {
+        "valid": true,
+        "score": 4,
+        "maximum": 4
+      },
+      "calls": 2,
+      "failed_calls": 0
+    },
+    {
+      "candidate_id": "missing-owner-fixture",
+      "assessment": {
+        "valid": true,
+        "score": 2,
+        "maximum": 4
+      },
+      "calls": 2,
+      "failed_calls": 0
+    },
+    {
+      "candidate_id": "malformed-fixture",
+      "assessment": {
+        "valid": false,
+        "score": 0,
+        "maximum": 4
+      },
+      "calls": 1,
+      "failed_calls": 0
+    }
+  ],
+  "decisions": [
+    {
+      "model_a": "missing-owner-fixture",
+      "model_b": "complete-fixture",
+      "winner": "model_b_better",
+      "reason": "Exact-field matches: missing-owner-fixture 2/4; complete-fixture 4/4.",
+      "confidence": null
+    }
+  ],
+  "tournament": {
+    "prompt_id": "owner-and-action:28129bbae2a0f3413b26f819d4cc32b6c66fb90c84ad3ad6ee37363e498ea276",
+    "current_ranking": [
+      {
+        "rank": 1,
+        "status": "Ranked",
+        "provider": "fixture",
+        "provider_key": "fixture",
+        "model_id": "complete-fixture",
+        "display_label": "complete-fixture",
+        "input_cost_per_million": null,
+        "output_cost_per_million": null
+      },
+      {
+        "rank": 2,
+        "status": "Ranked",
+        "provider": "fixture",
+        "provider_key": "fixture",
+        "model_id": "missing-owner-fixture",
+        "display_label": "missing-owner-fixture",
+        "input_cost_per_million": null,
+        "output_cost_per_million": null
+      },
+      {
+        "rank": 3,
+        "status": "Disqualified",
+        "provider": "fixture",
+        "provider_key": "fixture",
+        "model_id": "malformed-fixture",
+        "display_label": "malformed-fixture",
+        "input_cost_per_million": null,
+        "output_cost_per_million": null,
+        "reason": "evaluation failed: ProviderFailure: Candidate output is not a JSON object; remaining artifacts for this candidate were skipped."
+      }
+    ],
+    "battles": [
+      {
+        "battle_id": "battle-0001",
+        "model_a": {
+          "provider": "fixture",
+          "provider_key": "fixture",
+          "model_id": "missing-owner-fixture",
+          "display_label": "missing-owner-fixture",
+          "input_cost_per_million": null,
+          "output_cost_per_million": null
+        },
+        "model_b": {
+          "provider": "fixture",
+          "provider_key": "fixture",
+          "model_id": "complete-fixture",
+          "display_label": "complete-fixture",
+          "input_cost_per_million": null,
+          "output_cost_per_million": null
+        },
+        "decision": {
+          "winner": "model_b_better",
+          "short_reason": "Exact-field matches: missing-owner-fixture 2/4; complete-fixture 4/4.",
+          "confidence": null
+        }
+      }
+    ],
+    "cache_hits": 0,
+    "evaluations": 4
+  },
+  "error": null,
+  "cost_summary": {
+    "estimated_subtotals": [],
+    "calls_without_cost_estimate": 0,
+    "complete_for_attempted_provider_calls": false,
+    "note": "No energy/hardware/subscription costs are inferred. Subtotals omit calls whose usage or rates are unavailable."
+  },
+  "provider_calls_attempted": 0,
+  "finished_at": "2026-09-19T13:48:05.633446+00:00"
+}

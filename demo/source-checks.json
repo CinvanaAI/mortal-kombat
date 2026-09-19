@@ -1,0 +1,36 @@
+{
+  "schema": "mortal-kombat.presentation-sources.v1",
+  "task_sha256": "28129bbae2a0f3413b26f819d4cc32b6c66fb90c84ad3ad6ee37363e498ea276",
+  "task_hash_rule": "SHA-256 of the validated task serialized as sorted-key compact JSON with ensure_ascii=False. This is not the raw file hash.",
+  "source_files": [
+    {
+      "path": "src/prompt_tournament/engine.py",
+      "sha256": "634810de54190acb182ec5cb4ead6b12d8cef2bcd3d3c0066915db159b02441b"
+    },
+    {
+      "path": "src/prompt_tournament/workflow.py",
+      "sha256": "713d2ae9ffd4830d5e75ccf82722b09d094f1196f1f976bd989bd3d32e02e2f6"
+    },
+    {
+      "path": "src/prompt_tournament/workflow_cli.py",
+      "sha256": "4ba95bd653329113e9a721f2d5b99a6aa5b0659d5c04fc3d51dac3ec55da08af"
+    },
+    {
+      "path": "src/prompt_tournament/task.py",
+      "sha256": "e798875d3a218f7fad34e91452deb2980d0959f94b4bddc0f401d40c884a222d"
+    },
+    {
+      "path": "examples/extraction-task.json",
+      "sha256": "3269099b64d9a6315fb2b753fb6cd0690a39718889d07dab415b245367991d71"
+    },
+    {
+      "path": "examples/demo-result.json",
+      "sha256": "b4dc74d7bc59e3d5b65448cbef76dc2058cd9f44a90c1739163fae47f0c233bf"
+    }
+  ],
+  "verified": {
+    "saved_result_reproduced_except_timestamps": true,
+    "ladder_snapshots_observed": true,
+    "network_calls": 0
+  }
+}
