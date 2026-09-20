@@ -26,11 +26,11 @@ Failures need their own treatment too: a connection error is an interrupted bout
 
 ## Make the experiments more informative
 
-These are engineering possibilities for a later iteration:
+Provider comparisons currently randomize A/B placement once per whole-set judgment. Repeating the same battle in both orders is a separate experiment. These are engineering possibilities for a later iteration:
 
 | Idea | Why explore it? | What would need to be decided? |
 | --- | --- | --- |
-| Repeat a battle with different judges and swapped A/B positions | See how much a result depends on the judge and presentation order | Repetition budget, aggregation and how disagreements remain visible |
+| Repeat a battle in both A/B orders and with different judges | See how much a result depends on the judge and presentation order | Repetition budget, aggregation and how disagreements remain visible |
 | Compare different tournament seed orders or use a full round robin | Examine how the insertion ladder affects the final order | Additional calls, ties and non-transitive preferences |
 | Plot quality alongside available cost evidence | Help choose models for a particular task and spending preference | Which quality measure is justified, and how missing prices/usage are shown |
 | Resume a saved experiment | Avoid repeating completed calls after an interruption | Exact task/model version matching, stale data and explicit reuse rules |

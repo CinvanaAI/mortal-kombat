@@ -42,7 +42,7 @@ The starter uses three explicitly synthetic candidates on two owner/action examp
 
 This runs the actual evaluation workflow with fixed fixture responses and **zero model calls**. It demonstrates the mechanism. It is not another real-model benchmark, and fixture costs are unavailable.
 
-A versioned Python wheel is also available in [Releases](https://github.com/CinvanaAI/rubric-rumble/releases/tag/v0.3.1). After downloading it, install the file with `python -m pip install path/to/the-downloaded.whl`. The same commands below then work.
+A versioned Python wheel is also available in [Releases](https://github.com/CinvanaAI/rubric-rumble/releases/tag/v0.3.2). After downloading it, install the file with `python -m pip install path/to/the-downloaded.whl`. The same commands below then work.
 
 For the desktop interface, run:
 
@@ -79,6 +79,8 @@ Use `--mode single`, `--mode batch`, `--mode battle` or `--mode tournament` with
 
 You get the task, source examples, captured answers, field checks or judge reasons, failures, and available usage-based cost estimates. The insertion ladder may not compare every pair. Seed order and inconsistent judgments can affect the ranking. Exact-field ties use a recorded candidate-ID tie-break.
 
+Provider comparisons randomly assign the two candidates to A/B once for the whole example set and withhold configured candidate identities. Reports retain that assignment beside the judge's reason. The prompt breaks equal-quality ties in favor of displayed A; that placement is random, not evidence of better quality. [Judging details](docs/TASKS.md#provider-judging).
+
 Cost is shown alongside quality evidence; it does not choose the winner. Estimates need provider-returned usage and your dated rates. Missing evidence stays unavailable. The call limit is not a dollar budget.
 
 Reports keep your input and model output locally, so review real-data runs before sharing. [Security and local output](SECURITY.md).
@@ -91,7 +93,7 @@ The tournament's history is part of the project: [where it came from](docs/ORIGI
 
 ## Build on it
 
-Own code is [MIT licensed](LICENSE.md). The Python distribution remains `prompt-tournament-engine`; existing `prompt_tournament` imports, `prompt-tournament-demo` and the earlier CLI alias continue to work. [Library API](docs/API.md) · [Names and compatibility](docs/RENAMING.md#names-you-may-see).
+Own code is [MIT licensed](LICENSE.md). [Library API](docs/API.md) · [Command and saved-file compatibility](docs/RENAMING.md#compatibility).
 
 ```text
 python -m pip install -e ".[test]"

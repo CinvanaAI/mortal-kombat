@@ -3,6 +3,8 @@ from __future__ import annotations
 
 from html import escape
 import json
+from .judging import JUDGE_PROTOCOL, parse_provider_decision, remap_winner
+from .providers import ProviderFailure
 from pathlib import Path
 
 
@@ -129,17 +131,33 @@ def _matches_judge_call(call: dict, decision: dict) -> bool:
     try:
         # build_judge_request writes an instruction paragraph, then JSON evidence.
         evidence = json.loads(call['request_text'].partition('\n\n')[2])
-        ruling = json.loads(call['text'])
-    except (KeyError, TypeError, ValueError, AttributeError, RecursionError):
+        ruling = parse_provider_decision(call['text'])
+        new_protocol = any(key in call or key in decision for key in ('judge_protocol', 'judge_assignment', 'judge_call_sequence'))
+        if new_protocol:
+            assignment = call.get('judge_assignment')
+            sequence = decision.get('judge_call_sequence')
+            if (call.get('judge_protocol') != JUDGE_PROTOCOL or decision.get('judge_protocol') != JUDGE_PROTOCOL
+                    or not isinstance(sequence, int) or isinstance(sequence, bool) or sequence <= 0
+                    or type(call.get('sequence')) is not int or call['sequence'] != sequence
+                    or not isinstance(assignment, dict) or set(assignment) != {'model_a', 'model_b'}
+                    or not all(isinstance(value, str) for value in assignment.values())
+                    or len(set(assignment.values())) != 2
+                    or set(assignment.values()) != {decision['model_a'], decision['model_b']}
+                    or assignment != decision.get('judge_assignment')
+                    or not isinstance(evidence, dict) or 'model_a' in evidence or 'model_b' in evidence):
+                return False
+            return (ruling.winner == decision.get('judge_winner')
+                    and remap_winner(ruling.winner, swapped=assignment['model_a'] == decision['model_b']) == decision['winner']
+                    and ruling.short_reason == decision['reason']
+                    and ruling.confidence == decision.get('confidence'))
+    except (KeyError, TypeError, ValueError, AttributeError, RecursionError, ProviderFailure):
         return False
-    return (isinstance(evidence, dict) and isinstance(ruling, dict)
+    return (isinstance(evidence, dict)
             and evidence.get('model_a') == decision['model_a']
             and evidence.get('model_b') == decision['model_b']
-            and isinstance(ruling.get('winner'), str)
-            and ruling['winner'].strip() == decision['winner']
-            and isinstance(ruling.get('short_reason'), str)
-            and ruling['short_reason'].strip() == decision['reason']
-            and ruling.get('confidence') == decision.get('confidence'))
+            and ruling.winner == decision['winner']
+            and ruling.short_reason == decision['reason']
+            and ruling.confidence == decision.get('confidence'))
 
 
 def _comparisons(result: dict) -> str:
@@ -161,11 +179,15 @@ def _comparisons(result: dict) -> str:
             'model_b_disqualified': 'Disqualified: ' + b + '. Remaining candidate: ' + a + '.',
             'both_disqualified': 'Both candidates disqualified; no winner.',
         }.get(winner, 'Recorded outcome: ' + winner)
-        content += '<article id="comparison-' + str(index) + '"><h3>Comparison ' + str(index) + ': ' + _esc(a) + ' vs ' + _esc(b) + '</h3><p><strong>' + _esc(outcome) + '</strong></p><p>Decision code: <code>' + _esc(winner) + '</code></p><h4>Reason</h4>' + _pre(decision['reason'])
+        matches = [i for i, call in enumerate(calls) if i not in used and _matches_judge_call(call, decision)] if provider_judge else []
+        content += '<article id="comparison-' + str(index) + '"><h3>Comparison ' + str(index) + ': ' + _esc(a) + ' vs ' + _esc(b) + '</h3><p><strong>' + _esc(outcome) + '</strong></p><p>Stored outcome code: <code>' + _esc(winner) + '</code></p>'
+        if len(matches) == 1 and decision.get('judge_protocol') == JUDGE_PROTOCOL:
+            assignment = calls[matches[0]]['judge_assignment']
+            content += '<p><strong>Order shown to the judge:</strong> A = ' + _esc(assignment['model_a']) + '; B = ' + _esc(assignment['model_b']) + '. Labels were assigned randomly; candidate identity metadata was withheld.</p><p>The judge returned <code>' + _esc(decision['judge_winner']) + '</code>. The stored outcome above maps that ruling back to the saved candidate order. A/B references in the explanation use the order shown to the judge.</p>'
+        content += '<h4>Reason</h4>' + _pre(decision['reason'])
         confidence = decision.get('confidence')
         content += '<p>Recorded confidence: ' + ('not supplied' if confidence is None else _esc(confidence)) + '</p>'
         if provider_judge:
-            matches = [i for i, call in enumerate(calls) if i not in used and _matches_judge_call(call, decision)]
             if len(matches) == 1:
                 matched = matches[0]
                 used.add(matched)

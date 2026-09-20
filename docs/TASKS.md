@@ -28,7 +28,13 @@ For an open-ended task, replace the rules judge with:
 {"kind": "provider", "model": {"id": "independent-judge", "provider": "local", "model": "YOUR_JUDGE_MODEL", "max_output_tokens": 1024}}
 ```
 
-Use a `rubric` with `kind: "pairwise"` and a concrete `description` of what counts as better. The judge receives instructions, rubric, original artifacts, and both captured responses. It must return a JSON decision with `winner`, `short_reason`, and optional `confidence`. The five outcomes are A wins, B wins, A disqualified, B disqualified, or both disqualified. A malformed judge response fails the run; prior call evidence is still retained.
+Use a `rubric` with `kind: "pairwise"` and a concrete `description` of what counts as better. The judge receives instructions, rubric, original artifacts, and both captured responses. Configured candidate IDs and model metadata are withheld; source text or an answer can still reveal identity.
+
+For each comparison, a random assignment chooses which candidate appears as A and B. That assignment stays consistent across the whole example set. The saved decision records the assignment, judge call sequence and presented winner; all five outcomes are mapped back to the tournament's candidate order. The report shows the presented A/B mapping beside the reason, so a reference to “A” remains understandable.
+
+The response must contain one JSON decision object with `winner`, a nonempty string `short_reason`, and optional `confidence` (null or a finite number from 0 to 1). A code fence or surrounding prose is accepted; duplicate keys, multiple objects and invalid decision fields are rejected. The five outcomes are `model_a_better`, `model_b_better`, `model_a_disqualified`, `model_b_disqualified`, or `both_disqualified`. A malformed judge response fails the run; prior call evidence is still retained.
+
+There is no draw outcome. If quality is equal, the prompt instructs the judge to choose presented A and say that the choice is a tie-break. Random placement decides that tie-break; it does not establish a quality difference or remove all position bias. There is one judge call per comparison, with no automatic retry or reverse-order second judgment. Exact-field rules keep their candidate-ID tie-break.
 
 Judge IDs must differ from candidate IDs. If the same underlying model is deliberately used as both judge and candidate under different IDs, the tool does not claim independent judgment. Choose that relationship consciously.
 

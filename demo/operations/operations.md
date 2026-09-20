@@ -2,7 +2,7 @@
 
 A source-linked atlas of the desktop/CLI workflow, preparation actions, capture and comparison modes, and saved evidence.
 
-Behavioral source basis: `2eac2d8d95af56a62525c5ac86248e653d19a6ae`. Public branding uses Rubric Rumble; retained compatibility identifiers are called out below. Report presentation follows the current source; behavior links are pinned to the reviewed snapshot.
+Behavioral source basis: `v0.3.2`. Public branding uses Rubric Rumble; retained compatibility identifiers are called out below. Report presentation follows the current source; behavior links are pinned to the reviewed snapshot.
 
 [Open the complete operating map](00-overview.html) · [Offline replay](../) · [Historical battles](../history/)
 
@@ -18,7 +18,7 @@ The desktop keeps network work on a worker thread and reports results on the Tk 
 
 The diagrams show call and data ownership from top to bottom. Conditional labels describe alternatives, not instructions to perform every branch. The text below gives the exact boundary for each view. On narrow screens, use the diagram canvas pan and zoom controls; the guide itself reads as a normal page.
 
-Source: [Workbench](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/workbench.py#L150) · [_preview](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/workbench.py#L669) · [_run](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/workbench.py#L687) · [main](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/workflow_cli.py#L19)
+Source: [Workbench](https://github.com/CinvanaAI/rubric-rumble/blob/v0.3.2/src/prompt_tournament/workbench.py#L150) · [_preview](https://github.com/CinvanaAI/rubric-rumble/blob/v0.3.2/src/prompt_tournament/workbench.py#L669) · [_run](https://github.com/CinvanaAI/rubric-rumble/blob/v0.3.2/src/prompt_tournament/workbench.py#L687) · [main](https://github.com/CinvanaAI/rubric-rumble/blob/v0.3.2/src/prompt_tournament/workflow_cli.py#L19)
 
 ## Find the models a connection actually lists
 
@@ -32,7 +32,7 @@ Choose listed IDs to add candidates, or choose exactly one as a provider judge. 
 
 A listed ID means the connection exposed it. It does not establish text generation, a supported endpoint, token limits, task quality, or continued availability. Discovery does not launch greetings, research, retries, or a tournament.
 
-Source: [_connection](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/providers.py#L60) · [list_models](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/providers.py#L102) · [_save_connection](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/workbench.py#L495) · [_add_models](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/workbench.py#L522)
+Source: [_connection](https://github.com/CinvanaAI/rubric-rumble/blob/v0.3.2/src/prompt_tournament/providers.py#L60) · [list_models](https://github.com/CinvanaAI/rubric-rumble/blob/v0.3.2/src/prompt_tournament/providers.py#L102) · [_save_connection](https://github.com/CinvanaAI/rubric-rumble/blob/v0.3.2/src/prompt_tournament/workbench.py#L495) · [_add_models](https://github.com/CinvanaAI/rubric-rumble/blob/v0.3.2/src/prompt_tournament/workbench.py#L522)
 
 ## Observe a short response before running a larger task
 
@@ -46,7 +46,7 @@ Every observation has its own status: `text-response`, `empty`, `incomplete`, or
 
 The desktop writes separate `probe-NNNN.json` records with the model, connection, endpoint and recording time. The CLI updates `probes.json` after each observation. A failed greeting does not cancel the remaining selected probes. These records show what happened to those requests; they are not a general capability certificate.
 
-Source: [probe_model](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/providers.py#L184) · [execute_probes](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/workbench.py#L109) · [_probe](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/workbench.py#L569) · [main](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/workflow_cli.py#L19)
+Source: [probe_model](https://github.com/CinvanaAI/rubric-rumble/blob/v0.3.2/src/prompt_tournament/providers.py#L184) · [execute_probes](https://github.com/CinvanaAI/rubric-rumble/blob/v0.3.2/src/prompt_tournament/workbench.py#L109) · [_probe](https://github.com/CinvanaAI/rubric-rumble/blob/v0.3.2/src/prompt_tournament/workbench.py#L569) · [main](https://github.com/CinvanaAI/rubric-rumble/blob/v0.3.2/src/prompt_tournament/workflow_cli.py#L19)
 
 ## Keep documented facts separate from observed behavior
 
@@ -62,7 +62,7 @@ The returned record keeps the supplied source and hash, quoted evidence, unknown
 
 The desktop saves `model-research.json` and shows the supported limits above the underlying evidence. It does not silently update candidate limits or test the target. On a research failure the desktop wrapper retains a sanitized failure record; the return-only API itself does not write files.
 
-Source: [research_model](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/model_research.py#L127) · [_parse_response](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/model_research.py#L71) · [execute_research](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/workbench.py#L87) · [_start_research](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/workbench.py#L379)
+Source: [research_model](https://github.com/CinvanaAI/rubric-rumble/blob/v0.3.2/src/prompt_tournament/model_research.py#L127) · [_parse_response](https://github.com/CinvanaAI/rubric-rumble/blob/v0.3.2/src/prompt_tournament/model_research.py#L71) · [execute_research](https://github.com/CinvanaAI/rubric-rumble/blob/v0.3.2/src/prompt_tournament/workbench.py#L87) · [_start_research](https://github.com/CinvanaAI/rubric-rumble/blob/v0.3.2/src/prompt_tournament/workbench.py#L379)
 
 ## Validate a task, preview the request ceiling, then run
 
@@ -78,7 +78,7 @@ CLI `rubric-rumble run task.json --mode battle` stops after the plan. Execution 
 
 `run_task` revalidates, recomputes the plan, rejects required network access without permission, and checks every required candidate key and any used provider-judge key before the first call. Only then does it initialize the run report. A preflight failure therefore produces an error before a result dictionary exists; a wrapper may already have reserved an empty output folder.
 
-Source: [validate_task](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/task.py#L26) · [plan_task](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/task.py#L140) · [execute_preview](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/workbench.py#L51) · [run_task](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/workflow.py#L70)
+Source: [validate_task](https://github.com/CinvanaAI/rubric-rumble/blob/v0.3.2/src/prompt_tournament/task.py#L26) · [plan_task](https://github.com/CinvanaAI/rubric-rumble/blob/v0.3.2/src/prompt_tournament/task.py#L140) · [execute_preview](https://github.com/CinvanaAI/rubric-rumble/blob/v0.3.2/src/prompt_tournament/workbench.py#L51) · [run_task](https://github.com/CinvanaAI/rubric-rumble/blob/v0.3.2/src/prompt_tournament/workflow.py#L53)
 
 ## Choose between capturing answers and judging them
 
@@ -97,7 +97,7 @@ Battle and Tournament share the core evaluation and insertion algorithm. Battle 
 | Battle | Exactly two | Evaluate, then compare survivors once when possible |
 | Tournament | Two or more | Evaluate, then build a judged insertion ranking |
 
-Source: [validate_task](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/task.py#L26) · [select_task](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/workbench.py#L29) · [run_task](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/workflow.py#L70)
+Source: [validate_task](https://github.com/CinvanaAI/rubric-rumble/blob/v0.3.2/src/prompt_tournament/task.py#L26) · [select_task](https://github.com/CinvanaAI/rubric-rumble/blob/v0.3.2/src/prompt_tournament/workbench.py#L29) · [run_task](https://github.com/CinvanaAI/rubric-rumble/blob/v0.3.2/src/prompt_tournament/workflow.py#L53)
 
 ## Capture each answer with its source and call evidence
 
@@ -111,7 +111,7 @@ The workflow stores the returned response before estimating its token cost. Inco
 
 The callback returns answer text. In judged modes, the core owns its successful text cache and creates complete CandidateViews. All candidate evaluation finishes before ladder comparison starts. The complete workflow gives the core a fresh cache, so it does not reuse a previous run’s answers.
 
-Source: [execute](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/workflow.py#L91) · [evaluate](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/workflow.py#L119) · [call_provider](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/providers.py#L167) · [normalize_response](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/providers.py#L130) · [run_tournament](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/engine.py#L205)
+Source: [execute](https://github.com/CinvanaAI/rubric-rumble/blob/v0.3.2/src/prompt_tournament/workflow.py#L74) · [evaluate](https://github.com/CinvanaAI/rubric-rumble/blob/v0.3.2/src/prompt_tournament/workflow.py#L104) · [call_provider](https://github.com/CinvanaAI/rubric-rumble/blob/v0.3.2/src/prompt_tournament/providers.py#L167) · [normalize_response](https://github.com/CinvanaAI/rubric-rumble/blob/v0.3.2/src/prompt_tournament/providers.py#L130) · [run_tournament](https://github.com/CinvanaAI/rubric-rumble/blob/v0.3.2/src/prompt_tournament/engine.py#L205)
 
 ## Judge the whole answer set under the chosen rubric
 
@@ -119,13 +119,13 @@ Source: [execute](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56
 
 The core calls the judge with candidate A and incumbent B. Each view contains that candidate’s answer for every completed source artifact. The rules path totals exact, case-sensitive expected-field matches across the set. More matches win; equal totals choose the lexically smaller candidate ID and record that this is a deterministic tie-break rather than a quality difference.
 
-The provider path constructs one request containing the task, rubric, both candidate identities, every source, any expected values, and both outputs for each example. Source and output text are presented as evidence to judge, not new instructions. The result is one judgment for the complete pair of answer sets.
+The provider path randomly assigns the two complete answer sets to displayed A and B. It sends the task, rubric, every source, any expected values, and both output columns without adding candidate IDs or model metadata. Source or output text can still reveal identity. One request produces one whole-set judgment. The assignment is saved locally before the call, including when the call fails.
 
-A provider decision must contain one supported winner and a nonempty short_reason. Optional confidence must be null or a finite numeric value between zero and one; strings, booleans and non-finite numbers fail. Accepted outcomes are model_a_better, model_b_better, model_a_disqualified, model_b_disqualified, or both_disqualified.
+A provider decision may be plain JSON or one JSON object inside prose or a code fence. Its winner must be supported, short_reason must be a nonempty string, and optional confidence must be null or a finite number from zero to one. Duplicate keys, competing objects, malformed JSON and invalid fields fail. Outcomes remain model_a_better, model_b_better, model_a_disqualified, model_b_disqualified, or both_disqualified.
 
-A valid decision is appended to the evidence before it returns to the core. The core applies it to the ladder. A failed provider call or malformed decision fails the run; it does not become a guessed winner. Provider confidence is the judge’s supplied value, not a calibrated probability measured by this application.
+The workflow saves the displayed A/B assignment, exact call link and raw verdict, then maps that verdict back to the core’s candidate order, including disqualification. The report shows the judge’s assignment beside its explanation. Equal quality still requires a choice: the judge is instructed to choose displayed A and identify the tie-break; random assignment therefore makes equal-quality placement random. One randomized call does not eliminate position effects. Failed or malformed judgments stop the ranking with their evidence retained.
 
-Source: [build_judge_request](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/workflow.py#L26) · [judge](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/workflow.py#L133) · [_parse_provider_decision](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/workflow.py#L47) · [run_tournament](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/engine.py#L205)
+Source: [build_judge_request](https://github.com/CinvanaAI/rubric-rumble/blob/v0.3.2/src/prompt_tournament/workflow.py#L27) · [judge](https://github.com/CinvanaAI/rubric-rumble/blob/v0.3.2/src/prompt_tournament/workflow.py#L118) · [parse_provider_decision](https://github.com/CinvanaAI/rubric-rumble/blob/v0.3.2/src/prompt_tournament/judging.py#L26) · [run_tournament](https://github.com/CinvanaAI/rubric-rumble/blob/v0.3.2/src/prompt_tournament/engine.py#L205)
 
 ## Insert survivors according to recorded comparisons
 
@@ -139,7 +139,7 @@ The next surviving seed repeats the process. The result contains the final ranki
 
 This algorithm assumes the pairwise decisions are useful for building an order; it does not establish transitive quality or statistical significance. A different task, rubric, seed or judge can produce a different order. Configured token rates do not choose winners. In the full workflow the seed does not receive those rates.
 
-Source: [seed_models](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/engine.py#L144) · [run_tournament](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/engine.py#L205) · [run_task](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/workflow.py#L70)
+Source: [seed_models](https://github.com/CinvanaAI/rubric-rumble/blob/v0.3.2/src/prompt_tournament/engine.py#L144) · [run_tournament](https://github.com/CinvanaAI/rubric-rumble/blob/v0.3.2/src/prompt_tournament/engine.py#L205) · [run_task](https://github.com/CinvanaAI/rubric-rumble/blob/v0.3.2/src/prompt_tournament/workflow.py#L53)
 
 ## Read the result, including what failed or stayed unknown
 
@@ -157,7 +157,7 @@ Missing rates, incomplete usage or inconsistent cached counts also leave cost un
 
 The wrapper saves result.json and report.html in the new folder. The HTML escapes captured text and links to the complete evidence. `rubric-rumble report result.json --out another-new-folder` renders saved evidence without running a task or contacting a provider.
 
-Source: [run_task](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/workflow.py#L70) · [estimate_cost](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/providers.py#L210) · [Report rendering and saving](https://github.com/CinvanaAI/rubric-rumble/blob/main/src/prompt_tournament/report.py) · [main](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/workflow_cli.py#L19)
+Source: [run_task](https://github.com/CinvanaAI/rubric-rumble/blob/v0.3.2/src/prompt_tournament/workflow.py#L53) · [estimate_cost](https://github.com/CinvanaAI/rubric-rumble/blob/v0.3.2/src/prompt_tournament/providers.py#L210) · [Report rendering and saving](https://github.com/CinvanaAI/rubric-rumble/blob/v0.3.2/src/prompt_tournament/report.py) · [main](https://github.com/CinvanaAI/rubric-rumble/blob/v0.3.2/src/prompt_tournament/workflow_cli.py#L19)
 
 ## Understand what the retained core does for a caller
 
@@ -169,11 +169,11 @@ A caller may pass prior ranking, a reusable text cache and a judge_model to excl
 
 The cache key includes prompt_id, model identity, artifact ID, filename and source text. The caller owns the meaning and validity of cached text and must change prompt_id when other task context changes. The complete workflow supplies a task fingerprint in its prompt ID, a fresh cache, no prior ranking, no judge-model exclusion argument and no price metadata on its ModelRefs.
 
-The retained legacy parse_judge_output helper has its historical coercion and confidence-clamping behavior. The complete provider-judge workflow adds strict field validation before using that parser. Direct core callers remain responsible for their callbacks, evidence, provider configuration and stricter contracts.
+The retained legacy parse_judge_output helper keeps its historical coercion and confidence-clamping behavior. The complete workflow uses the separate strict parse_provider_decision boundary and remaps its randomized displayed A/B verdict for the core. Direct core callers remain responsible for their own callbacks, presentation order, evidence and stricter contracts.
 
 Rubric Rumble is the public name and preferred command. Existing mortal-kombat commands, prompt_tournament imports and mortal-kombat.* JSON schema identifiers remain compatibility surfaces.
 
-Source: [run_tournament](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/engine.py#L205) · [_cache_key](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/engine.py#L190) · [_new_candidate_key](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/engine.py#L183) · [parse_judge_output](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/engine.py#L112) · [_parse_provider_decision](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/workflow.py#L47)
+Source: [run_tournament](https://github.com/CinvanaAI/rubric-rumble/blob/v0.3.2/src/prompt_tournament/engine.py#L205) · [_cache_key](https://github.com/CinvanaAI/rubric-rumble/blob/v0.3.2/src/prompt_tournament/engine.py#L190) · [_new_candidate_key](https://github.com/CinvanaAI/rubric-rumble/blob/v0.3.2/src/prompt_tournament/engine.py#L183) · [parse_judge_output](https://github.com/CinvanaAI/rubric-rumble/blob/v0.3.2/src/prompt_tournament/engine.py#L112) · [parse_provider_decision](https://github.com/CinvanaAI/rubric-rumble/blob/v0.3.2/src/prompt_tournament/judging.py#L26)
 
 ## Inspect a complete record and reproduce a safe first run
 

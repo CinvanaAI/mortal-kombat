@@ -75,7 +75,7 @@ def provider_transport(*, fail_judge_at=None, incomplete=False, reason=None):
         if payload['model'] == 'judge':
             judge_calls += 1
             pair = json.loads(payload['messages'][0]['content'].partition('\n\n')[2])
-            text = json.dumps({'winner': 'model_a_better', 'short_reason': reason or 'Prefer ' + pair['model_a'], 'confidence': 0.0})
+            text = json.dumps({'winner': 'model_a_better', 'short_reason': reason or 'Prefer the answer shown as A.', 'confidence': 0.0})
             if judge_calls == fail_judge_at:
                 text = 'not a valid decision'
         else:
@@ -187,11 +187,12 @@ def test_provider_decisions_match_exact_pair_request_and_response_not_call_posit
     assert not document.find('script')
     for index, decision in enumerate(result['decisions'], 1):
         comparison = document.find('article', id=f'comparison-{index}')[0]
-        assert 'Winner: ' + decision['model_a'] in comparison.text()
+        winner = decision['model_a'] if decision['winner'] == 'model_a_better' else decision['model_b']
+        assert 'Winner: ' + winner in comparison.text()
         assert 'Recorded confidence: 0.0' in comparison.text()
         detail = comparison.find('details')[0]
         exact_texts = [node.text() for node in detail.find('pre')]
-        matching = next(call for call in judge_calls if json.loads(call['request_text'].partition('\n\n')[2])['model_a'] == decision['model_a'])
+        matching = next(call for call in judge_calls if call['sequence'] == decision['judge_call_sequence'])
         assert matching['request_text'] in exact_texts and matching['text'] in exact_texts
         assert all(call is matching or call['request_text'] not in exact_texts for call in judge_calls)
         assert attack in comparison.find('pre')[0].text()

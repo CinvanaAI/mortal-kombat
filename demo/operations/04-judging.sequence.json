@@ -75,14 +75,14 @@
       "id": "rr-04-judging-4",
       "from": "rr-judging-judge",
       "to": "rr-judging-bundle",
-      "label": "Provider path: task + rubric + all artifacts",
+      "label": "Randomized A/B: task + rubric + examples",
       "y": 247
     },
     {
       "id": "rr-04-judging-5",
       "from": "rr-judging-bundle",
       "to": "rr-judging-provider",
-      "label": "Source text and both outputs for every example",
+      "label": "Source + A/B outputs; withhold model IDs",
       "y": 276
     },
     {
@@ -97,7 +97,7 @@
       "id": "rr-04-judging-7",
       "from": "rr-judging-judge",
       "to": "rr-judging-contract",
-      "label": "Require supported winner + nonempty reason",
+      "label": "Recover one object; validate winner + reason",
       "y": 334,
       "variant": "security"
     },
@@ -113,14 +113,14 @@
       "id": "rr-04-judging-9",
       "from": "rr-judging-judge",
       "to": "rr-judging-ledger",
-      "label": "Append valid A/B decision and explanation",
+      "label": "Save verdict, assignment and call link",
       "y": 392
     },
     {
       "id": "rr-04-judging-10",
       "from": "rr-judging-judge",
       "to": "rr-judging-core",
-      "label": "Return decision; core applies it to insertion",
+      "label": "Map A/B verdict to core candidate order",
       "y": 421,
       "variant": "return"
     },
@@ -136,16 +136,16 @@
   "cards": [
     {
       "dot": "cyan",
-      "title": "One comparison covers the whole example set",
+      "title": "One randomized presentation per comparison",
       "items": [
-        "A provider judge sees the task, rubric, every source and both candidates\u2019 outputs. Its decision is not a collection of per-example scores."
+        "Candidate identity metadata is withheld; source or output text can still reveal it. The saved A/B assignment makes the whole-set verdict traceable."
       ]
     },
     {
       "dot": "rose",
-      "title": "Rules and provider judgments stay distinct",
+      "title": "Recover wrappers; keep decision validation",
       "items": [
-        "Rules award exact string-field matches and disqualify non-object JSON. Provider judgments may choose either winner or disqualify A, B, or both; malformed judgment fails the run."
+        "One JSON object may have prose or fences around it. Invalid fields, duplicate keys or competing objects fail. Rules retain their exact-field scoring and ID tie-break."
       ]
     }
   ]

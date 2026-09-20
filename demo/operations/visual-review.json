@@ -23,16 +23,10 @@
       1320
     ]
   ],
-  "desktop_containment_checks": 44,
-  "author_desktop_screens_inspected": 22,
   "phone_viewport": [
     390,
     1000
   ],
-  "phone_checks": "All 11 viewers render in both themes; top controls are visible and pages fit width. Wide diagrams use horizontal navigation.",
-  "phone_visual_review": "One captured phone image inspected per viewer; horizontal-wheel navigation inspected on the overview. A real-device touch gesture was not verified.",
-  "guide_checks": "74 combined browser checks passed, including guide links and fragments. Guide appearance inspected in light/dark at desktop/phone widths and four phone body sections.",
-  "behavioral_source_commit": "2eac2d8d95af56a62525c5ac86248e653d19a6ae",
   "views": [
     {
       "html": "00-overview.html",
@@ -81,13 +75,13 @@
     {
       "html": "04-judging.html",
       "specification": "04-judging.sequence.json",
-      "artifact_sha256": "e9cd15592073f10f267946f5f0f308a52eee0465bf5abf0eeafd00ca90cc2068",
-      "specification_sha256": "0325f1ffea76b5334bf02540b7d46c03d113f9785556b2468df9150cfb006378",
+      "artifact_sha256": "e271039d97425264fe30bc0db3fa5857b0401104b827401b416406ececf92cb5",
+      "specification_sha256": "6ed36f79f8672b3e7364b18e158754522c4a4bf6cc53517921d780d53a8b5c15",
       "showcase_checks": 9,
       "errors": 0,
       "warnings": 0,
       "desktop_containment": "passed",
-      "author_visual_review": "inspected at 1440x900 light and 2048x1320 dark"
+      "author_visual_review": "Root inspected the revised view at 1440x900 light and 2048x1320 dark; four desktop sizes pass containment."
     },
     {
       "html": "05-evidence.html",
@@ -155,5 +149,11 @@
       "desktop_containment": "passed",
       "author_visual_review": "inspected at 1440x900 light and 2048x1320 dark"
     }
-  ]
+  ],
+  "source_revision": "v0.3.2",
+  "revision_scope": "Version 0.3.2 changes the judging view and guide/source links. Other diagram bytes and their prior acceptance are preserved; acceptance_history distinguishes prior and current verification.",
+  "acceptance_history": {
+    "v0.3.1": "All eleven original views passed 44 desktop containment checks and 74 combined browser checks; 22 desktop images and one phone image per view were inspected. Ten unchanged views retain that acceptance.",
+    "v0.3.2": "Revised judging view passed four desktop containment checks and nine showcase checks. Root inspected desktop light/dark images and the report, revised guide and revised view at desktop/phone widths. All 13 current browser checks passed."
+  }
 }

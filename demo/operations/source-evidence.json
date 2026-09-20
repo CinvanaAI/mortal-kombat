@@ -1,46 +1,55 @@
 {
   "schema": "rubric-rumble.operating-atlas-source.v1",
   "source_repository": "https://github.com/CinvanaAI/rubric-rumble",
-  "behavioral_commit": "2eac2d8d95af56a62525c5ac86248e653d19a6ae",
-  "scope": "Complete desktop/CLI workflow, explicit preparation actions and retained core API. Current branding is separate from pinned behavioral source.",
+  "scope": "Complete desktop/CLI workflow, explicit preparation actions, randomized identity-withheld provider judging and retained core API at release v0.3.2.",
   "files": [
     {
       "path": "src/prompt_tournament/engine.py",
       "sha256": "634810de54190acb182ec5cb4ead6b12d8cef2bcd3d3c0066915db159b02441b",
-      "source_url": "https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/engine.py"
+      "source_url": "https://github.com/CinvanaAI/rubric-rumble/blob/v0.3.2/src/prompt_tournament/engine.py"
     },
     {
       "path": "src/prompt_tournament/workflow.py",
-      "sha256": "0dd1369fef49d5b9aaf886fbe40bbf605816c61f058d9bd2fdb43ddfee9617a2",
-      "source_url": "https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/workflow.py"
+      "sha256": "37402e522d716ce16d05c809039979278099eb31c819083a00868aca817befdd",
+      "source_url": "https://github.com/CinvanaAI/rubric-rumble/blob/v0.3.2/src/prompt_tournament/workflow.py"
     },
     {
       "path": "src/prompt_tournament/task.py",
       "sha256": "d81a031125ce816acbaa6d024bae0c09243c24ecf4ae663ba3975e265f5db797",
-      "source_url": "https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/task.py"
+      "source_url": "https://github.com/CinvanaAI/rubric-rumble/blob/v0.3.2/src/prompt_tournament/task.py"
     },
     {
       "path": "src/prompt_tournament/providers.py",
       "sha256": "f52d55b37a427cd6286bd3e79988d11d43e9b3409d89c31bf8394c4adee6e4c9",
-      "source_url": "https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/providers.py"
+      "source_url": "https://github.com/CinvanaAI/rubric-rumble/blob/v0.3.2/src/prompt_tournament/providers.py"
     },
     {
       "path": "src/prompt_tournament/model_research.py",
       "sha256": "8e56bedf07f6394b3bc384ce98289e90f5ba3075b10dc9311c8dd281cebb6bd6",
-      "source_url": "https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/model_research.py"
+      "source_url": "https://github.com/CinvanaAI/rubric-rumble/blob/v0.3.2/src/prompt_tournament/model_research.py"
     },
     {
       "path": "src/prompt_tournament/workflow_cli.py",
       "sha256": "ecc621a63d635b36b6f682e238d1985947b9fa71b33d361255a96a54ce5d603e",
-      "source_url": "https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/workflow_cli.py"
+      "source_url": "https://github.com/CinvanaAI/rubric-rumble/blob/v0.3.2/src/prompt_tournament/workflow_cli.py"
     },
     {
       "path": "src/prompt_tournament/workbench.py",
-      "sha256": "f7b817ee663df8d130b851214f127668a9f2f6a01c5a39a36d06dbb30297aad9",
-      "source_url": "https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/workbench.py"
+      "sha256": "87a83ad1ef4e288b447889f0b4f47d67de07454830402f9093bc4b78875fb835",
+      "source_url": "https://github.com/CinvanaAI/rubric-rumble/blob/v0.3.2/src/prompt_tournament/workbench.py"
+    },
+    {
+      "path": "src/prompt_tournament/judging.py",
+      "sha256": "3f727e3de1d0b7ddf4bee8ef75dceeadea40ecb369b2db69f4ad10e9cce48249",
+      "source_url": "https://github.com/CinvanaAI/rubric-rumble/blob/v0.3.2/src/prompt_tournament/judging.py"
+    },
+    {
+      "path": "src/prompt_tournament/report.py",
+      "sha256": "4609943674c52a86ea8f4d25d8c3fd43d69674bab5d66354c16c2459095f603b",
+      "source_url": "https://github.com/CinvanaAI/rubric-rumble/blob/v0.3.2/src/prompt_tournament/report.py"
     }
   ],
-  "current_presentation_source": "https://github.com/CinvanaAI/rubric-rumble/blob/main/src/prompt_tournament/report.py",
+  "current_presentation_source": "https://github.com/CinvanaAI/rubric-rumble/blob/v0.3.2/src/prompt_tournament/report.py",
   "views": [
     {
       "anchor": "workbench",
@@ -48,10 +57,10 @@
       "html": "00-overview.html",
       "specification": "00-overview.sequence.json",
       "sources": [
-        "[Workbench](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/workbench.py#L150)",
-        "[_preview](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/workbench.py#L669)",
-        "[_run](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/workbench.py#L687)",
-        "[main](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/workflow_cli.py#L19)"
+        "[Workbench](https://github.com/CinvanaAI/rubric-rumble/blob/v0.3.2/src/prompt_tournament/workbench.py#L150)",
+        "[_preview](https://github.com/CinvanaAI/rubric-rumble/blob/v0.3.2/src/prompt_tournament/workbench.py#L669)",
+        "[_run](https://github.com/CinvanaAI/rubric-rumble/blob/v0.3.2/src/prompt_tournament/workbench.py#L687)",
+        "[main](https://github.com/CinvanaAI/rubric-rumble/blob/v0.3.2/src/prompt_tournament/workflow_cli.py#L19)"
       ]
     },
     {
@@ -60,10 +69,10 @@
       "html": "06-inventory.html",
       "specification": "06-inventory.sequence.json",
       "sources": [
-        "[_connection](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/providers.py#L60)",
-        "[list_models](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/providers.py#L102)",
-        "[_save_connection](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/workbench.py#L495)",
-        "[_add_models](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/workbench.py#L522)"
+        "[_connection](https://github.com/CinvanaAI/rubric-rumble/blob/v0.3.2/src/prompt_tournament/providers.py#L60)",
+        "[list_models](https://github.com/CinvanaAI/rubric-rumble/blob/v0.3.2/src/prompt_tournament/providers.py#L102)",
+        "[_save_connection](https://github.com/CinvanaAI/rubric-rumble/blob/v0.3.2/src/prompt_tournament/workbench.py#L495)",
+        "[_add_models](https://github.com/CinvanaAI/rubric-rumble/blob/v0.3.2/src/prompt_tournament/workbench.py#L522)"
       ]
     },
     {
@@ -72,10 +81,10 @@
       "html": "07-probes.html",
       "specification": "07-probes.sequence.json",
       "sources": [
-        "[probe_model](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/providers.py#L184)",
-        "[execute_probes](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/workbench.py#L109)",
-        "[_probe](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/workbench.py#L569)",
-        "[main](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/workflow_cli.py#L19)"
+        "[probe_model](https://github.com/CinvanaAI/rubric-rumble/blob/v0.3.2/src/prompt_tournament/providers.py#L184)",
+        "[execute_probes](https://github.com/CinvanaAI/rubric-rumble/blob/v0.3.2/src/prompt_tournament/workbench.py#L109)",
+        "[_probe](https://github.com/CinvanaAI/rubric-rumble/blob/v0.3.2/src/prompt_tournament/workbench.py#L569)",
+        "[main](https://github.com/CinvanaAI/rubric-rumble/blob/v0.3.2/src/prompt_tournament/workflow_cli.py#L19)"
       ]
     },
     {
@@ -84,10 +93,10 @@
       "html": "08-research.html",
       "specification": "08-research.sequence.json",
       "sources": [
-        "[research_model](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/model_research.py#L127)",
-        "[_parse_response](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/model_research.py#L71)",
-        "[execute_research](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/workbench.py#L87)",
-        "[_start_research](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/workbench.py#L379)"
+        "[research_model](https://github.com/CinvanaAI/rubric-rumble/blob/v0.3.2/src/prompt_tournament/model_research.py#L127)",
+        "[_parse_response](https://github.com/CinvanaAI/rubric-rumble/blob/v0.3.2/src/prompt_tournament/model_research.py#L71)",
+        "[execute_research](https://github.com/CinvanaAI/rubric-rumble/blob/v0.3.2/src/prompt_tournament/workbench.py#L87)",
+        "[_start_research](https://github.com/CinvanaAI/rubric-rumble/blob/v0.3.2/src/prompt_tournament/workbench.py#L379)"
       ]
     },
     {
@@ -96,10 +105,10 @@
       "html": "01-setup.html",
       "specification": "01-setup.sequence.json",
       "sources": [
-        "[validate_task](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/task.py#L26)",
-        "[plan_task](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/task.py#L140)",
-        "[execute_preview](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/workbench.py#L51)",
-        "[run_task](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/workflow.py#L70)"
+        "[validate_task](https://github.com/CinvanaAI/rubric-rumble/blob/v0.3.2/src/prompt_tournament/task.py#L26)",
+        "[plan_task](https://github.com/CinvanaAI/rubric-rumble/blob/v0.3.2/src/prompt_tournament/task.py#L140)",
+        "[execute_preview](https://github.com/CinvanaAI/rubric-rumble/blob/v0.3.2/src/prompt_tournament/workbench.py#L51)",
+        "[run_task](https://github.com/CinvanaAI/rubric-rumble/blob/v0.3.2/src/prompt_tournament/workflow.py#L53)"
       ]
     },
     {
@@ -108,9 +117,9 @@
       "html": "09-modes.html",
       "specification": "09-modes.sequence.json",
       "sources": [
-        "[validate_task](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/task.py#L26)",
-        "[select_task](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/workbench.py#L29)",
-        "[run_task](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/workflow.py#L70)"
+        "[validate_task](https://github.com/CinvanaAI/rubric-rumble/blob/v0.3.2/src/prompt_tournament/task.py#L26)",
+        "[select_task](https://github.com/CinvanaAI/rubric-rumble/blob/v0.3.2/src/prompt_tournament/workbench.py#L29)",
+        "[run_task](https://github.com/CinvanaAI/rubric-rumble/blob/v0.3.2/src/prompt_tournament/workflow.py#L53)"
       ]
     },
     {
@@ -119,11 +128,11 @@
       "html": "02-candidates.html",
       "specification": "02-candidates.sequence.json",
       "sources": [
-        "[execute](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/workflow.py#L91)",
-        "[evaluate](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/workflow.py#L119)",
-        "[call_provider](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/providers.py#L167)",
-        "[normalize_response](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/providers.py#L130)",
-        "[run_tournament](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/engine.py#L205)"
+        "[execute](https://github.com/CinvanaAI/rubric-rumble/blob/v0.3.2/src/prompt_tournament/workflow.py#L74)",
+        "[evaluate](https://github.com/CinvanaAI/rubric-rumble/blob/v0.3.2/src/prompt_tournament/workflow.py#L104)",
+        "[call_provider](https://github.com/CinvanaAI/rubric-rumble/blob/v0.3.2/src/prompt_tournament/providers.py#L167)",
+        "[normalize_response](https://github.com/CinvanaAI/rubric-rumble/blob/v0.3.2/src/prompt_tournament/providers.py#L130)",
+        "[run_tournament](https://github.com/CinvanaAI/rubric-rumble/blob/v0.3.2/src/prompt_tournament/engine.py#L205)"
       ]
     },
     {
@@ -132,10 +141,10 @@
       "html": "04-judging.html",
       "specification": "04-judging.sequence.json",
       "sources": [
-        "[build_judge_request](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/workflow.py#L26)",
-        "[judge](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/workflow.py#L133)",
-        "[_parse_provider_decision](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/workflow.py#L47)",
-        "[run_tournament](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/engine.py#L205)"
+        "[build_judge_request](https://github.com/CinvanaAI/rubric-rumble/blob/v0.3.2/src/prompt_tournament/workflow.py#L27)",
+        "[judge](https://github.com/CinvanaAI/rubric-rumble/blob/v0.3.2/src/prompt_tournament/workflow.py#L118)",
+        "[parse_provider_decision](https://github.com/CinvanaAI/rubric-rumble/blob/v0.3.2/src/prompt_tournament/judging.py#L26)",
+        "[run_tournament](https://github.com/CinvanaAI/rubric-rumble/blob/v0.3.2/src/prompt_tournament/engine.py#L205)"
       ]
     },
     {
@@ -144,9 +153,9 @@
       "html": "03-ladder.html",
       "specification": "03-ladder.sequence.json",
       "sources": [
-        "[seed_models](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/engine.py#L144)",
-        "[run_tournament](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/engine.py#L205)",
-        "[run_task](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/workflow.py#L70)"
+        "[seed_models](https://github.com/CinvanaAI/rubric-rumble/blob/v0.3.2/src/prompt_tournament/engine.py#L144)",
+        "[run_tournament](https://github.com/CinvanaAI/rubric-rumble/blob/v0.3.2/src/prompt_tournament/engine.py#L205)",
+        "[run_task](https://github.com/CinvanaAI/rubric-rumble/blob/v0.3.2/src/prompt_tournament/workflow.py#L53)"
       ]
     },
     {
@@ -155,10 +164,10 @@
       "html": "05-evidence.html",
       "specification": "05-evidence.sequence.json",
       "sources": [
-        "[run_task](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/workflow.py#L70)",
-        "[estimate_cost](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/providers.py#L210)",
-        "[Report rendering and saving](https://github.com/CinvanaAI/rubric-rumble/blob/main/src/prompt_tournament/report.py)",
-        "[main](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/workflow_cli.py#L19)"
+        "[run_task](https://github.com/CinvanaAI/rubric-rumble/blob/v0.3.2/src/prompt_tournament/workflow.py#L53)",
+        "[estimate_cost](https://github.com/CinvanaAI/rubric-rumble/blob/v0.3.2/src/prompt_tournament/providers.py#L210)",
+        "[Report rendering and saving](https://github.com/CinvanaAI/rubric-rumble/blob/v0.3.2/src/prompt_tournament/report.py)",
+        "[main](https://github.com/CinvanaAI/rubric-rumble/blob/v0.3.2/src/prompt_tournament/workflow_cli.py#L19)"
       ]
     },
     {
@@ -167,11 +176,11 @@
       "html": "10-core-api.html",
       "specification": "10-core-api.sequence.json",
       "sources": [
-        "[run_tournament](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/engine.py#L205)",
-        "[_cache_key](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/engine.py#L190)",
-        "[_new_candidate_key](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/engine.py#L183)",
-        "[parse_judge_output](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/engine.py#L112)",
-        "[_parse_provider_decision](https://github.com/CinvanaAI/rubric-rumble/blob/2eac2d8d95af56a62525c5ac86248e653d19a6ae/src/prompt_tournament/workflow.py#L47)"
+        "[run_tournament](https://github.com/CinvanaAI/rubric-rumble/blob/v0.3.2/src/prompt_tournament/engine.py#L205)",
+        "[_cache_key](https://github.com/CinvanaAI/rubric-rumble/blob/v0.3.2/src/prompt_tournament/engine.py#L190)",
+        "[_new_candidate_key](https://github.com/CinvanaAI/rubric-rumble/blob/v0.3.2/src/prompt_tournament/engine.py#L183)",
+        "[parse_judge_output](https://github.com/CinvanaAI/rubric-rumble/blob/v0.3.2/src/prompt_tournament/engine.py#L112)",
+        "[parse_provider_decision](https://github.com/CinvanaAI/rubric-rumble/blob/v0.3.2/src/prompt_tournament/judging.py#L26)"
       ]
     },
     {
@@ -188,5 +197,6 @@
   ],
   "historical_companion": "../history/historical-flow.html",
   "historical_scope": "Preserved source and selected recorded battles; exact historical runtime revisions and cache hits are unverified.",
-  "synthetic_example": "recorded-example.json"
+  "synthetic_example": "recorded-example.json",
+  "source_revision": "v0.3.2"
 }

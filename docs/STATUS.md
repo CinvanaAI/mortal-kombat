@@ -9,7 +9,7 @@
 | Prepare | Configure OpenAI-compatible or Ollama connections, list available model IDs, explicitly test short text responses and research facts from documentation you supply |
 | Define | Set instructions, examples, candidate models, a rubric and an optional provider judge; validate and preview before execution |
 | Run | Capture one model or a batch without judging, compare two models, or run an insertion tournament |
-| Inspect | Read source examples alongside captured answers, exact-field checks or provider decisions, failures and available usage-based cost estimates |
+| Inspect | Read source examples alongside captured answers, exact-field checks or provider decisions with their recorded A/B assignment, failures and available usage-based cost estimates |
 | Revisit | Open saved JSON/HTML locally without calling models again; inspect two separately preserved historical battles |
 | Adapt | Use the retained Python tournament API or modify the MIT-licensed application |
 
@@ -26,7 +26,7 @@ The repository's [verification workflow](../.github/workflows/verify.yml) runs t
 ## Boundaries that matter
 
 - All modes execute candidate calls sequentially. Batch means multiple candidates, not a provider's discounted Batch API.
-- The insertion ladder is not necessarily all pairs. Seed order, position bias and inconsistent judge preferences can change outcomes. Repeated judges and calibrated confidence are not implemented.
+- The insertion ladder is not necessarily all pairs. Provider A/B placement is randomized once per comparison, but seed order, position bias and inconsistent judgments can still affect outcomes. Repeated judges and calibrated confidence are not implemented. [Judging and tie behavior](TASKS.md#provider-judging).
 - A whole-set battle returns one decision. It does not imply separate numerical rubric scores or per-example winners.
 - Cost estimates need returned usage and dated rates you supply. Costs do not choose the winner, and the call ceiling is not a dollar budget.
 - Discovery, a successful greeting and a sourced documentation claim establish different things. Research does not fetch the web or automatically update candidate limits.
